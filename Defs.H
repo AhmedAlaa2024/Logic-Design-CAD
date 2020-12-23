@@ -6,17 +6,21 @@
 //All possible actions
 enum ActionType 
 {
-	ADD_Buff,			//Add 1-input Buffer gate
-	ADD_INV,			//Add 1-input Inverter gate
+	ADD_Gate,
 	ADD_AND_GATE_2,		//Add 2-input AND gate
 	ADD_OR_GATE_2,		//Add 2-input OR gate
+	ADD_Buff,			//Add 1-input Buffer gate
+	ADD_INV,			//Add 1-input Inverter gate
 	ADD_NAND_GATE_2,	//Add 2-input NAND gate
 	ADD_NOR_GATE_2,		//Add 2-input NOR gate
 	ADD_XOR_GATE_2,		//Add 2-input XOR gate
 	ADD_XNOR_GATE_2,	//Add 2-input XNOR gate
 	ADD_AND_GATE_3,		//Add 3-input AND gate
+	ADD_OR_GATE_3,		//Add 3-input NOR gate
+	ADD_NAND_GATE_3,		//Add 3-input AND gate
 	ADD_NOR_GATE_3,		//Add 3-input NOR gate
 	ADD_XOR_GATE_3,		//Add 3-input XOR gate
+	ADD_XNOR_GATE_3,		//Add 3-input XOR gate
 	ADD_Switch,			//Add Switch
 	ADD_LED,			//Add LED
 	ADD_CONNECTION,		//Add Wire Connection
@@ -24,6 +28,8 @@ enum ActionType
 	ADD_Label,			//Add Label to a Component, a Connection
 	EDIT_Label,			//Edit Label of a Component, a Connection
 
+	Organize,
+	Clear,
 	Create_TruthTable,	//Create Truth Table of the Circuit
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
@@ -45,7 +51,8 @@ enum ActionType
 
 	STATUS_BAR,		//A click on the status bar
 	DSN_TOOL,	//A click on an empty place in the design tool bar
-
+	SIM_TOOL, 	//A click on an empty place in the simulation tool bar
+	GATE_TOOL   //A click on an empty place in the gates bar
 };
 
 //Possible Status for the pin
@@ -66,27 +73,61 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
-	ITM_AND2,		//AND gate item in menu
-	ITM_OR2,		//OR gate item in menu
-	
+	ADD_GATE,
+	SIM_ICON,
+	ADD_LABEL,
+	EDIT_LABEL,
+	WIRE,
+	ORGANIZE_SCREEN,
+	CLEAR,
+	LOAD_ICON,
+	SAVE_ICON,
+
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here
-	
+
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
-	
+
+};
+
+enum DesignTools {
+	AND_2IN,
+	OR_2IN,
+	BUF,
+	NOT,
+	NAND_2IN,
+	NOR_2IN,
+	XOR_2IN,
+	XNOR_2IN,
+	AND_3IN,
+	OR_3IN,
+	NAND_3IN,
+	NOR_3IN,
+	XOR_3IN,
+	XNOR_3IN,
+	LED,
+	SWITCH,
+	GATES_CNT
 };
 
 
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
-	ITM_SIM,	//Simulate menu item
+	ITM_DSN,	//Simulate menu item
 	ITM_TRUTH,	//Truth table menu item
-	
+	Add_Label,
+	Edit_label,
+	ITM_CHANGE_SWITCH,
+	ITM_UNDO,
+	ITM_REDO,
+	ITM_LOAD,
+	ITM_SAVE,
+	SIM_EXIT,
 	//TODO:Add more items names here
-	
+
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 };
 
 //Maximum number of input pins that can be connected to any output pin

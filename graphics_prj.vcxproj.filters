@@ -140,6 +140,17 @@
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AND3.cpp" />
+    <ClCompile Include="Components\Buff.cpp" />
+    <ClCompile Include="Components\INV.cpp" />
+    <ClCompile Include="Components\LED.cpp" />
+    <ClCompile Include="Components\NAND2.cpp" />
+    <ClCompile Include="Components\NOR2.cpp" />
+    <ClCompile Include="Components\NOR3.cpp" />
+    <ClCompile Include="Components\OR2.cpp" />
+    <ClCompile Include="Components\SWITCH.cpp" />
+    <ClCompile Include="Components\XNOR2.cpp" />
+    <ClCompile Include="Components\XOR2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -242,6 +253,17 @@
     <ClInclude Include="CMUgraphicsLib\windowinput.h">
       <Filter>CMUgraphics Library</Filter>
     </ClInclude>
+    <ClInclude Include="Components\AND3.h" />
+    <ClInclude Include="Components\Buff.h" />
+    <ClInclude Include="Components\INV.h" />
+    <ClInclude Include="Components\LED.h" />
+    <ClInclude Include="Components\NAND2.h" />
+    <ClInclude Include="Components\NOR2.h" />
+    <ClInclude Include="Components\NOR3.h" />
+    <ClInclude Include="Components\OR2.h" />
+    <ClInclude Include="Components\SWITCH.h" />
+    <ClInclude Include="Components\XNOR2.h" />
+    <ClInclude Include="Components\XOR2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

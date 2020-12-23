@@ -32,8 +32,8 @@ void AddANDgate2::Execute()
 	ReadActionParameters();
 	
 	//Calculate the rectangle Corners
-	int Len = UI.AND2_Width;
-	int Wdth = UI.AND2_Height;
+	int Len = UI.Gate_Height;
+	int Wdth = UI.Gate_Width;
 	
 	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 	

@@ -82,11 +82,11 @@
       <Field Name="CompList" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="AND2" Collapsed="true">
+  <Class Name="OR2" Collapsed="true">
     <Position X="4.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADAAAAAAAAAAAgAAAAAAAAAAAAAACAAAAQAAgAAAAAA=</HashCode>
-      <FileName>AND2.h</FileName>
+      <FileName>OR2.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Component" Collapsed="true">

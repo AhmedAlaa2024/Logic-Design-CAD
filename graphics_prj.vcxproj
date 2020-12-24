@@ -126,7 +126,21 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\Action.cpp" />
+    <ClCompile Include="Actions\Add.cpp" />
     <ClCompile Include="Actions\AddANDgate2.cpp" />
+    <ClCompile Include="Actions\Connect.cpp" />
+    <ClCompile Include="Actions\CopyCutPaste.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\Edit.cpp" />
+    <ClCompile Include="Actions\Exit.cpp" />
+    <ClCompile Include="Actions\Label.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
+    <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\SimulateCircuit.cpp" />
+    <ClCompile Include="Actions\SwitchToDesign.cpp" />
+    <ClCompile Include="Actions\SwitchToSimulation.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -187,7 +201,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
+    <ClInclude Include="Actions\Add.h" />
     <ClInclude Include="Actions\AddANDgate2.h" />
+    <ClInclude Include="Actions\Connect.h" />
+    <ClInclude Include="Actions\CopyCutPaste.h" />
+    <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Edit.h" />
+    <ClInclude Include="Actions\Exit.h" />
+    <ClInclude Include="Actions\Label.h" />
+    <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Save.h" />
+    <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\SimulateCircuit.h" />
+    <ClInclude Include="Actions\SwitchToDesign.h" />
+    <ClInclude Include="Actions\SwitchToSimulation.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

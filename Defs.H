@@ -149,6 +149,8 @@ enum FANOUT
 	XOR3_FANOUT = 10,
 	XNOR2_FANOUT = 10,
 	XNOR3_FANOUT = 10,
+	SWITCH_FANOUT = 10,
+	LED_FANOUT = 10
 };
 
 //A structure to contain drawing parameters for each component

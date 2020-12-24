@@ -1,3 +1,5 @@
+
+
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
@@ -6,6 +8,12 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include "Actions/AddANDgate2.h"
+#include "Actions/AddANDgate2.h"
+#include "Actions/SwitchToDesign.h"
+#include "Actions/SwitchToSimulation.h"
+
+#include "Actions/Exit.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager

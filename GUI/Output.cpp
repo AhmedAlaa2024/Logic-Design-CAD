@@ -40,6 +40,11 @@ window* Output::CreateWind(int wd, int h, int x, int y) const
 {
 	return new window(wd, h, x, y);
 }
+void Output::destroyWind() const
+{
+	delete pWind;
+	
+}
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ChangeTitle(string Title) const
 {
@@ -84,6 +89,13 @@ void Output::ClearDrawingArea() const
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 	
+}
+void Output::ClearWindow() const
+{
+	pWind->SetPen(RED, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(0,0, UI.width, UI.height);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode

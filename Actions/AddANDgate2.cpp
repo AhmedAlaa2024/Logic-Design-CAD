@@ -41,7 +41,7 @@ void AddANDgate2::Execute()
 	GInfo.x2 = Cx + Len/2;
 	GInfo.y1 = Cy - Wdth/2;
 	GInfo.y2 = Cy + Wdth/2;
-	AND2 *pA=new AND2(GInfo, AND2_FANOUT); 
+	AND2 *pA=new AND2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
 

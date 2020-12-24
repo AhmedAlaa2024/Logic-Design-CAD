@@ -41,7 +41,7 @@ void AddNORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	NOR2* pA = new NOR2(GInfo, NOR2_FANOUT);
+	NOR2* pA = new NOR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
 

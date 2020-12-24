@@ -20,54 +20,54 @@ string Input::GetString(Output* pOut) const
 	char c;
 	pWind->FlushKeyQueue();
 
-		while (true)
+	while (true)
+	{
+
+		pWind->FlushMouseQueue();
+		a = pWind->WaitKeyPress(c);
+		switch (a)
 		{
 
-			pWind->FlushMouseQueue();
-			a = pWind->WaitKeyPress(c);
-			switch (a)
+		case 1: // in case a normal key got pressed
+
+			if (c == 8) // backspace
 			{
-
-			case 1: // in case a normal key got pressed
-
-				if (c == 8) // backspace
-				{
-					if (!s.empty()) { // why? 
-						s.erase(s.size() - 1);
-					}
+				if (!s.empty()) { // why? 
+					s.erase(s.size() - 1);
 				}
-				else if (c == 13)//enter pressed
-				{
-					pOut->ClearStatusBar();
-					return s;
-				}
-				else {
-					s += c;
-				}
-
-				break;
-			case 2: //Arrow
-				break;
-			case 3: //FUNCTION
-				break;
-
-			case 4: // Escape pressed
+			}
+			else if (c == 13)//enter pressed
+			{
 				pOut->ClearStatusBar();
-				return "";
-
-			default:
-				break;
+				return s;
+			}
+			else {
+				s += c;
 			}
 
-			pOut->PrintMsg(s);
+			break;
+		case 2: //Arrow
+			break;
+		case 3: //FUNCTION
+			break;
 
+		case 4: // Escape pressed
+			pOut->ClearStatusBar();
+			return "";
+
+		default:
+			break;
 		}
+
+		pOut->PrintMsg(s);
+
+	}
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
-	
+
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -130,21 +130,24 @@ ActionType Input::GetUserAction() const
 			case ITM_REDO: return REDO;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;
-			case SIM_EXIT: return EXIT;
+			case SIM_EXIT: return EXIT; //TODO: weird line
 
 			default: return SIM_TOOL;	//A click on empty place in simulation toolbar
 			}
 		}
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
+			//TODO
+
 			return SIM_MODE;	//user clicks on drawing area
+
 		}
 
 		//[3] User clicks on the status bar
 		return STATUS_BAR;
 	}
 
-	
+
 }
 ActionType Input::AddGate() const
 {
@@ -153,7 +156,7 @@ ActionType Input::AddGate() const
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
-		if (y >= UI.StatusBarHeight - UI.Gate_Height && y <= UI.StatusBarHeight)
+		if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
 		{
 			int GateOrder = (x / UI.Gate_Width);
 			switch (GateOrder)

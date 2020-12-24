@@ -1,5 +1,5 @@
 #include "ApplicationManager.h"
-#include "Actions\AddANDgate2.h"
+
 
 
 ApplicationManager::ApplicationManager()
@@ -41,8 +41,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 	
 
+		case DSN_MODE:
+			pAct = new SwitchToDesign(this);
+			break;
+		case SIM_MODE:
+			pAct = new SwitchToSimulation(this);
+			break;
 		case EXIT:
-			///TODO: create ExitAction here
+			pAct = new Exit(this);
 			break;
 	}
 	if(pAct)

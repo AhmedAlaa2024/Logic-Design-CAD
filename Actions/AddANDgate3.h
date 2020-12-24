@@ -1,18 +1,19 @@
-#ifndef _ADD_AND_GATE2_H
-#define _ADD_AND_GATE2_H
+#ifndef _ADD_AND_GATE3_H
+#define _ADD_AND_GATE3_H
 
-#include "action.h"
-#include "..\Components\AND2.h"
+#include "Action.h"
+#include "..\Components\AND3.h"
 
-class AddANDgate2 :	public Action
+class AddANDgate3 :
+    public Action
 {
 private:
 	//Parameters for rectangular area to be occupied by the gate
 	int Cx, Cy;	//Center point of the gate
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area
 public:
-	AddANDgate2(ApplicationManager *pApp);
-	virtual ~AddANDgate2(void);
+	AddANDgate3(ApplicationManager* pApp);
+	virtual ~AddANDgate3(void);
 
 	//Reads parameters required for action to execute
 	virtual void ReadActionParameters();

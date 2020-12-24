@@ -215,13 +215,19 @@
     <ClCompile Include="Actions\SimulateCircuit.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\AddORgate2.cpp" />
+    <ClCompile Include="Actions\AddANDgate3.cpp" />
+    <ClCompile Include="Actions\AddXNORgate2.cpp" />
+    <ClCompile Include="Actions\AddXORgate2.cpp" />
+    <ClCompile Include="Actions\AddXORgate3.cpp" />
+    <ClCompile Include="Actions\AddNAND2gate.cpp" />
+    <ClCompile Include="Actions\AddNOR2gate.cpp" />
+    <ClCompile Include="Actions\AddNORgate3.cpp" />
+    <ClCompile Include="Actions\AddINVgate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
     <ClInclude Include="Actions\Action.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions\AddANDgate2.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Components\AND2.h">
@@ -389,6 +395,16 @@
     <ClInclude Include="Actions\SwitchToSimulation.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\AddORgate2.h" />
+    <ClInclude Include="Actions\AddANDgate3.h" />
+    <ClInclude Include="Actions\AddXNORgate2.h" />
+    <ClInclude Include="Actions\AddXORgate2.h" />
+    <ClInclude Include="Actions\AddXORgate3.h" />
+    <ClInclude Include="Actions\AddNAND2gate.h" />
+    <ClInclude Include="Actions\AddNOR2gate.h" />
+    <ClInclude Include="Actions\AddNORgate3.h" />
+    <ClInclude Include="Actions\AddANDgate2.h" />
+    <ClInclude Include="Actions\AddINVgate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

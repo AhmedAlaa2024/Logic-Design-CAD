@@ -41,7 +41,7 @@ void AddORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	OR2* pA = new OR2(GInfo, OR2_FANOUT);
+	OR2* pA = new OR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
 

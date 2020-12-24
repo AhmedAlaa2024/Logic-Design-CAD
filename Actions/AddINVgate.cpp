@@ -41,7 +41,7 @@ void AddINVgate::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	INV* pA = new INV(GInfo, INV_FANOUT);
+	INV* pA = new INV(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
 

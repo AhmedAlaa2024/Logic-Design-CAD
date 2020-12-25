@@ -378,7 +378,7 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width + 40, UI.Gate_Height);
 }
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected, bool is_high) const //done
+void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const //done
 {
 	//TODO: to change the images of them
 	//TODO: it doesnt accept png
@@ -410,7 +410,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected, bool is_high) const 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
-void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected, bool is_on) const //DONE
+void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool is_on, bool selected) const //DONE
 {
 	string GateImage;
 	//NOTE: i will manipulate is_on variable in phase 2 ISA

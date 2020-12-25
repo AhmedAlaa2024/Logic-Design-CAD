@@ -11,9 +11,17 @@ OR2::OR2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 
 void OR2::Operate()
 {
-	//caclulate the output status as the ANDing of the two input pins
+	//A + B
+	for (int i = 0; i < 2; ++i)
+	{
+		if (m_InputPins[i].getStatus() == HIGH)
+		{
+			m_OutputPin.setStatus(HIGH);
+			return;
+		}
 
-	//Add you code here
+	}
+	m_OutputPin.setStatus(LOW);
 }
 
 

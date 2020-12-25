@@ -11,6 +11,8 @@
 
 class LED:public Gate
 {
+private:
+	STATUS is_high;
 public:
 	LED(const GraphicsInfo &r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the AND gate

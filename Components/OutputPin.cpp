@@ -10,6 +10,7 @@ OutputPin::OutputPin(int r_FanOut)
 //Functionn ConnectTo:
 //Connects the ouput pin the the passed connection if the fan out permits
 //if the no. of connections is already equals to the fan out, no more connections can be created.
+
 bool OutputPin::ConnectTo(Connection *r_Conn)
 {
 	if(m_Conn < m_FanOut)

@@ -1,6 +1,6 @@
 #include "Buff.h"
 
-Buff::Buff(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
+Buff::Buff(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(1, r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
@@ -11,9 +11,9 @@ Buff::Buff(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 
 void Buff::Operate()
 {
-	//caclulate the output status as the ANDing of the two input pins
 
-	//Add you code here
+	m_OutputPin.setStatus(m_InputPins[0].getStatus());
+	
 }
 
 

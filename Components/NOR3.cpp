@@ -1,6 +1,6 @@
 #include "NOR3.h"
 
-NOR3::NOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
+NOR3::NOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(3, r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
@@ -11,9 +11,17 @@ NOR3::NOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 
 void NOR3::Operate()
 {
-	//caclulate the output status as the ANDing of the two input pins
+	//(A + B + C)'
+	for (int i = 0; i < 3; ++i)
+	{
+		if (m_InputPins[i].getStatus() == HIGH)
+		{
+			m_OutputPin.setStatus(LOW);
+			return;
+		}
 
-	//Add you code here
+	}
+	m_OutputPin.setStatus(HIGH);
 }
 
 

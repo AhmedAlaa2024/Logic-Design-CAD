@@ -46,3 +46,8 @@ void Connection::setInputPinStatus(int n, STATUS s)
 {
 	SrcPin->setStatus(s);
 }
+
+COMP_TYPES Connection::get_comp_type()
+{
+	return COMP_WIRE;
+}

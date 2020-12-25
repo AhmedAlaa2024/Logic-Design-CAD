@@ -45,3 +45,8 @@ void SWITCH::set_state(STATUS s)
 {
 	is_on = s;
 }
+
+COMP_TYPES SWITCH::get_comp_type()
+{
+	return COMP_SWITCH;
+}

@@ -142,6 +142,14 @@ enum FANOUT
 	LED_FANOUT = 0
 };
 
+enum COMP_TYPES
+{
+	COMP_GATE,
+	COMP_SWITCH,
+	COMP_LED,
+	COMP_WIRE
+};
+
 //A structure to contain drawing parameters for each component
 //Each component occupies a rectangluar area so it needs 2 points to represent that area
 //this structure can be extended if desired

@@ -150,6 +150,8 @@
     <ClCompile Include="Actions\AddNAND2gate.cpp" />
     <ClCompile Include="Actions\AddNOR2gate.cpp" />
     <ClCompile Include="Actions\AddNORgate3.cpp" />
+    <ClCompile Include="Actions\AddLED.cpp" />
+    <ClCompile Include="Actions\AddSWITCH.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -233,6 +235,8 @@
     <ClInclude Include="Actions\AddNAND2gate.h" />
     <ClInclude Include="Actions\AddNOR2gate.h" />
     <ClInclude Include="Actions\AddNORgate3.h" />
+    <ClInclude Include="Actions\AddLED.h" />
+    <ClInclude Include="Actions\AddSWITCH.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

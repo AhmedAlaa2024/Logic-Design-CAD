@@ -136,7 +136,10 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 //assume fan out is 5 for now it can be read from the user or can be predefined as const
 enum FANOUT
 {
-	FANOUT = 10
+	FANOUT = 10,	//Default fan out of 2-input AND gate
+	
+	SWITCH_FANOUT = 10,
+	LED_FANOUT = 0
 };
 
 //A structure to contain drawing parameters for each component

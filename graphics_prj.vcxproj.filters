@@ -224,6 +224,8 @@
     <ClCompile Include="Actions\AddNOR2gate.cpp" />
     <ClCompile Include="Actions\AddNORgate3.cpp" />
     <ClCompile Include="Actions\AddINVgate.cpp" />
+    <ClCompile Include="Actions\AddLED.cpp" />
+    <ClCompile Include="Actions\AddSWITCH.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -405,6 +407,8 @@
     <ClInclude Include="Actions\AddNORgate3.h" />
     <ClInclude Include="Actions\AddANDgate2.h" />
     <ClInclude Include="Actions\AddINVgate.h" />
+    <ClInclude Include="Actions\AddLED.h" />
+    <ClInclude Include="Actions\AddSWITCH.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

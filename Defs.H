@@ -89,7 +89,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
 
 };
-
+enum { MaxCompCount = 200 };	//Max no of Components	
 enum DesignTools {
 	AND_2IN,
 	OR_2IN,

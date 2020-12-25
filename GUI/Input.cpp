@@ -139,7 +139,7 @@ ActionType Input::GetUserAction() const
 		{
 			//TODO
 
-			return SIM_MODE;	//user clicks on drawing area
+			return SELECT;	//user clicks on drawing area
 
 		}
 

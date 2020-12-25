@@ -18,6 +18,12 @@ void ApplicationManager::AddComponent(Component* pComp)
 {
 	CompList[CompCount++] = pComp;		
 }
+
+Component* const* ApplicationManager::getComponents(int& count) const
+{
+	count = CompCount;
+	return CompList;
+}
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()

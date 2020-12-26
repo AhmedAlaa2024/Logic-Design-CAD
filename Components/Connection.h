@@ -23,7 +23,7 @@ public:
 	OutputPin* getSourcePin() const;
 	InputPin* getDestPin() const;
 	
-	virtual  const OutputPin* getOutputPin() const { return nullptr; }
+	virtual const OutputPin* getOutputPin() const { return nullptr; }
 	virtual InputPin* const getInputPin() const { return nullptr; }
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1

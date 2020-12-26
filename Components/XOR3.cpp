@@ -17,9 +17,9 @@ void XOR3::Operate()
 		sum += m_InputPins[i].getStatus();
 
 	if (sum % 2 == 0)
-		m_OutputPin.setStatus(LOW);
+		m_OutputPin->setStatus(LOW);
 	else
-		m_OutputPin.setStatus(HIGH);
+		m_OutputPin->setStatus(HIGH);
 	
 }
 
@@ -35,7 +35,7 @@ void XOR3::Draw(Output* pOut)
 //returns status of outputpin
 int XOR3::GetOutPinStatus()	
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

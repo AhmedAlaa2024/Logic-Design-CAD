@@ -16,12 +16,12 @@ void OR2::Operate()
 	{
 		if (m_InputPins[i].getStatus() == HIGH)
 		{
-			m_OutputPin.setStatus(HIGH);
+			m_OutputPin->setStatus(HIGH);
 			return;
 		}
 
 	}
-	m_OutputPin.setStatus(LOW);
+	m_OutputPin->setStatus(LOW);
 }
 
 
@@ -36,7 +36,7 @@ void OR2::Draw(Output* pOut)
 //returns status of outputpin
 int OR2::GetOutPinStatus()	
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

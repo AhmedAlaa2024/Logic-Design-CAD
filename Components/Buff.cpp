@@ -12,7 +12,7 @@ Buff::Buff(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(1, r_FanOut)
 void Buff::Operate()
 {
 
-	m_OutputPin.setStatus(m_InputPins[0].getStatus());
+	m_OutputPin->setStatus(m_InputPins[0].getStatus());
 	
 }
 
@@ -28,7 +28,7 @@ void Buff::Draw(Output* pOut)
 //returns status of outputpin
 int Buff::GetOutPinStatus()	
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

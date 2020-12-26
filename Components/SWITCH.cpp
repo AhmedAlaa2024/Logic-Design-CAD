@@ -13,7 +13,7 @@ void SWITCH::Operate()
 {
 
 	//still needs modification
-	m_OutputPin.setStatus(is_on);
+	m_OutputPin->setStatus(is_on);
 
 
 }
@@ -30,7 +30,7 @@ void SWITCH::Draw(Output* pOut)
 //returns status of outputpin
 int SWITCH::GetOutPinStatus()
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

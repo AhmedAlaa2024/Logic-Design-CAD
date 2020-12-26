@@ -4,8 +4,9 @@
 //Parameters:
 //r_Inputs: no. of gate's input pins
 //r_FanOut: Fan out of the gate's output pin
-Gate::Gate(int r_Inputs, int r_FanOut):m_OutputPin(r_FanOut)
+Gate::Gate(int r_Inputs, int r_FanOut)
 {
+	m_OutputPin = new OutputPin(r_FanOut);
 	//Allocate number of input pins (equals r_Inputs)
 	m_InputPins = new InputPin[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
@@ -15,12 +16,17 @@ Gate::Gate(int r_Inputs, int r_FanOut):m_OutputPin(r_FanOut)
 		m_InputPins[i].setComponent(this);
 }
 
-const OutputPin* Gate::getOutputPin() const
+OutputPin* Gate::getOutputPin() const
 {
-	return &m_OutputPin;
+	return m_OutputPin;
 }
 
 InputPin* const Gate::getInputPin() const
 {
 	return m_InputPins;
+}
+
+Gate::~Gate()
+{
+	delete m_OutputPin;
 }

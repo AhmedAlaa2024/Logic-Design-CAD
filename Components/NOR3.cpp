@@ -16,12 +16,12 @@ void NOR3::Operate()
 	{
 		if (m_InputPins[i].getStatus() == HIGH)
 		{
-			m_OutputPin.setStatus(LOW);
+			m_OutputPin->setStatus(LOW);
 			return;
 		}
 
 	}
-	m_OutputPin.setStatus(HIGH);
+	m_OutputPin->setStatus(HIGH);
 }
 
 
@@ -36,7 +36,7 @@ void NOR3::Draw(Output* pOut)
 //returns status of outputpin
 int NOR3::GetOutPinStatus()	
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

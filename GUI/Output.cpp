@@ -11,6 +11,7 @@ Output::Output()
 	UI.SelectColor = BLUE;
 	UI.ConnColor = RED;
 	UI.on_ConnColor = GREEN;
+	UI.selected_connColor = BLUE;
 
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
@@ -459,7 +460,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) 
 			pWind->SetPen(UI.ConnColor, UI.Conn_width);
 	}else
 	{
-		pWind->SetPen(UI.ConnColor, UI.Conn_width);
+		pWind->SetPen(UI.selected_connColor, UI.Conn_width);
 
 	}
 

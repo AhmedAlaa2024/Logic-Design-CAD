@@ -29,7 +29,7 @@ void SWITCH::Operate()
 void SWITCH::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawSWITCH(m_GfxInfo, is_on);
+	pOut->DrawSWITCH(m_GfxInfo, is_on, is_selected);
 }
 
 //returns status of outputpin

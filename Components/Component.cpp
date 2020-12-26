@@ -2,6 +2,7 @@
 
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
+	comp_type = COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 }
 

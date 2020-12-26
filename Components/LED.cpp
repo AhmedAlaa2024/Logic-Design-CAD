@@ -8,6 +8,11 @@ LED::LED(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 	m_GfxInfo.y2 = r_GfxInfo.y2;
 
 	is_high = LOW;
+
+	comp_type = COMP_TYPES::COMP_CONN; /*This statement to overwrite the type of gate
+						   on comp_type protected datatype to be able to use it
+						   for identifying the suitable action
+						   when the user select the arbitary component. */
 }
 
 
@@ -47,5 +52,5 @@ void LED::setInputPinStatus(int n, STATUS s)
 
 COMP_TYPES LED::get_comp_type()
 {
-	return COMP_LED;
+	return comp_type;
 }

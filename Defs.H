@@ -142,12 +142,13 @@ enum FANOUT
 	LED_FANOUT = 0
 };
 
-enum COMP_TYPES
+enum class COMP_TYPES
 {
+	COMP_GENERAL,
 	COMP_GATE,
 	COMP_SWITCH,
 	COMP_LED,
-	COMP_WIRE
+	COMP_CONN
 };
 
 //A structure to contain drawing parameters for each component

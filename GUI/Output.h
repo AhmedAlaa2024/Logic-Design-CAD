@@ -42,7 +42,7 @@ public:
 
 
 
-
+	MODE getAppMode();
 
 
 

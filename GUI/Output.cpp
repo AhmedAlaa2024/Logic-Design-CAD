@@ -11,6 +11,7 @@ Output::Output()
 	UI.SelectColor = BLUE;
 	UI.ConnColor = RED;
 	UI.on_ConnColor = GREEN;
+	UI.selected_connColor = BLUE;
 
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
@@ -439,7 +440,12 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool is_on, bool selected) const
 	//TODO: I need to change those heights and widths
 	//
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-} 
+}
+MODE Output::getAppMode()
+{
+	return UI.AppMode;
+}
+
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) const
 {
@@ -454,7 +460,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) 
 			pWind->SetPen(UI.ConnColor, UI.Conn_width);
 	}else
 	{
-		pWind->SetPen(UI.ConnColor, UI.Conn_width);
+		pWind->SetPen(UI.selected_connColor, UI.Conn_width);
 
 	}
 

@@ -25,6 +25,9 @@ public:
 	OutputPin* getOutputPin() const;
 	InputPin* const getInputPin() const;
 	~Gate();
+	COMP_TYPES get_comp_type();
+	
+
 };
 
 #endif

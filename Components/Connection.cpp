@@ -5,6 +5,11 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 {
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
+
+	comp_type = COMP_TYPES::COMP_CONN; /*This statement to overwrite the type of gate
+						   on comp_type protected datatype to be able to use it
+						   for identifying the suitable action
+						   when the user select the arbitary component. */
 }
 void Connection::setSourcePin(OutputPin *pSrcPin)
 {	SrcPin = pSrcPin;	}
@@ -28,7 +33,7 @@ void Connection::Operate()
 
 void Connection::Draw(Output* pOut)
 {
-	pOut->DrawConnection(m_GfxInfo);
+	pOut->DrawConnection(m_GfxInfo, is_selected);
 }
 
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1
@@ -45,4 +50,9 @@ int Connection::GetInputPinStatus(int n)	//returns status of Inputpin # n if SWI
 void Connection::setInputPinStatus(int n, STATUS s)
 {
 	SrcPin->setStatus(s);
+}
+
+COMP_TYPES Connection::get_comp_type()
+{
+	return comp_type;
 }

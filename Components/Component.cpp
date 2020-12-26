@@ -2,7 +2,9 @@
 
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
+	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
+	is_selected = 0;
 }
 
 int Component::get_id() const
@@ -13,6 +15,21 @@ int Component::get_id() const
 void Component::set_id(int id)
 {
 	m_Id = id;
+}
+
+const GraphicsInfo Component::getGraphicsInfo()
+{
+	return m_GfxInfo;
+}
+
+bool Component::get_is_selected()
+{
+	return is_selected;
+}
+
+void Component::set_is_selected(bool test)
+{
+	is_selected = test;
 }
 
 Component::Component()

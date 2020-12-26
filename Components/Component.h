@@ -12,6 +12,7 @@ private:
 	int m_Id;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	bool is_selected;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	//Calculates the output according to the inputs
@@ -24,7 +25,12 @@ public:
 	virtual int GetInputPinStatus(int n)=0;	//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
+	virtual const GraphicsInfo getGraphicsInfo();
 
+	virtual bool get_is_selected();
+	virtual void set_is_selected(bool);
+
+	virtual COMP_TYPES get_comp_type() =0;
 	
 	Component();	
 	

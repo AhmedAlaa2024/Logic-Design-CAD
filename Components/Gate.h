@@ -21,6 +21,7 @@ protected:
 	int m_Inputs;		//No. of input pins of that Gate.
 public:
 	Gate(int r_Inputs, int r_FanOut);
+	COMP_TYPES get_comp_type();
 	
 
 };

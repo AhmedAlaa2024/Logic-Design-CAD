@@ -24,6 +24,7 @@ struct UI_Info	//User Interface Info.
 	color SelectColor;		//Highlighting color
 	color ConnColor;		//Connector color
 	color on_ConnColor;     //connector color when its high (simulation)
+	color selected_connColor;
 
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Back ground color

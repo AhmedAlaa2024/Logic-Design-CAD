@@ -6,6 +6,11 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(0, r_FanOut)
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
+
+	comp_type = COMP_TYPES::COMP_SWITCH; /*This statement to overwrite the type of gate
+						   on comp_type protected datatype to be able to use it
+						   for identifying the suitable action
+						   when the user select the arbitary component. */
 }
 
 
@@ -24,7 +29,7 @@ void SWITCH::Operate()
 void SWITCH::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawSWITCH(m_GfxInfo, is_on);
+	pOut->DrawSWITCH(m_GfxInfo, is_on, is_selected);
 }
 
 //returns status of outputpin
@@ -44,4 +49,9 @@ int SWITCH::GetInputPinStatus(int n)
 void SWITCH::set_state(STATUS s)
 {
 	is_on = s;
+}
+
+COMP_TYPES SWITCH::get_comp_type()
+{
+	return comp_type;
 }

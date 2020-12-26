@@ -13,17 +13,21 @@
 #include "OutputPin.h"
 #include "Component.h"
 
-class Gate:public Component
+class Gate :public Component
 {
 protected:
 	InputPin* m_InputPins;	//Array of input pins of the Gate
-	OutputPin m_OutputPin;	//The Gate output pin
+	OutputPin* m_OutputPin;	//The Gate output pin
 	int m_Inputs;		//No. of input pins of that Gate.
 public:
 	Gate(int r_Inputs, int r_FanOut);
+
 	COMP_TYPES get_comp_type();
 	
 
+	OutputPin* getOutputPin() const;
+	InputPin* const getInputPin() const;
+	~Gate();
 };
 
 #endif

@@ -14,14 +14,14 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 void Connection::setSourcePin(OutputPin *pSrcPin)
 {	SrcPin = pSrcPin;	}
 
-OutputPin* Connection::getSourcePin()
+OutputPin* Connection::getSourcePin() const
 {	return SrcPin;	}
 
 
 void Connection::setDestPin(InputPin *pDstPin)
 {	DstPin = pDstPin;	}
 
-InputPin* Connection::getDestPin()
+InputPin* Connection::getDestPin() const
 {	return DstPin;	}
 
 

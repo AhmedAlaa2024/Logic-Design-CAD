@@ -10,7 +10,7 @@ class InputPin: public Pin	//inherited from class Pin
 public:
 	InputPin();
 	void setComponent(Component* pCmp);	//sets the component of this input pin
-	Component* getComponent();	//returns the component of this input pin
+	Component* getComponent() const;	//returns the component of this input pin
 };
 
 #endif

@@ -17,9 +17,9 @@ void XNOR2::Operate()
 		sum += m_InputPins[i].getStatus();
 
 	if (sum % 2 == 0)
-		m_OutputPin.setStatus(HIGH);
+		m_OutputPin->setStatus(HIGH);
 	else
-		m_OutputPin.setStatus(LOW);
+		m_OutputPin->setStatus(LOW);
 }
 
 
@@ -34,7 +34,7 @@ void XNOR2::Draw(Output* pOut)
 //returns status of outputpin
 int XNOR2::GetOutPinStatus()	
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

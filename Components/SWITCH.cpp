@@ -1,6 +1,6 @@
 #include "SWITCH.h"
 
-SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut)
+SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(0, r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
@@ -18,7 +18,7 @@ void SWITCH::Operate()
 {
 
 	//still needs modification
-	m_OutputPin.setStatus(is_on);
+	m_OutputPin->setStatus(is_on);
 
 
 }
@@ -35,7 +35,7 @@ void SWITCH::Draw(Output* pOut)
 //returns status of outputpin
 int SWITCH::GetOutPinStatus()
 {
-	return m_OutputPin.getStatus();
+	return m_OutputPin->getStatus();
 }
 
 

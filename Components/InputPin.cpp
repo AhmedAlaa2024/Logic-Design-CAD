@@ -8,7 +8,7 @@ void InputPin::setComponent(Component *pCmp)
 	this->pComp = pCmp;
 }
 
-Component* InputPin::getComponent()
+Component* InputPin::getComponent() const
 {
 	return pComp;
 }

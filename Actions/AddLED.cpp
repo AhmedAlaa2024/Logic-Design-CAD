@@ -41,8 +41,13 @@ void AddLED::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	// SWITCH* pA = new SWITCH(GInfo, SWITCH_FANOUT);
-	// pManager->AddComponent(pA);
+	LED* pA = new LED(GInfo, SWITCH_FANOUT);
+	pManager->AddComponent(pA);
+	id++;
+}
+int  AddLED::getId()
+{
+	return id;
 }
 
 void AddLED::Undo()

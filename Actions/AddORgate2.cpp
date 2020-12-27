@@ -43,6 +43,11 @@ void AddORgate2::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	OR2* pA = new OR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
+	id++;
+}
+int AddORgate2::getId()
+{
+	return id;
 }
 
 void AddORgate2::Undo()

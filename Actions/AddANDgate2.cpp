@@ -43,6 +43,11 @@ void AddANDgate2::Execute()
 	GInfo.y2 = Cy + Wdth/2;
 	AND2 *pA=new AND2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
+	id++;
+}
+int AddANDgate2::getId()
+{
+	return id;
 }
 
 void AddANDgate2::Undo()

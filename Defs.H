@@ -105,8 +105,8 @@ enum DesignTools {
 	NOR_3IN,
 	XOR_3IN,
 	XNOR_3IN,
-	LED,
-	SWITCH,
+	LED1,
+	SWITCH1,
 	GATES_CNT
 };
 

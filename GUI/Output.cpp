@@ -147,8 +147,8 @@ void Output::CreateDesignToolBar() const
 	DesignTools[NOR_3IN] = "images\\Gates\\NOR2.jpg";
 	DesignTools[XOR_3IN] = "images\\Gates\\XOR2.jpg";
 	DesignTools[XNOR_3IN] = "images\\Gates\\XNOR2.jpg";
-	DesignTools[LED] = "images\\Gates\\LED.jpg";
-	DesignTools[SWITCH] = "images\\Gates\\SWITCH.jpg";
+	DesignTools[LED1] = "images\\Gates\\LED.jpg";
+	DesignTools[SWITCH1] = "images\\Gates\\SWITCH.jpg";
 
 	for (int i = 0; i < GATES_CNT; i++)
 		pWind->DrawImage(DesignTools[i], i * UI.Gate_Width, 650, UI.Gate_Width, UI.Gate_Height);

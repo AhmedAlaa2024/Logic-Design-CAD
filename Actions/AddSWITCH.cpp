@@ -41,8 +41,13 @@ void AddSWITCH::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	// SWITCH* pA = new SWITCH(GInfo, SWITCH_FANOUT);
-	// pManager->AddComponent(pA);
+    SWITCH* pA = new SWITCH(GInfo, SWITCH_FANOUT);
+	pManager->AddComponent(pA);
+	id++;
+}
+int AddSWITCH::getId()
+{
+	return id;
 }
 
 void AddSWITCH::Undo()

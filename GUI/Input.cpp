@@ -155,29 +155,31 @@ ActionType Input::AddGate() const
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
-		//[1] If user clicks on the Toolbar
-		if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
-		{
-			int GateOrder = (x / UI.Gate_Width);
-			switch (GateOrder)
+
+			//[1] If user clicks on the Toolbar
+			if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
 			{
-			case AND_2IN: return ADD_AND_GATE_2;
-			case OR_2IN: return ADD_OR_GATE_2;
-			case BUF: return ADD_Buff;
-			case NOT: return ADD_INV;
-			case NAND_2IN: return ADD_NAND_GATE_2;
-			case NOR_2IN: return ADD_NOR_GATE_2;
-			case XOR_2IN: return ADD_XOR_GATE_2;
-			case XNOR_2IN: return ADD_XNOR_GATE_2;
-			case AND_3IN: return ADD_AND_GATE_3;
-			case OR_3IN: return ADD_OR_GATE_3;
-			case NAND_3IN: return ADD_NAND_GATE_3;
-			case NOR_3IN: return ADD_NOR_GATE_3;
-			case XOR_3IN: return ADD_XOR_GATE_3;
-			case XNOR_3IN: return ADD_XNOR_GATE_3;
-			default: return GATE_TOOL;	//A click on empty place in simulation toolbar
+				int GateOrder = (x / UI.Gate_Width);
+				switch (GateOrder)
+				{
+				case AND_2IN: return ADD_AND_GATE_2;
+				case OR_2IN: return ADD_OR_GATE_2;
+				case BUF: return ADD_Buff;
+				case NOT: return ADD_INV;
+				case NAND_2IN: return ADD_NAND_GATE_2;
+				case NOR_2IN: return ADD_NOR_GATE_2;
+				case XOR_2IN: return ADD_XOR_GATE_2;
+				case XNOR_2IN: return ADD_XNOR_GATE_2;
+				case AND_3IN: return ADD_AND_GATE_3;
+				case OR_3IN: return ADD_OR_GATE_3;
+				case NAND_3IN: return ADD_NAND_GATE_3;
+				case NOR_3IN: return ADD_NOR_GATE_3;
+				case XOR_3IN: return ADD_XOR_GATE_3;
+				case XNOR_3IN: return ADD_XNOR_GATE_3;
+				default: return GATE_TOOL;	//A click on empty place in simulation toolbar
+				}
 			}
-		}
+	
 	}
 	return EXIT;
 }

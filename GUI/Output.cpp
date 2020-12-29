@@ -131,7 +131,7 @@ void Output::CreateDesignToolBar() const
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
-
+	/*
 	string DesignTools[GATES_CNT];
 	DesignTools[AND_2IN] = "images\\Gates\\AND2.jpg";
 	DesignTools[OR_2IN] = "images\\Gates\\OR2.jpg";
@@ -156,8 +156,40 @@ void Output::CreateDesignToolBar() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, 650, UI.width, 650);
-
+	*/
 }
+void Output::CreateDesignToolBarComponent() const
+{
+
+	string DesignTools[GATES_CNT];
+	DesignTools[AND_2IN] = "images\\Gates\\AND2.jpg";
+	DesignTools[OR_2IN] = "images\\Gates\\OR2.jpg";
+	DesignTools[BUF] = "images\\Gates\\BUFFER.jpg";
+	DesignTools[NOT] = "images\\Gates\\NOT2.jpg";
+	DesignTools[NAND_2IN] = "images\\Gates\\NAND2.jpg";
+	DesignTools[NOR_2IN] = "images\\Gates\\NOR2.jpg";
+	DesignTools[XOR_2IN] = "images\\Gates\\XOR2.jpg";
+	DesignTools[XNOR_2IN] = "images\\Gates\\XNOR2.jpg";
+	DesignTools[AND_3IN] = "images\\Gates\\AND2.jpg";
+	DesignTools[OR_3IN] = "images\\Gates\\OR2.jpg";
+	DesignTools[NAND_3IN] = "images\\Gates\\NAND2.jpg";
+	DesignTools[NOR_3IN] = "images\\Gates\\NOR2.jpg";
+	DesignTools[XOR_3IN] = "images\\Gates\\XOR2.jpg";
+	DesignTools[XNOR_3IN] = "images\\Gates\\XNOR2.jpg";
+	DesignTools[LED1] = "images\\Gates\\LED.jpg";
+	DesignTools[SWITCH1] = "images\\Gates\\SWITCH.jpg";
+
+	for (int i = 0; i < GATES_CNT; i++)
+		pWind->DrawImage(DesignTools[i], i * UI.Gate_Width, 650, UI.Gate_Width, UI.Gate_Height);
+	
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, 650, UI.width, 650);
+}
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
@@ -470,7 +502,6 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) 
 	pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, x1_, r_GfxInfo.y1);
 	pWind->DrawLine(x1_, r_GfxInfo.y1, x1_, r_GfxInfo.y2);
 	pWind->DrawLine(x1_, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
-
 
 
 }

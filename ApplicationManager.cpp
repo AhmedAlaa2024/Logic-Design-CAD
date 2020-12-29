@@ -31,6 +31,12 @@ ActionType ApplicationManager::GetUserAction()
 	//Call input to get what action is reuired from the user
 	return InputInterface->GetUserAction(); 	
 }
+
+ActionType ApplicationManager::AddGate()
+{
+	return InputInterface->AddGate();
+}
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
@@ -38,6 +44,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	Action* pAct = NULL;
 	switch (ActType)
 	{
+	    case ADD_Gate:
+			pAct = new Add(this);
+			break;
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
 			break;

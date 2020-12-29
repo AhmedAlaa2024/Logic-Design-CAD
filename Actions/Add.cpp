@@ -43,7 +43,9 @@ void Add::ReadActionParameters()
 
 void Add::Execute()
 {
-	pManager->GetOutput()->CreateDesignToolBarComponent();
+	Output* pOut = pManager->GetOutput();
+
+	pOut->CreateDesignToolBarComponent();
 	//pOut->CreateDesignToolBarComponent();
 	//ApplicationManager* pApp;
 	Action* pAct = NULL;
@@ -103,6 +105,8 @@ void Add::Execute()
 		pAct->Execute();
 		delete pAct;
 		pAct = NULL;
+		pOut->ClearWindow();
+		
 	}
 
 

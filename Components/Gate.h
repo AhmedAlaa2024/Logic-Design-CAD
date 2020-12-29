@@ -28,6 +28,9 @@ public:
 	OutputPin* getOutputPin() const;
 	InputPin* const getInputPin() const;
 	~Gate();
+	
+	
+
 };
 
 #endif

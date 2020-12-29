@@ -4,10 +4,10 @@
 Select::Select()
 {
 	COMP_TYPES comp_type;
-	Component* const*  target = what_object(comp_type);
+	Component* const* target = what_object(comp_type);
 }
 
-Component* const* Select::what_object(COMP_TYPES &comptype)
+Component* const* Select::what_object(COMP_TYPES& comptype)
 {
 	int x = 0, y = 0;
 	pManager->GetInput()->GetPointClicked(x, y); // To get the x, y coordinates of point clicked
@@ -20,15 +20,15 @@ Component* const* Select::what_object(COMP_TYPES &comptype)
 		int x2 = compList[i]->getGraphicsInfo().x2;
 		int y2 = compList[i]->getGraphicsInfo().y2;
 
-		if (x1 <= x && x <= x2 && y1 <= y && y <= y2){
+		if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
 			compList[i]->set_is_selected(true);
 			comptype = compList[i]->get_comp_type();
 			target = i;
 			break;
 		}
 	}
-	
-	
+
+
 	switch (comptype)
 	{
 	case COMP_TYPES::COMP_GENERAL:

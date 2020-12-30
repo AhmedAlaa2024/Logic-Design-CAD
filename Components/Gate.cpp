@@ -42,3 +42,9 @@ COMP_TYPES Gate::get_comp_type()
 {
 	return comp_type;
 }
+
+//================DOAA==============
+int Gate::getNoOfInputpins()
+{
+	return m_Inputs;
+}

@@ -11,7 +11,6 @@ protected:
 	ApplicationManager* pManager;	//Actions needs AppMngr to do their job
 public:
 	Action(ApplicationManager* pApp) { pManager = pApp; }	//constructor
-	Action() {};
 	//Reads parameters required for action to execute
 	virtual void ReadActionParameters() = 0;
 

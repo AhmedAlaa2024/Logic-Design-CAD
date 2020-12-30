@@ -10,6 +10,7 @@
 #include "Components\Component.h"
 #include "Actions/AddANDgate2.h"
 #include "Actions/AddANDgate2.h"
+#include "Actions/Select.h"
 #include "Actions/SwitchToDesign.h"
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"

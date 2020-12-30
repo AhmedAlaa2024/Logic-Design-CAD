@@ -1,13 +1,13 @@
 #include "Select.h"
 
 
-Select::Select(): Action(pManager)
+Select::Select(ApplicationManager* pApp): Action(pApp)
 {
 	ReadActionParameters(); // To get the clicked coordinates
-
+	
 	COMP_TYPES comp_type;
 	int target = which_component(comp_type); // To get the index of the target component.
-
+	
 	if (target == -1) // To check if the user clicked on a blank space
 		Deselect();
 	else
@@ -19,15 +19,23 @@ Select::Select(): Action(pManager)
 		switch (comp_type) // I used switch case because the behaviour will be different from Gate, Switch and Led.
 		{
 		case COMP_TYPES::COMP_GATE:
+			
+			compList[target]->set_is_selected(true);
+			
 			compList[target]->Draw(pManager->GetOutput()); // It will override a new image indicate that the gate is selected
+			x = 0; y = 0;
+			
 			break;
 		case COMP_TYPES::COMP_SWITCH:
+			compList[target]->set_is_selected(true);
 			pManager->GetOutput()->DrawSWITCH(r_GfxInfo, false, true); // It will override a new image indicate that the switch is selected
 			break;
 		case COMP_TYPES::COMP_LED:
+			compList[target]->set_is_selected(true);
 			pManager->GetOutput()->DrawLED(r_GfxInfo, false, true); // It will override a new image indicate that the led is selected
 			break;
 		case COMP_TYPES::COMP_CONN:
+			compList[target]->set_is_selected(true);
 			pManager->GetOutput()->DrawConnection(r_GfxInfo, true); // It will override a new image indicate that the conection is selected
 			break;
 		default:
@@ -73,7 +81,7 @@ void Select::Deselect()
 
 void Select::ReadActionParameters()
 {
-	pManager->GetInput()->GetPointClicked(x, y); // To get the x, y coordinates of point clicked
+	pManager->GetInput()->GetLastClicked(x, y); // To get the x, y coordinates of point clicked
 }
 
 void Select::Execute()

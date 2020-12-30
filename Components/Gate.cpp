@@ -34,10 +34,8 @@ InputPin* const Gate::getInputPin() const
 Gate::~Gate()
 {
 	delete m_OutputPin;
-
-
-
 }
+
 COMP_TYPES Gate::get_comp_type()
 {
 	return comp_type;

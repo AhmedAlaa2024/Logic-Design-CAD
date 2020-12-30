@@ -15,9 +15,9 @@ Output::Output()
 
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
-	
+
 	//Create the drawing window
-	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
+	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	ChangeTitle("Programming Techniques Project");
 
 	CreateDesignToolBar();	//Create the desgin toolbar
@@ -44,7 +44,7 @@ window* Output::CreateWind(int wd, int h, int x, int y) const
 void Output::destroyWind() const
 {
 	delete pWind;
-	
+
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ChangeTitle(string Title) const
@@ -54,8 +54,8 @@ void Output::ChangeTitle(string Title) const
 //////////////////////////////////////////////////////////////////////////////////
 void Output::CreateStatusBar() const
 {
-	pWind->SetPen(RED,3);
-	pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.height - UI.StatusBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -66,8 +66,8 @@ void Output::PrintMsg(string msg) const
 	int MsgY = UI.StatusBarHeight - 10;
 
 	// Print the Message
-    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
-	pWind->SetPen(UI.MsgColor); 
+	pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+	pWind->SetPen(UI.MsgColor);
 	pWind->DrawString(MsgX, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -89,13 +89,17 @@ void Output::ClearDrawingArea() const
 	pWind->SetPen(RED, 1);
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
-	
+
 }
 void Output::ClearWindow() const
 {
 	pWind->SetPen(RED, 1);
 	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0,0, UI.width, UI.height);
+	if (UI.AppMode == SIMULATION)
+		pWind->DrawRectangle(0, 0, UI.width, UI.height);
+	else
+		pWind->DrawRectangle(0, UI.height - UI.Gate_Height - UI.StatusBarHeight, UI.width, UI.height);
+
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -131,24 +135,27 @@ void Output::CreateDesignToolBar() const
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
+}
+void Output::CreateDesignToolBarComponent() const
+{
 
 	string DesignTools[GATES_CNT];
-	DesignTools[AND_2IN] = "images\\Gates\\AND2.jpg";
-	DesignTools[OR_2IN] = "images\\Gates\\OR2.jpg";
-	DesignTools[BUF] = "images\\Gates\\BUFFER.jpg";
-	DesignTools[NOT] = "images\\Gates\\NOT2.jpg";
-	DesignTools[NAND_2IN] = "images\\Gates\\NAND2.jpg";
-	DesignTools[NOR_2IN] = "images\\Gates\\NOR2.jpg";
-	DesignTools[XOR_2IN] = "images\\Gates\\XOR2.jpg";
-	DesignTools[XNOR_2IN] = "images\\Gates\\XNOR2.jpg";
-	DesignTools[AND_3IN] = "images\\Gates\\AND2.jpg";
-	DesignTools[OR_3IN] = "images\\Gates\\OR2.jpg";
-	DesignTools[NAND_3IN] = "images\\Gates\\NAND2.jpg";
-	DesignTools[NOR_3IN] = "images\\Gates\\NOR2.jpg";
-	DesignTools[XOR_3IN] = "images\\Gates\\XOR2.jpg";
-	DesignTools[XNOR_3IN] = "images\\Gates\\XNOR2.jpg";
+	DesignTools[AND_2IN] = "images\\Gates\\Gate_AND2.jpg";
+	DesignTools[OR_2IN] = "images\\Gates\\Gate_OR2n.jpg";
+	DesignTools[BUF] = "images\\Gates\\Buffer_n.jpg";
+	DesignTools[NOT] = "images\\Gates\\Gate_INV.jpg";
+	DesignTools[NAND_2IN] = "images\\Gates\\Gate_NAND2.jpg";
+	DesignTools[NOR_2IN] = "images\\Gates\\Gate_NOR2.jpg";
+	DesignTools[XOR_2IN] = "images\\Gates\\Gate_XOR.jpg";
+	DesignTools[XNOR_2IN] = "images\\Gates\\Gate_XNOR2.jpg";
+	DesignTools[AND_3IN] = "images\\Gates\\Gate_AND3.jpg";
+	DesignTools[OR_3IN] = "images\\Gates\\Gate_OR3.jpg";
+	DesignTools[NAND_3IN] = "images\\Gates\\Gate_AND3.jpg";
+	DesignTools[NOR_3IN] = "images\\Gates\\Gate_NOR3.jpg";
+	DesignTools[XOR_3IN] = "images\\Gates\\Gate_XOR3.jpg";
+	DesignTools[XNOR_3IN] = "images\\Gates\\3-IP-XNOR.jpg";
 	DesignTools[LED1] = "images\\Gates\\LED.jpg";
-	DesignTools[SWITCH1] = "images\\Gates\\SWITCH.jpg";
+	DesignTools[SWITCH1] = "images\\Gates\\off_switch.jpg";
 
 	for (int i = 0; i < GATES_CNT; i++)
 		pWind->DrawImage(DesignTools[i], i * UI.Gate_Width, 650, UI.Gate_Width, UI.Gate_Height);
@@ -156,8 +163,11 @@ void Output::CreateDesignToolBar() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, 650, UI.width, 650);
-
 }
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
@@ -360,7 +370,7 @@ void Output::DrawNOR3(GraphicsInfo r_GfxInfo, bool selected) const//done
 	//
 	//TODO: I need to change those heights and widths
 	//
-	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width +40, UI.Gate_Height);
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width + 40, UI.Gate_Height);
 }
 
 void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
@@ -391,7 +401,8 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const 
 		{
 			GateImage = "Images\\Gates\\on_LED.jpeg";
 
-		}else
+		}
+		else
 		{
 			GateImage = "Images\\Gates\\off_LED.jpeg";
 
@@ -415,25 +426,26 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool is_on, bool selected) const
 {
 	string GateImage;
 	//NOTE: i will manipulate is_on variable in phase 2 ISA
-	
+
 	if (UI.AppMode == SIMULATION)
 	{
-		if(is_on)
+		if (is_on)
 		{
 			GateImage = "Images\\Gates\\on_switch.jpeg";
 
-		}else
+		}
+		else
 		{
 			GateImage = "Images\\Gates\\off_switch.jpg";
 		}
 	}
-	else { 
+	else {
 		if (selected)	//use image in the highlighted case
 			GateImage = "Images\\Gates\\off_Hi_SWITCH.jpg";
 		else
 			GateImage = "Images\\Gates\\off_switch.jpg";
 	}
-	
+
 	//Draw SWITCH Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by SWITCH Image Parameter in UI_Info
 	//
@@ -447,18 +459,19 @@ MODE Output::getAppMode()
 }
 
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) const
+void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool is_high) const
 {
 	//TODO: Add code to draw connection
 	//TODO --> add validation to the coordinates passed
 	//
-	if(UI.AppMode == SIMULATION)
+	if (UI.AppMode == SIMULATION)
 	{
-		if(is_high)
+		if (is_high)
 			pWind->SetPen(UI.on_ConnColor, UI.Conn_width);
 		else
 			pWind->SetPen(UI.ConnColor, UI.Conn_width);
-	}else
+	}
+	else
 	{
 		pWind->SetPen(UI.selected_connColor, UI.Conn_width);
 
@@ -466,11 +479,10 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected,bool is_high) 
 
 
 	int const x1_ = r_GfxInfo.x1 + 20;
-	
+
 	pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, x1_, r_GfxInfo.y1);
 	pWind->DrawLine(x1_, r_GfxInfo.y1, x1_, r_GfxInfo.y2);
 	pWind->DrawLine(x1_, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
-
 
 
 }

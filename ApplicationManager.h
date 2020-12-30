@@ -13,6 +13,7 @@
 #include "Actions/AddANDgate2.h"
 #include "Actions/SwitchToDesign.h"
 #include "Actions/SwitchToSimulation.h"
+#include "Actions/Add.h"
 
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
@@ -38,6 +39,7 @@ public:
 
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
+	ActionType AddGate();
 
 	//Creates an action and executes it
 	void ExecuteAction(ActionType);

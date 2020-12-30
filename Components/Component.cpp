@@ -6,7 +6,7 @@ Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
-	is_selected = 0;
+	is_selected = false;
 }
 
 int Component::get_id() const

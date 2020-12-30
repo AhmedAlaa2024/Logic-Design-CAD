@@ -30,6 +30,9 @@ public:
 	InputPin* const getInputPin() const;
 	virtual void save(ofstream&);
 	~Gate();
+	
+	
+
 };
 
 #endif

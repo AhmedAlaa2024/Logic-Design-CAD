@@ -2,6 +2,7 @@
 
 XOR3::XOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(3, r_FanOut)
 {
+	set_comp_type(COMP_TYPES::XOR_3);
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;

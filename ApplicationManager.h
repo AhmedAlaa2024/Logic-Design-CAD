@@ -3,6 +3,7 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
+
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
@@ -14,6 +15,8 @@
 #include "Actions/SwitchToSimulation.h"
 
 #include "Actions/Exit.h"
+#include "Actions/Save.h"
+#include "Actions/Load.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -48,7 +51,8 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int &count) const; //don't ask me about the type :(
-	//destructor
+	void save(ofstream*);
+													   //destructor
 	~ApplicationManager();
 };
 

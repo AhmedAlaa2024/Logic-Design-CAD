@@ -3,6 +3,7 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
+#include <fstream>
 
 #include "Defs.h"
 #include "GUI\Output.h"

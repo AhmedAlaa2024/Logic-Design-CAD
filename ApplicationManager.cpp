@@ -1,6 +1,8 @@
 #include "ApplicationManager.h"
 #include "Components/Connection.h"
 
+#include <iostream>
+using namespace std;
 
 ApplicationManager::ApplicationManager()
 {
@@ -26,22 +28,22 @@ Component* const* ApplicationManager::getComponents(int& count) const
 }
 void ApplicationManager::save(ofstream* fptr)
 {
-	int cmpCount = 0; //counter for components that arenot connections
+	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
 	{
-		if(CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
-			cmpCount++;
+		if(CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+			NonConnCount++;
 	}
-	*fptr << cmpCount << endl;
+	*fptr << NonConnCount << endl;
 	for (int i = 0; i < CompCount; i++)
 	{
-		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
 			CompList[i]->save(fptr);
 	}
 	*fptr << "Connections\n";
 	for (int i = 0; i < CompCount; i++)
 	{
-		if (CompList[i]->get_comp_type() == COMP_TYPES::COMP_CONN)
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() == COMP_TYPES::COMP_CONN)
 			CompList[i]->save(fptr);
 	}
 	*fptr << "-1";
@@ -90,9 +92,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SAVE:
 			pAct = new Save(this);
 			break;
-		case LOAD:
+		/*case LOAD:
 			pAct = new Load(this);
-			break;
+			break;*/
 	}
 	if(pAct)
 	{

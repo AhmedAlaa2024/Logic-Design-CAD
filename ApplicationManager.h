@@ -14,19 +14,18 @@
 #include "Actions/SwitchToDesign.h"
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
-
+#include "Actions/Label.h"
 #include "Actions/Exit.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-
-
-
 private:
 	int CompCount;		//Actual number of Components
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
-
+	// ============================== Ahmed Alaa edited here ==============================
+	Component* lastSelectedComponent; // Pointer to the last component has been selected
+	// ==================================== Ahmed Alaa ====================================
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 
@@ -47,6 +46,11 @@ public:
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();
+
+	// ============================== Ahmed Alaa edited here ==============================
+	void SetLastSelectedComponent(Component*); // Set the last component has been selected
+	Component* GetLastSelectedComponent(); // Get the last component has been selected
+	// ==================================== Ahmed Alaa ====================================
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);

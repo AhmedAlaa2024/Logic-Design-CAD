@@ -2,7 +2,7 @@
 
 
 
-ApplicationManager::ApplicationManager()
+ApplicationManager::ApplicationManager(): lastSelectedComponent(NULL)
 {
 	CompCount = 0;
 
@@ -54,10 +54,21 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
-		
+			// ============================== Ahmed Alaa edited here ==============================
 		case SELECT:
 			pAct = new Select(this);
 			break;
+
+		case ADD_Label:
+			if (lastSelectedComponent != NULL)
+				if(lastSelectedComponent->get_m_Label() == "") // To make sure that there is not an existing label
+					pAct = new Label(this, lastSelectedComponent);
+				else
+					this->GetOutput()->PrintMsg("There is already a label.");
+			else
+				this->GetOutput()->PrintMsg("Please, Select an component before adding a label.");
+			break;
+			// ==================================== Ahmed Alaa ====================================
 
 		case DSN_MODE:
 			pAct = new SwitchToDesign(this);
@@ -89,6 +100,16 @@ void ApplicationManager::UpdateInterface()
 Input* ApplicationManager::GetInput()
 {
 	return InputInterface;
+}
+
+void ApplicationManager::SetLastSelectedComponent(Component* component)
+{
+	lastSelectedComponent = component;
+}
+
+Component* ApplicationManager::GetLastSelectedComponent()
+{
+	return lastSelectedComponent;
 }
 
 ////////////////////////////////////////////////////////////////////

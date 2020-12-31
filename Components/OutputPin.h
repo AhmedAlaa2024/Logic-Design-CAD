@@ -19,11 +19,22 @@ private:
 	Connection** m_Connections;
 	int m_FanOut;	//Maximum No. of connections connected to that output pin (depends on the component)
 	int m_Conn;		//Actual No. of connections connected to that output pin
+
+	//==========DOAA==========
+	//bool is_connected;
+
 public:
 	OutputPin(int r_FanOut);
 	bool ConnectTo(Connection* r_Conn);	//connect to a new connection
 
 	Connection** get_connections(int& m_conn) const ;
+
+
+	/*
+	//============DOAA===========
+	bool get_is_connected();
+	void set_is_connected(bool);
+	*/
 };
 
 #endif

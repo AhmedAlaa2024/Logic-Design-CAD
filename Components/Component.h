@@ -37,12 +37,19 @@ public:
 	virtual void save(ofstream*);
 	virtual void load(ifstream*);
 
-	virtual COMP_TYPES get_comp_type() =0;
+	virtual COMP_TYPES get_comp_type();
 	
 	Component();	
 	
 	//Destructor must be virtual
 	virtual ~Component();
+
+
+	//=================DOAA MAGDY================
+	bool InsideArea(int x, int y);
+	virtual int getNoOfInputpins() = 0;
+
+	void getm_GfxInfo(int &x1,int &y1, int &x2,int &y2);
 };
 
 #endif

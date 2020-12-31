@@ -85,11 +85,15 @@ void Gate::set_comp_type(COMP_TYPES ct)
 Gate::~Gate()
 {
 	delete m_OutputPin;
-
-
-
 }
+
 COMP_TYPES Gate::get_comp_type()
 {
 	return comp_type;
+}
+
+//================DOAA==============
+int Gate::getNoOfInputpins()
+{
+	return m_Inputs;
 }

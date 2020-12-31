@@ -1,9 +1,7 @@
 #include "Input.h"
-#include <iostream>
-using namespace std;
 #include "Output.h"
 
-Input::Input(window* pW)
+Input::Input(window* pW): last_x(0), last_y(0)
 {
 	pWind = pW; //point to the passed window
 }
@@ -15,6 +13,11 @@ void Input::GetPointClicked(int& x, int& y)
 
 string Input::GetString(Output* pOut) const
 {
+	///TODO: Implement this Function
+	//Read a complete string from the user until the user presses "ENTER".
+	//If the user presses "ESCAPE". This function should return an empty string.
+	//"BACKSPACE" should be also supported
+	//User should see what he is typing at the status bar
 	keytype a;
 	string s;
 	char c;
@@ -62,20 +65,15 @@ string Input::GetString(Output* pOut) const
 		pOut->PrintMsg(s);
 
 	}
-	///TODO: Implement this Function
-	//Read a complete string from the user until the user presses "ENTER".
-	//If the user presses "ESCAPE". This function should return an empty string.
-	//"BACKSPACE" should be also supported
-	//User should see what he is typing at the status bar
-
 }
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction() const
+ActionType Input::GetUserAction()
 {
-	int x, y;
+	int x = 0, y = 0;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
+	last_x = x;
+	last_y = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
@@ -182,6 +180,12 @@ ActionType Input::AddGate() const
 	
 	}
 	return EXIT;
+}
+
+void Input::GetLastClicked(int& x, int& y)
+{
+	x = last_x;
+	y = last_y;
 }
 
 Input::~Input()

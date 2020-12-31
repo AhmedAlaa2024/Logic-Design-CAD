@@ -34,7 +34,7 @@ public:
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
 
-	virtual COMP_TYPES get_comp_type() =0;
+	virtual COMP_TYPES get_comp_type();
 	
 	Component();	
 	

@@ -30,7 +30,7 @@ void NOR3::Operate()
 void NOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNOR3(m_GfxInfo);
+	pOut->DrawNOR3(m_GfxInfo, is_selected);
 }
 
 //returns status of outputpin

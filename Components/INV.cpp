@@ -21,7 +21,7 @@ void INV::Operate()
 void INV::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawINV(m_GfxInfo);
+	pOut->DrawINV(m_GfxInfo, is_selected);
 }
 
 //returns status of outputpin

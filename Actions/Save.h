@@ -2,6 +2,7 @@
 #define SAVE_H
 
 #include "Action.h"
+#include "..\ApplicationManager.h"
 #include <fstream>
 #include <iostream>
 using namespace std;

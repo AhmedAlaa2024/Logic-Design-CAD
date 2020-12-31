@@ -6,8 +6,8 @@ OutputPin::OutputPin(int r_FanOut)
 	m_Conn = 0;		//initially Pin is not connected to anything.
 	m_FanOut = r_FanOut > MAX_CONNS ? MAX_CONNS: r_FanOut;	//set the fan out of the pin.
 	m_Connections = new Connection*[MAX_CONNS];
-
-	
+	//=========DOAA========
+	//is_connected = false;
 }
 
 //Functionn ConnectTo:
@@ -30,3 +30,14 @@ Connection** OutputPin::get_connections(int& m_conn) const
 	m_conn = m_Conn;
 	return m_Connections;
 }
+
+/*
+//===========DOAA===========
+bool OutputPin::get_is_connected()
+{
+	return is_connected;
+}
+void OutputPin::set_is_connected(bool)
+{
+	is_connected = test;
+}*/

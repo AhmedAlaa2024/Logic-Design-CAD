@@ -28,7 +28,9 @@ public:
 	InputPin* const getInputPin() const;
 	~Gate();
 	
-	
+
+	//==============DOAA=========
+	virtual int getNoOfInputpins();
 
 };
 

@@ -129,6 +129,7 @@
     <ClCompile Include="Actions\Action.cpp" />
     <ClCompile Include="Actions\Add.cpp" />
     <ClCompile Include="Actions\AddANDgate2.cpp" />
+    <ClCompile Include="Actions\AddBUFFER.cpp" />
     <ClCompile Include="Actions\Connect.cpp" />
     <ClCompile Include="Actions\CopyCutPaste.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\Add.h" />
     <ClInclude Include="Actions\AddANDgate2.h" />
+    <ClInclude Include="Actions\AddBUFFER.h" />
     <ClInclude Include="Actions\Connect.h" />
     <ClInclude Include="Actions\CopyCutPaste.h" />
     <ClInclude Include="Actions\Delete.h" />

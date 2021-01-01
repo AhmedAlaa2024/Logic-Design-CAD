@@ -157,6 +157,7 @@ ActionType Input::AddGate() const
 			//[1] If user clicks on the Toolbar
 			if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
 			{
+				
 				int GateOrder = (x / UI.Gate_Width);
 				switch (GateOrder)
 				{

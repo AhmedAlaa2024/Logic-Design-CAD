@@ -2,6 +2,7 @@
 #include "..\ApplicationManager.h"
 #include "AddANDgate2.h"
 #include "AddANDgate3.h"
+#include "AddBUFFER.h"
 #include "AddINVgate.h"
 #include "AddLED.h"
 #include "AddNAND2gate.h"
@@ -59,8 +60,8 @@ void Add::Execute()
 			pAct = new AddORgate2(pManager);
 			break;
 		case ADD_Buff:
-			//pAct = new AddANDgate2(pManager);
-			//break;
+			pAct = new AddBUFFER(pManager);
+			break;
 		case ADD_INV:	
 			pAct = new AddINVgate(pManager);
 			break;

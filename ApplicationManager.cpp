@@ -93,7 +93,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Exit(this);
 			break;
 		case SAVE:
-			pAct = new Save(this);
+			string name = InputInterface->getfilename(OutputInterface);
+			pAct = new Save(this, name, OutputInterface);
 			break;
 		/*case LOAD:
 			pAct = new Load(this);

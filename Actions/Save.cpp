@@ -4,10 +4,11 @@
 #include <iostream>
 using namespace std;
 
-Save::Save(ApplicationManager* pApp)
+Save::Save(ApplicationManager* pApp, string name, Output* optr)
 	:Action(pApp)
 {
-	output = new ofstream;
+	this->optr = optr;
+	output = new ofstream(name+ ".txt", ios::out);
 }
 
 Save::~Save()
@@ -22,9 +23,9 @@ void Save::ReadActionParameters()
 
 void Save::Execute()
 {
-	output->open("output.txt", ios::out);
 	pManager->save(output);
 	output->close();
+	optr->PrintMsg("Saved successfully!");
 }
 
 void Save::Undo()

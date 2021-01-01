@@ -188,6 +188,12 @@ void Input::GetLastClicked(int& x, int& y)
 	y = last_y;
 }
 
+string Input::getfilename(Output* pOut) const
+{
+	pOut->PrintMsg("Please, enter file name here!");
+	return GetString(pOut);
+}
+
 Input::~Input()
 {
 }

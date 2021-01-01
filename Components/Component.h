@@ -40,7 +40,10 @@ public:
 	virtual void save(ofstream*&);
 	virtual void load(ifstream*);
 
-	virtual COMP_TYPES get_comp_type();
+	
+	virtual COMP_TYPES get_comp_type() const;
+
+	
 	
 	Component();	
 	

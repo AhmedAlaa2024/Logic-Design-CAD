@@ -25,7 +25,7 @@ public:
 	
 	
 
-	virtual COMP_TYPES get_comp_type();
+	virtual COMP_TYPES get_comp_type() const;
 	virtual void setInputPinStatus(int n, STATUS s) {};
 
 };

@@ -63,7 +63,7 @@ void Component::load(ifstream* iptr)
 {
 
 }
-COMP_TYPES Component::get_comp_type()
+COMP_TYPES Component::get_comp_type() const
 {
 	return COMP_TYPES::COMP_GENERAL;
 }

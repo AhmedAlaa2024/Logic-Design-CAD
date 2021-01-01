@@ -1,6 +1,7 @@
 #include "Gate.h"
 #include <fstream>
 #include <iostream>
+using namespace std;
 //Gate Constructor
 //Parameters:
 //r_Inputs: no. of gate's input pins
@@ -32,7 +33,7 @@ InputPin* const Gate::getInputPin() const
 	return m_InputPins;
 }
 
-void Gate::save(ofstream* fptr)
+void Gate::save(ofstream*& fptr)
 {
 	string name;
 	switch (get_comp_type())
@@ -47,10 +48,10 @@ void Gate::save(ofstream* fptr)
 		name = "AND3";
 		break;
 	case COMP_TYPES::Buff_:
-		name = "Buffer";
+		name = "Buff";
 		break;
 	case COMP_TYPES::INV_:
-		name = "Inverter";
+		name = "Inv";
 		break;
 	case COMP_TYPES::NAND_2:
 		name = "NAND2";
@@ -75,6 +76,7 @@ void Gate::save(ofstream* fptr)
 		break;
 	}
 	*fptr << name << '\t';
+	Component::save(fptr);
 }
 
 void Gate::set_comp_type(COMP_TYPES ct)

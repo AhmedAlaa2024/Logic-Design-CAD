@@ -26,7 +26,7 @@ Component* const* ApplicationManager::getComponents(int& count) const
 	count = CompCount;
 	return CompList;
 }
-void ApplicationManager::save(ofstream* fptr)
+void ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)

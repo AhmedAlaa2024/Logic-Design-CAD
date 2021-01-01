@@ -55,7 +55,7 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int &count) const; //don't ask me about the type :(
-	void save(ofstream*);
+	void save(ofstream*&);
 													   //destructor
 	~ApplicationManager();
 };

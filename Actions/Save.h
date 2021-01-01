@@ -9,7 +9,7 @@ using namespace std;
 
 class Save : public Action
 {
-	ofstream output;
+	ofstream* output;
 public:
 	Save(ApplicationManager* pApp);
 

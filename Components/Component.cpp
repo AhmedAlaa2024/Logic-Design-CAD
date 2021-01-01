@@ -34,7 +34,7 @@ void Component::set_is_selected(bool test)
 	is_selected = test;
 }
 
-void Component::save(ofstream* fptr)
+void Component::save(ofstream*& fptr)
 {
 	switch (comp_type)
 	{

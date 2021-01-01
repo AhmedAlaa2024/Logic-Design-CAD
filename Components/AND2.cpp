@@ -1,7 +1,9 @@
 #include "AND2.h"
 
 AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
+
 {
+	set_comp_type(COMP_TYPES::AND_2);
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;

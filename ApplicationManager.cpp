@@ -1,6 +1,8 @@
 #include "ApplicationManager.h"
+#include "Components/Connection.h"
 
-
+#include <iostream>
+using namespace std;
 
 ApplicationManager::ApplicationManager(): lastSelectedComponent(NULL)
 {
@@ -23,6 +25,28 @@ Component* const* ApplicationManager::getComponents(int& count) const
 {
 	count = CompCount;
 	return CompList;
+}
+void ApplicationManager::save(ofstream*& fptr)
+{
+	int NonConnCount = 0; //counter for components that arenot connections
+	for (int i = 0; i < CompCount; i++)
+	{
+		if(CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+			NonConnCount++;
+	}
+	*fptr << NonConnCount << endl;
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+			CompList[i]->save(fptr);
+	}
+	*fptr << "Connections\n";
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() == COMP_TYPES::COMP_CONN)
+			CompList[i]->save(fptr);
+	}
+	*fptr << "-1";
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -79,6 +103,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case EXIT:
 			pAct = new Exit(this);
 			break;
+		case SAVE:
+			pAct = new Save(this);
+			break;
+		/*case LOAD:
+			pAct = new Load(this);
+			break;*/
 	}
 	if(pAct)
 	{

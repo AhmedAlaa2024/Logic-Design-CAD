@@ -148,7 +148,19 @@ enum class COMP_TYPES
 	COMP_GATE,
 	COMP_SWITCH,
 	COMP_LED,
-	COMP_CONN
+	COMP_CONN,
+	AND_2,
+	AND_3,
+	INV_,
+	NAND_2,
+	NOR_2,
+	NOR_3,
+	Buff_,
+	OR_2,
+	XNOR_2,
+	XOR_2,
+	XOR_3
+
 };
 
 //A structure to contain drawing parameters for each component

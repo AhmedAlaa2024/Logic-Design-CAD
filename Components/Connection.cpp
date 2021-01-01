@@ -56,3 +56,8 @@ COMP_TYPES Connection::get_comp_type() const
 {
 	return comp_type;
 }
+
+void Connection::save(ofstream* fptr)
+{
+
+}

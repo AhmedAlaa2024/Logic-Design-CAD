@@ -1,8 +1,10 @@
 #include "ApplicationManager.h"
+#include "Components/Connection.h"
 
+#include <iostream>
+using namespace std;
 
-
-ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
+ApplicationManager::ApplicationManager(): lastSelectedComponent(NULL)
 {
 	CompCount = 0;
 
@@ -23,6 +25,28 @@ Component* const* ApplicationManager::getComponents(int& count) const
 {
 	count = CompCount;
 	return CompList;
+}
+void ApplicationManager::save(ofstream*& fptr)
+{
+	int NonConnCount = 0; //counter for components that arenot connections
+	for (int i = 0; i < CompCount; i++)
+	{
+		if(CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+			NonConnCount++;
+	}
+	*fptr << NonConnCount << endl;
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+			CompList[i]->save(fptr);
+	}
+	*fptr << "Connections\n";
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() == COMP_TYPES::COMP_CONN)
+			CompList[i]->save(fptr);
+	}
+	*fptr << "-1";
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -70,15 +94,21 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 		// ==================================== Ahmed Alaa ====================================
 
-	case DSN_MODE:
-		pAct = new SwitchToDesign(this);
-		break;
-	case SIM_MODE:
-		pAct = new SwitchToSimulation(this);
-		break;
-	case EXIT:
-		pAct = new Exit(this);
-		break;
+		case DSN_MODE:
+			pAct = new SwitchToDesign(this);
+			break;
+		case SIM_MODE:
+			pAct = new SwitchToSimulation(this);
+			break;
+		case EXIT:
+			pAct = new Exit(this);
+			break;
+		case SAVE:
+			pAct = new Save(this);
+			break;
+		/*case LOAD:
+			pAct = new Load(this);
+			break;*/
 	}
 	if (pAct)
 	{
@@ -98,15 +128,13 @@ void ApplicationManager::UpdateInterface()
 
 void ApplicationManager::set_clipboard()
 {
-	auto type = lastSelectedComponent->get_comp_type();
-	
-
-
-
+	Clipboard = lastSelectedComponent->get_comp_type();
 	
 }
 
-Component* ApplicationManager::get_clipboard() const
+
+
+COMP_TYPES ApplicationManager::get_clipboard() const
 {
 	return Clipboard;
 }

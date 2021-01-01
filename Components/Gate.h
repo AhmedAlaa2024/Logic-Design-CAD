@@ -26,6 +26,8 @@ public:
 	
 	OutputPin* getOutputPin() const;
 	InputPin* const getInputPin() const;
+	virtual void save(ofstream*&);
+	virtual void set_comp_type(COMP_TYPES);
 	~Gate();
 	
 

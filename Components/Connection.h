@@ -33,5 +33,6 @@ public:
 
 	virtual COMP_TYPES get_comp_type() const;
 
+	virtual void save(ofstream*);
 
 };

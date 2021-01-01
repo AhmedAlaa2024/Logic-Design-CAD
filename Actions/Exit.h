@@ -9,9 +9,7 @@ class Exit : public Action
 
 public:
 	Exit(ApplicationManager* pApp);
-	virtual ~Exit(void);
-
-
+	
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
@@ -19,7 +17,7 @@ public:
 	virtual void Undo();
 	virtual void Redo();
 
-
+	virtual ~Exit(void);
 };
 
 #endif

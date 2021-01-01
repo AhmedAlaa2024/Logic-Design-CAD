@@ -1,5 +1,7 @@
 #include "Gate.h"
-
+#include <fstream>
+#include <iostream>
+using namespace std;
 //Gate Constructor
 //Parameters:
 //r_Inputs: no. of gate's input pins
@@ -29,6 +31,57 @@ OutputPin* Gate::getOutputPin() const
 InputPin* const Gate::getInputPin() const
 {
 	return m_InputPins;
+}
+
+void Gate::save(ofstream*& fptr)
+{
+	string name;
+	switch (get_comp_type())
+	{
+	default:
+		name = "Gate";
+		break;
+	case COMP_TYPES::AND_2:
+		name = "AND2";
+		break;
+	case COMP_TYPES::AND_3:
+		name = "AND3";
+		break;
+	case COMP_TYPES::Buff_:
+		name = "Buff";
+		break;
+	case COMP_TYPES::INV_:
+		name = "Inv";
+		break;
+	case COMP_TYPES::NAND_2:
+		name = "NAND2";
+		break;
+	case COMP_TYPES::NOR_2:
+		name = "NOR2";
+		break;
+	case COMP_TYPES::NOR_3:
+		name = "NOR3";
+		break;
+	case COMP_TYPES::OR_2:
+		name = "OR2";
+		break;
+	case COMP_TYPES::XNOR_2:
+		name = "XNOR2";
+		break;
+	case COMP_TYPES::XOR_2:
+		name = "XOR2";
+		break;
+	case COMP_TYPES::XOR_3:
+		name = "XOR3";
+		break;
+	}
+	*fptr << name << '\t';
+	Component::save(fptr);
+}
+
+void Gate::set_comp_type(COMP_TYPES ct)
+{
+	comp_type = ct;
 }
 
 Gate::~Gate()

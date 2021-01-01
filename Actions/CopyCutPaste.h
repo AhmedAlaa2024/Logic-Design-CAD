@@ -2,6 +2,8 @@
 
 #include "action.h"
 #include "..\Components\AND2.h"
+#include "..\Actions/Add.h"
+#include "..\Components\Component.h"
 
 enum CopyCutPaste_mode
 {

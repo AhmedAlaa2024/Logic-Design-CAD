@@ -21,6 +21,9 @@ public:
 	virtual void Operate() = 0;	//Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
 
+	virtual void set_m_Label(string label); // To set the m_label for the component
+	virtual string get_m_Label(); // To get the m_label from the component
+
 	virtual int get_id() const;
 	virtual void set_id(int id);
 	

@@ -53,8 +53,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
+			pAct = new Connect(this, CompList, CompCount);
 			break;
-	
 
 		case DSN_MODE:
 			pAct = new SwitchToDesign(this);

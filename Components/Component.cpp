@@ -2,9 +2,11 @@
 
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
+	//ID = id;
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
+	//set_id(id);
 }
 
 int Component::get_id() const

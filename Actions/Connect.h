@@ -10,8 +10,9 @@ class Connect : public Action
 	int noOfComp;
 	Component** cmp;
 	int id;
-	int Cx1, Cy1, Cx2, Cy2;	//Center point of the gate
-	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+	int Cx1, Cy1, Cx2, Cy2;	//2 Center points of the two gates
+	int x1, y1, x2, y2;	//Two corners of the rectangluar area of the source gate
+	int a1, b1, a2, b2;//Two corners of the rectangluar area of the destination gate
 public:
 	Connect(ApplicationManager* pApp, Component** c, int n);
 	virtual ~Connect(void);

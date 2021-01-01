@@ -26,7 +26,7 @@ public:
 	
 
 	OutputPin* getOutputPin() const;
-	InputPin* const getInputPin() const;
+	virtual InputPin* const getInputPin() const;
 	~Gate();
 	
 

@@ -23,7 +23,7 @@ public:
 	OutputPin* getSourcePin() const;
 	InputPin* getDestPin() const;
 	
-	virtual const OutputPin* getOutputPin() const { return nullptr; }
+	virtual OutputPin* getOutputPin() const { return nullptr; }
 	virtual InputPin* const getInputPin() const { return nullptr; }
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
@@ -32,6 +32,10 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 	virtual COMP_TYPES get_comp_type();
+
+
+	//=============DOAA MAGDY===========
+	virtual int getNoOfInputpins() { return 0; };
 
 
 };

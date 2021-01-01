@@ -13,6 +13,8 @@
 #include "Actions/SwitchToDesign.h"
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
+#include "Actions/Connect.h"
+
 
 #include "Actions/Exit.h"
 

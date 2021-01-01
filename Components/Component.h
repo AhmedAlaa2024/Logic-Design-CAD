@@ -37,6 +37,9 @@ public:
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
 
+	virtual void save(ofstream*&);
+	virtual void load(ifstream*);
+
 	virtual COMP_TYPES get_comp_type();
 	
 	Component();	

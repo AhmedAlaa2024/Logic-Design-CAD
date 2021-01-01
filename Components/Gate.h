@@ -22,10 +22,12 @@ protected:
 public:
 	Gate(int r_Inputs, int r_FanOut);
 
-	COMP_TYPES get_comp_type();
+	virtual COMP_TYPES get_comp_type();
 	
 	OutputPin* getOutputPin() const;
 	InputPin* const getInputPin() const;
+	virtual void save(ofstream*&);
+	virtual void set_comp_type(COMP_TYPES);
 	~Gate();
 	
 

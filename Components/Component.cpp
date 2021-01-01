@@ -1,5 +1,7 @@
 #include "Component.h"
-
+#include <fstream>
+#include <iostream>
+using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	comp_type = COMP_TYPES::COMP_GENERAL;
@@ -43,6 +45,24 @@ void Component::set_is_selected(bool test)
 	is_selected = test;
 }
 
+void Component::save(ofstream*& fptr)
+{
+	switch (comp_type)
+	{
+	case COMP_TYPES::COMP_SWITCH:
+		*fptr << "SWTCH\t";
+		break;
+	case COMP_TYPES::COMP_LED:
+		*fptr << "LED\t";
+		break;
+	}
+	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
+}
+
+void Component::load(ifstream* iptr)
+{
+
+}
 COMP_TYPES Component::get_comp_type()
 {
 	return COMP_TYPES::COMP_GENERAL;

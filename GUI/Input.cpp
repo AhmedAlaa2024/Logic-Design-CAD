@@ -72,6 +72,7 @@ ActionType Input::GetUserAction()
 {
 	int x = 0, y = 0;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+	
 	last_x = x;
 	last_y = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -109,8 +110,28 @@ ActionType Input::GetUserAction()
 			return SELECT;	//user want to select/unselect a component
 		}
 
+
+
 		//[3] User clicks on the status bar
-		return STATUS_BAR;
+		if (y >= UI.height - UI.StatusBarHeight && y <= UI.height )
+		{
+			return STATUS_BAR;
+
+		}
+
+		
+		//[4] user press ctrl+c or ctrl+v or ctrl+x
+
+
+
+
+
+
+
+
+
+
+		
 	}
 	else	//Application is in Simulation mode
 	{

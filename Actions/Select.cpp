@@ -16,9 +16,9 @@ Select::Select(ApplicationManager* pApp): Action(pApp)
 		int numOfComonents = 0;
 		Component* const* compList = pManager->getComponents(numOfComonents); // To get a copy of the all components in the screen
 		GraphicsInfo r_GfxInfo = compList[target]->getGraphicsInfo(); // To get the x1, y1, x2, y2 of the clicked component
-		pManager->SetLastSelectedComponent(compList[target]); // To make a pointer to the last selected component
-		compList[target]->set_is_selected(true); // To make a notation that the clicked component is selected.
 		DeselectExcept(target); // To deselect all the component except target
+		compList[target]->set_is_selected(true); // To make a notation that the clicked component is selected.
+		pManager->SetLastSelectedComponent(compList[target]); // To make a pointer to the last selected component
 		switch (comp_type) // I used switch case because the behaviour will be different from Gate, Switch and Led.
 		{
 		case COMP_TYPES::COMP_GATE:

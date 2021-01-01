@@ -36,7 +36,7 @@ Gate::~Gate()
 	delete m_OutputPin;
 }
 
-COMP_TYPES Gate::get_comp_type()
+COMP_TYPES Gate::get_comp_type() const
 {
 	return comp_type;
 }

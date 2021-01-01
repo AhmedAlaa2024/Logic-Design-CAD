@@ -43,7 +43,7 @@ void Component::set_is_selected(bool test)
 	is_selected = test;
 }
 
-COMP_TYPES Component::get_comp_type()
+COMP_TYPES Component::get_comp_type() const
 {
 	return COMP_TYPES::COMP_GENERAL;
 }

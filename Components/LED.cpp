@@ -50,7 +50,7 @@ void LED::setInputPinStatus(int n, STATUS s)
 	m_InputPins[n - 1].setStatus(s);
 }
 
-COMP_TYPES LED::get_comp_type()
+COMP_TYPES LED::get_comp_type() const
 {
 	return comp_type;
 }

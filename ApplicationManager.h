@@ -26,10 +26,11 @@ private:
 	// ============================== Ahmed Alaa edited here ==============================
 	Component* lastSelectedComponent; // Pointer to the last component has been selected
 	// ==================================== Ahmed Alaa ====================================
+	// 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 
-
+	Component* Clipboard;
 
 public:
 	ApplicationManager(); //constructor
@@ -42,7 +43,8 @@ public:
 	void ExecuteAction(ActionType);
 
 	void UpdateInterface();	//Redraws all the drawing window
-
+	void set_clipboard();
+	Component* get_clipboard() const;
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();

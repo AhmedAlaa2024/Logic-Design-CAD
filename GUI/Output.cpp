@@ -486,13 +486,19 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool is_high)
 
 
 }
-
-//------Ahmed Ata edited-----//
-
-
-
-
-
+	// ============================== Ahmed Alaa edited here ==============================
+void Output::DrawTextbox(string msg, Component* component)
+{
+	// Set the Message offset from the Component
+	GraphicsInfo r_GfxInfo = component->getGraphicsInfo(); // To get the x1, y1, x2, y2 from the selected component
+	int MsgX = r_GfxInfo.x1 - 15; // To set the x coordinate that the textbox will display on.
+	int MsgY = r_GfxInfo.y1 - 15; // To set the y coordinate that the textbox will display on.
+	// Print the Message
+	pWind->SetFont(15, BOLD | ITALICIZED, BY_NAME, "Arial"); // To format the font settings
+	pWind->SetPen(UI.MsgColor); // To format the textbox's string color
+	pWind->DrawString(MsgX, MsgY, msg); // To draw the string in the textbox
+}
+	// ==================================== Ahmed Alaa ====================================
 
 Output::~Output()
 {

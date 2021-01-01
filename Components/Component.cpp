@@ -7,6 +7,17 @@ Component::Component(const GraphicsInfo &r_GfxInfo)
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
+	m_Label = "";
+}
+
+void Component::set_m_Label(string label)
+{
+	m_Label = label;
+}
+
+string Component::get_m_Label()
+{
+	return m_Label;
 }
 
 int Component::get_id() const
@@ -52,7 +63,7 @@ void Component::load(ifstream* iptr)
 {
 
 }
-COMP_TYPES Component::get_comp_type()
+COMP_TYPES Component::get_comp_type() const
 {
 	return COMP_TYPES::COMP_GENERAL;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "..\Defs.h"
 #include "Input.h"
+#include "..\\Components\\Component.h"
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -23,6 +24,10 @@ public:
 
 	window* CreateWind(int wd, int h, int x, int y) const; //Creates user interface window
 	void destroyWind() const;
+
+	// ============================== Ahmed Alaa edited here ==============================
+	void DrawTextbox(string, Component*); // To draw a textbox
+	// ==================================== Ahmed Alaa ====================================
 
 	// Draws 2-input AND gate
 

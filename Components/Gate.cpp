@@ -8,6 +8,8 @@ using namespace std;
 //r_FanOut: Fan out of the gate's output pin
 Gate::Gate(int r_Inputs, int r_FanOut)
 {
+
+	is_selected = false;
 	m_OutputPin = new OutputPin(r_FanOut);
 	//Allocate number of input pins (equals r_Inputs)
 	m_InputPins = new InputPin[r_Inputs];

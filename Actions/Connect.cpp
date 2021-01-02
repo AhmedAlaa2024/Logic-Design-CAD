@@ -52,7 +52,7 @@ void Connect::Execute()
 		bool d = cmp[i]->InsideArea(Cx1, Cy1);
 		//LED* L = dynamic_cast<LED*>(cmp[i]);
 
-		if (d == true)
+		if (d)
 		{
 			LED* L = dynamic_cast<LED*>(cmp[i]);
 			if (L != NULL)
@@ -67,10 +67,9 @@ void Connect::Execute()
 		}
 	}
 
-	 InputPin** in;
-	 InputPin* input;
+	 InputPin* in;
 
-	 int k;
+	int k;
 	for (k = 0; k < noOfComp; k++)
 	{
 		bool d = cmp[k]->InsideArea(Cx2, Cy2);
@@ -84,15 +83,15 @@ void Connect::Execute()
 				return;
 			}
 
-			in[i] = cmp[k]->getInputPin();
+			in = cmp[k]->getInputPin();
 			int no_inputpins = cmp[k]->getNoOfInputpins();
 			for(int j = 0; j < no_inputpins; j++)
 			{
-				bool isConnected = in[j]->get_is_connected();
+				bool isConnected = in[j].get_is_connected();
 				if (isConnected == false)
 				{
-					input = in[j];
-					in[j]->set_is_connected(true);
+					//InputPin input = in[j //redundant];
+					in->set_is_connected(true);
 					break;
 				}
 			}

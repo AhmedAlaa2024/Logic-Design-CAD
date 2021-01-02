@@ -17,6 +17,9 @@
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
 #include "Actions/Label.h"
+#include "Actions/Connect.h"
+
+
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"

@@ -1,0 +1,6 @@
+3
+AND2	1	and 2	136	229
+OR2	2	or 2	240	389
+XOR2	3	xor 2	378	203
+Connections
+-1

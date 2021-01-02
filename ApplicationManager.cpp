@@ -66,7 +66,7 @@ void ApplicationManager::save(ofstream*& fptr)
 void ApplicationManager::load(ifstream*& iptr)
 {
 	OutputInterface->ClearDrawingArea();
-	Label* Actp;
+	Label* Actp = 0;
 	int NonConnCount;
 	string CompType;
 	Component* Cptr = NULL;
@@ -119,14 +119,13 @@ void ApplicationManager::load(ifstream*& iptr)
 	string fflag;
 	*iptr >> fflag;
 	if (fflag == "Connections")
-		cout << "fflag is correct\n";
 	//here i should read the connections then reach the second flag.
 	for (int i = 0; i < CompCount; i++)
 	{
 		CompList[i]->Draw(OutputInterface);
 		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 		{
-			Actp = new Label(this, CompList[i]);
+			Actp = new Label(this, CompList[i], 0);
 		}
 	}
 	if (Actp)

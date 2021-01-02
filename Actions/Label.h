@@ -18,6 +18,7 @@ private:
 	Component* component;
 public:
 	Label(ApplicationManager*, Component*);
+	Label(ApplicationManager* pApp, Component* comp, int f);
 	string SetLabel();
 	string GetLabel();
 	void DisplayLabel();

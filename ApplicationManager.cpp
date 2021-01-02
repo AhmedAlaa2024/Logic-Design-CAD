@@ -17,6 +17,8 @@
 
 
 #include <iostream>
+
+#include "Actions/Connect.h"
 using namespace std;
 
 ApplicationManager::ApplicationManager(): lastSelectedComponent(NULL)
@@ -159,6 +161,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case ADD_CONNECTION:
 		//TODO: Create AddConection Action here
+		pAct = new Connect(this);
 		break;
 		// ============================== Ahmed Alaa edited here ==============================
 	case SELECT:

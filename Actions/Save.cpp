@@ -26,6 +26,7 @@ void Save::Execute()
 	pManager->save(output);
 	output->close();
 	optr->PrintMsg("Saved successfully!");
+	
 }
 
 void Save::Undo()

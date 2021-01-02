@@ -4,7 +4,9 @@
 
 Label::Label(ApplicationManager* pApp, Component* comp) : Action(pApp), component(comp)
 {
-    component->set_m_Label(SetLabel()); // To get the label from the user
+    //Rufaidah edited here!!!!!!   (putting if condition)
+    if((component->get_m_Label() == ""))
+        component->set_m_Label(SetLabel()); // To get the label from the user
     DisplayLabel(); // To display the label above the component.
     pManager->SetLastSelectedComponent(NULL); // To clear the component from the lastSelectedComponent in pManager
 }

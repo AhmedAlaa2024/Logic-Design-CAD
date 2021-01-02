@@ -79,7 +79,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	case ADD_CONNECTION:
 		//TODO: Create AddConection Action here
-		pAct = new Connect(this,CompList,CompCount);
+		pAct = new Connect(this);
 		break;
 		// ============================== Ahmed Alaa edited here ==============================
 	case SELECT:

@@ -88,6 +88,12 @@ void Connect::Execute()
 	InputPin* in;
 	InputPin input;
 
+
+	//=======================//
+	GraphicsInfo GInfo; //Gfx info to be used to construct the connection
+
+	//=======================//
+
 	int k;
 	for (k = 0; k < noOfComp; k++)
 	{
@@ -114,7 +120,63 @@ void Connect::Execute()
 				if (isConnected == false)
 				{
 					input = in[j];
-					in->set_is_connected(true);
+					in[j].set_is_connected(true);
+
+					
+					//============================================================================//
+					LED* led = dynamic_cast<LED*>(cmp[k]);
+					Buff* buffer = dynamic_cast<Buff*>(cmp[k]);
+					INV* inverter = dynamic_cast<INV*>(cmp[k]);
+					if (led != NULL || buffer != NULL || inverter != NULL)
+					{
+						cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + (b2 - b1) / 2;
+					}
+					else if (no_input_pins == 2)
+					{
+						if (j == 0)
+						{
+							cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+							GInfo.x2 = a1;
+							GInfo.y2 = b1+15;
+
+						}
+						else if (j == 1)
+						{
+							cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+							GInfo.x2 = a1;
+							GInfo.y2 = b2-14;
+						}
+					}
+					else if (no_input_pins == 3)
+					{
+						if (j == 0)
+						{
+							cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+							GInfo.x2 = a1;
+							GInfo.y2 = b1 + 16;
+
+						}
+						else if (j == 1)
+						{
+							cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+							GInfo.x2 = a1;
+							GInfo.y2 = b1 + (b2 - b1) / 2;
+
+						}
+						else if (j == 2)
+						{
+							cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+							GInfo.x2 = a1;
+							GInfo.y2 = b2 - 16;
+
+						}
+
+
+					}
+					
+					//===================================================================================//
 					break;
 				}
 				if (j == no_input_pins - 1 && isConnected == true)
@@ -140,44 +202,89 @@ void Connect::Execute()
 		//if()
 
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the connection
+	//GraphicsInfo GInfo; //Gfx info to be used to construct the connection
 	//src component
 	cmp[i]->getm_GfxInfo(x1, y1, x2, y2);
 
 
 
-	
+
 	//AND2* and = dynamic_cast<AND2*>(cmp[k]);
+	//================================================================================//
 
 
 	/*
-	const char* type = typeid(*cmp[k]).name();
+	COMP_TYPES type = cmp[k]->get_comp_type();
 
-	if(strcmp(type, "Buff") == true || strcmp(type, "INV2") == true)
+	int const no_input_pins = cmp[k]->getNoOfInputpins();
+	//const char* type = typeid(*cmp[k]).name();
+	//string TYPE = type;
+	
+	if((int)type == 11 || (int)type == 7 || (int)type == 3)
 	{
-
+		cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+		GInfo.x2 = a1;
+		GInfo.y2 = b1 + (b2 - b1) / 2;
 	}
 
-	else if (strcmp(type, "AND2") == true || strcmp(type, "OR2") == true || strcmp(type, "NAND2") == true || strcmp(type, "NOR2") == true || strcmp(type, "XOR2") == true || strcmp(type, "XNOR2") == true)
+	else if ((int)type == 5 || (int)type == 12 || (int)type == 8 || (int)type == 9 || (int)type == 14 || (int)type == 13)
 	{
+		for (int j = 0; j < no_input_pins; j++)
+		{
+			if (j == 0)
+			{
+				cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+				GInfo.x2 = a1;
+				GInfo.y2 = b2;
 
+			}
+			else if (j == 1)
+			{
+				cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+				GInfo.x2 = a1;
+				GInfo.y2 = b1;
+			}
+		}
 	}
-	else if (strcmp(type, "AND3") == true || strcmp(type, "NOR3") == true || strcmp(type, "XOR2") == true)
+	else if ((int)type == 6 || (int)type == 10 || (int)type == 15)
 	{
+		for (int j = 0; j < no_input_pins; j++)
+		{
+			if (j == 0)
+			{
+				cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+				GInfo.x2 = a1;
+				GInfo.y2 = b2;
 
+			}
+			else if (j == 1)
+			{
+				cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + (b2 - b1) / 2;
+
+			}
+			else if (j == 3)
+			{
+				cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+				GInfo.x2 = a1;
+				GInfo.y2 = b1;
+
+			}
+		}
 	}
-
+	//=======================================================//
+	
 	*/
 
-
-	cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
+	//cmp[k]->getm_GfxInfo(a1, b1, a2, b2);
 
 	GInfo.x1 = x2;
 	GInfo.y1 = y1 + (y2 - y1) / 2;
 
 
-	GInfo.x2 = a1;
-	GInfo.y2 =b1 ;
+	//GInfo.x2 = a1;
+	//GInfo.y2 =b1 ;
 
 	
 	Connection* pA = new Connection(GInfo, out, &input);

@@ -56,3 +56,9 @@ COMP_TYPES Connection::get_comp_type()
 {
 	return comp_type;
 }
+
+Connection::~Connection()
+{
+	delete SrcPin;
+	delete DstPin;
+}

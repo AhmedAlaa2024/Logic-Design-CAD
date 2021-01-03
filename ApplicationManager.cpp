@@ -24,6 +24,15 @@ Component* const* ApplicationManager::getComponents(int& count) const
 	count = CompCount;
 	return CompList;
 }
+Component** ApplicationManager::GetandSetComponents(int& count)
+{
+	count = CompCount;
+	return CompList;
+}
+void ApplicationManager::SetCompCount()
+{
+	CompCount--;
+}
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
@@ -68,6 +77,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			else
 				this->GetOutput()->PrintMsg("Please, Select an component before adding a label.");
 			break;
+		case DELETE:
+			if (lastSelectedComponent != NULL)
+				pAct = new Delete(this, lastSelectedComponent);
+			else
+				this->GetOutput()->PrintMsg("Please, Select an component to delete it.");
 			// ==================================== Ahmed Alaa ====================================
 
 		case DSN_MODE:

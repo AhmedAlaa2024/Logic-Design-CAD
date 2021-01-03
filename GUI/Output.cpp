@@ -86,11 +86,19 @@ void Output::ClearStatusBar()const
 //Clears the drawing (degin) area
 void Output::ClearDrawingArea() const
 {
-	pWind->SetPen(RED, 1);
+	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 
 }
+
+void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
+{
+	pWind->SetPen(RED, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
+}
+
 void Output::ClearWindow() const
 {
 	pWind->SetPen(RED, 1);
@@ -109,7 +117,7 @@ void Output::CreateDesignToolBar() const
 	UI.AppMode = DESIGN;	//Design Mode
 
 	//You can draw the tool bar icons in any way you want.
-
+	// ============================== Ahmed Alaa edited here ==============================
 	//First prepare List of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
 
@@ -135,10 +143,23 @@ void Output::CreateDesignToolBar() const
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
+
+	string CopyCutPasteDeleteMenu[ITM_DSN2_CNT];
+	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
+	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
+	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
+	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpg";
+
+	for (int i = 0; i < ITM_DSN2_CNT; i++)
+		pWind->DrawImage(CopyCutPasteDeleteMenu[i], UI.width - UI.ToolBarHeight - 15, (i+1) * (UI.ToolItemWidth) + 5, UI.ToolBarHeight, UI.ToolItemWidth);
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(UI.width - UI.ToolBarHeight - 18, UI.ToolItemWidth + 5, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
+	// ==================================== Ahmed Alaa ====================================
 }
 void Output::CreateDesignToolBarComponent() const
 {
-
+	// ============================== Ahmed Alaa edited here ==============================
 	string DesignTools[GATES_CNT];
 	DesignTools[AND_2IN] = "images\\Gates\\Gate_AND2.jpg";
 	DesignTools[OR_2IN] = "images\\Gates\\Gate_OR2n.jpg";
@@ -163,6 +184,7 @@ void Output::CreateDesignToolBarComponent() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, 650, UI.width, 650);
+	// ==================================== Ahmed Alaa ====================================
 }
 
 
@@ -174,6 +196,7 @@ void Output::CreateSimulationToolBar() const
 {
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
+	// ============================== Ahmed Alaa edited here ==============================
 	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
 	string MenuItemImages[ITM_SIM_CNT];
 
@@ -194,6 +217,7 @@ void Output::CreateSimulationToolBar() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	// ==================================== Ahmed Alaa ====================================
 }
 
 //======================================================================================//

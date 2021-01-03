@@ -27,6 +27,7 @@ public:
 
 	// ============================== Ahmed Alaa edited here ==============================
 	void DrawTextbox(string, Component*); // To draw a textbox
+	void ClearComponentArea(GraphicsInfo);
 	// ==================================== Ahmed Alaa ====================================
 
 	// Draws 2-input AND gate

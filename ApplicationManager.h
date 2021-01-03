@@ -11,6 +11,7 @@
 #include "Actions/AddANDgate2.h"
 #include "Actions/AddANDgate2.h"
 #include "Actions/Select.h"
+#include "Actions/Delete.h"
 #include "Actions/SwitchToDesign.h"
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
@@ -55,6 +56,10 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int &count) const; //don't ask me about the type :(
+	// ============================== Ahmed Alaa edited here ==============================
+	Component** GetandSetComponents(int& count); // To use get the components and edit them.
+	void SetCompCount();
+	// ==================================== Ahmed Alaa ====================================
 	//destructor
 	~ApplicationManager();
 };

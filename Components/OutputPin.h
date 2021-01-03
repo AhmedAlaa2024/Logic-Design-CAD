@@ -24,6 +24,7 @@ public:
 	bool ConnectTo(Connection* r_Conn);	//connect to a new connection
 
 	Connection** get_connections(int& m_conn) const ;
+	~OutputPin();
 };
 
 #endif

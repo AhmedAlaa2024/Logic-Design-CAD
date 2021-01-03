@@ -30,3 +30,9 @@ Connection** OutputPin::get_connections(int& m_conn) const
 	m_conn = m_Conn;
 	return m_Connections;
 }
+
+OutputPin::~OutputPin()
+{
+	delete *m_Connections;
+	delete m_Connections;
+}

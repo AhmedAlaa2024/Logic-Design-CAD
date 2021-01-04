@@ -10,7 +10,7 @@
 class Component
 {
 private:
-	static int ID;
+	static int LastID;
 	string m_Label;
 	int m_Id;
 protected:
@@ -53,6 +53,8 @@ public:
 
 
 	//=================DOAA MAGDY================
+	int getLastID();
+
 	bool InsideArea(int x, int y);
 	virtual int getNoOfInputpins() = 0;
 

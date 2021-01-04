@@ -4,12 +4,25 @@
 using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
+	m_Id = ++LastID;
 	//ID = id;
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
 	m_Label = "";
 }
+
+//=================DOAA==========//
+int Component::LastID = 0;
+/*
+int Component::getLastID()
+{
+	return ++LastID;
+}
+*/
+//=================DOAA==========//
+
+
 
 void Component::set_m_Label(string label)
 {

@@ -166,6 +166,15 @@ Output* ApplicationManager::GetOutput()
 
 ////////////////////////////////////////////////////////////////////
 
+//======================================Doaa
+/*
+int ApplicationManager::getCompCount()
+{
+	return CompCount;
+}
+*/
+
+
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

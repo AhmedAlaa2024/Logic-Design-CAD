@@ -7,6 +7,9 @@
 
 class Connect : public Action
 {
+	//int count_check_s;
+	//int count_check_d;
+
 	int noOfComp;
 	Component* const* cmp;
 	int id;
@@ -18,7 +21,9 @@ public:
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters();
+	virtual void ReadActionParameters(int& a, int& b);
+	virtual void ReadActionParameters() {};
+
 
 	//Execute action (code depends on action type)
 	virtual void Execute() ;

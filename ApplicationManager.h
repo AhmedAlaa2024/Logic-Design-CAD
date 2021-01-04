@@ -71,6 +71,9 @@ public:
 	void save(ofstream*&);
 													   //destructor
 	~ApplicationManager();
+
+	//===========================DOAA MAGDY============================
+	int getCompCount();
 };
 
 #endif

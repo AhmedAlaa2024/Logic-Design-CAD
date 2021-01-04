@@ -108,15 +108,15 @@ ActionType Input::GetUserAction()
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			if (x >= UI.width - UI.ToolBarHeight)
+			if (x >= UI.width - UI.ToolBarHeight - 15)
 			{
 				ClickedItemOrder = (y / UI.ToolItemWidth) + 9;
 				switch (ClickedItemOrder)
 				{
-				case COPY: return ActionType::COPY;
-				case CUT: return ActionType::CUT;
-				case PASTE: return ActionType::PASTE;
-				case Delete: return ActionType::DEL;
+				case Copy: return COPY_;
+				case Cut: return CUT_;
+				case Paste: return PASTE_;
+				case Delete: return DEL;
 				}
 			}
 			return SELECT;	//user want to select/unselect a component

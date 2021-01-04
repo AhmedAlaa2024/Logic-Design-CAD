@@ -25,11 +25,13 @@ Connect::Connect(ApplicationManager* pApp) :Action(pApp)
 }
 
 
-void Connect::ReadActionParameters()
+void Connect::ReadActionParameters(int &a, int &b)
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+
+	cmp = pManager->getComponents(noOfComp);
 
 	//Print Action Message
 	pOut->PrintMsg("connect two gates: Choose the source gate");
@@ -37,14 +39,48 @@ void Connect::ReadActionParameters()
 	//Wait for User Input
 	pIn->GetPointClicked(Cx1, Cy1);
 
+	int count_check_s = 0;
+	for (int i = 0; i < noOfComp; i++)
+	{
+		bool d = cmp[i]->InsideArea(Cx1, Cy1);
+		if (d == true)
+		{
+			count_check_s ++;
+		}
+	}
+	a = count_check_s;
+	if (count_check_s == 0)
+	{
+		pOut->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
+		return;
+	}
+
 	//Clear Status Bar
 	pOut->ClearStatusBar();
 
 	//Print Action Message
 	pOut->PrintMsg("connect two gates: Choose the destination gate");
 
+
+
 	//Wait for User Input
 	pIn->GetPointClicked(Cx2, Cy2);
+
+	int count_check_d = 0;
+	for (int i = 0; i < noOfComp; i++)
+	{
+		bool d = cmp[i]->InsideArea(Cx2, Cy2);
+		if (d == true)
+		{
+			count_check_d++;
+		}
+	}
+	b = count_check_d;
+	if (count_check_d == 0)
+	{
+		pOut->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
+		return;
+	}
 
 
 	//Clear Status Bar
@@ -60,11 +96,17 @@ void Connect::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	cmp = pManager->getComponents(noOfComp);
+	int a, b;
+	ReadActionParameters(a, b);
 
-	ReadActionParameters();
+	if (a == 0 || b == 0)
+	{
+		return;
+	}
 
 	OutputPin* out;
 
+	
 	int i;
 	for (i = 0; i < noOfComp; i++)
 	{
@@ -84,6 +126,8 @@ void Connect::Execute()
 			break;
 		}
 	}
+
+
 
 	InputPin* in;
 	InputPin input;

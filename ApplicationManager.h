@@ -72,6 +72,9 @@ public:
 	void load(ifstream*&);
 													   //destructor
 	~ApplicationManager();
+
+	//===========================DOAA MAGDY============================
+	int getCompCount();
 };
 
 #endif

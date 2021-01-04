@@ -48,7 +48,9 @@ enum ActionType
 	SIM_MODE,	//Switch to Simulatiom mode
 
 	EXIT,		//Exit the application
-
+	COPY,
+	CUT,
+	PASTE,
 	STATUS_BAR,		//A click on the status bar
 	DSN_TOOL,	//A click on an empty place in the design tool bar
 	SIM_TOOL, 	//A click on an empty place in the simulation tool bar
@@ -85,7 +87,10 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here
-
+	COPY,
+	CUT,
+	PASTE,
+	Delete,
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
 
 };

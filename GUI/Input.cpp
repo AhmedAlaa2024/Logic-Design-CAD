@@ -70,6 +70,7 @@ string Input::GetString(Output* pOut) const
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction()
 {
+	int ClickedItemOrder;
 	int x = 0, y = 0;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 	
@@ -82,7 +83,7 @@ ActionType Input::GetUserAction()
 		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			ClickedItemOrder = (x / UI.ToolItemWidth);
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
@@ -107,6 +108,17 @@ ActionType Input::GetUserAction()
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
+			if (x >= UI.width - UI.ToolBarHeight)
+			{
+				ClickedItemOrder = (y / UI.ToolItemWidth) + 9;
+				switch (ClickedItemOrder)
+				{
+				case COPY: return ActionType::COPY;
+				case CUT: return ActionType::CUT;
+				case PASTE: return ActionType::PASTE;
+				case Delete: return ActionType::DEL;
+				}
+			}
 			return SELECT;	//user want to select/unselect a component
 		}
 
@@ -137,7 +149,7 @@ ActionType Input::GetUserAction()
 	{
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			ClickedItemOrder = (x / UI.ToolItemWidth);
 			switch (ClickedItemOrder)
 			{
 			case ITM_DSN: return DSN_MODE;

@@ -6,7 +6,7 @@
 #include "Actions/Connect.h"
 using namespace std;
 
-ApplicationManager::ApplicationManager(): lastSelectedComponent(NULL)
+ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
 {
 	CompCount = 0;
 
@@ -33,7 +33,7 @@ void ApplicationManager::save(ofstream*& fptr)
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
 	{
-		if(CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
+		if (CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)
 			NonConnCount++;
 	}
 	*fptr << NonConnCount << endl;
@@ -97,18 +97,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 		// ==================================== Ahmed Alaa ====================================
 
-		case DSN_MODE:
-			pAct = new SwitchToDesign(this);
-			break;
-		case SIM_MODE:
-			pAct = new SwitchToSimulation(this);
-			break;
-		case EXIT:
-			pAct = new Exit(this);
-			break;
-		case SAVE:
-			pAct = new Save(this);
-			break;
+	case DSN_MODE:
+		pAct = new SwitchToDesign(this);
+		break;
+	case SIM_MODE:
+		pAct = new SwitchToSimulation(this);
+		break;
+	case EXIT:
+		pAct = new Exit(this);
+		break;
+	case SAVE:
+		pAct = new Save(this);
+		break;
 		/*case LOAD:
 			pAct = new Load(this);
 			break;*/
@@ -132,7 +132,7 @@ void ApplicationManager::UpdateInterface()
 void ApplicationManager::set_clipboard()
 {
 	Clipboard = lastSelectedComponent->get_comp_type();
-	
+
 }
 
 
@@ -140,6 +140,33 @@ void ApplicationManager::set_clipboard()
 COMP_TYPES ApplicationManager::get_clipboard() const
 {
 	return Clipboard;
+}
+
+SWITCH** ApplicationManager::get_switches(int &num) const
+{
+	num = 0;
+	SWITCH** sh;
+	for (int i = 0; i < CompCount; ++i)
+	{
+
+		if (CompList[i]->GetInputPinStatus(0) == -1)
+		{
+			num++;
+		}
+	}
+	sh = new SWITCH * [num];
+	int j = 0;
+	for (int i = 0; i < CompCount; ++i)
+	{
+
+		if (CompList[i]->GetInputPinStatus(0) == -1)
+		{
+			sh[j++] = (SWITCH*)CompList[i];
+		}
+	}
+
+	return sh;
+
 }
 
 ////////////////////////////////////////////////////////////////////

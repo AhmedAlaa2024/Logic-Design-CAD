@@ -1,5 +1,7 @@
 #include "INV.h"
 
+#include <iostream>
+
 INV::INV(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 {
 	set_comp_type(COMP_TYPES::INV_);
@@ -12,7 +14,12 @@ INV::INV(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 
 void INV::Operate()
 {
-	m_OutputPin->setStatus(m_InputPins[0].getStatus() == HIGH ? LOW : HIGH);
+	cout << m_InputPins[0].getStatus()<< endl;
+	if(m_InputPins[0].getStatus() == HIGH)
+		m_OutputPin->setStatus(LOW);
+	else
+		m_OutputPin->setStatus(HIGH);
+
 
 }
 

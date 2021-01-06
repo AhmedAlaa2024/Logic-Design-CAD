@@ -29,7 +29,7 @@ enum ActionType
 	EDIT_Label,			//Edit Label of a Component, a Connection
 
 	Organize,
-	Clear,
+	Clear_all,
 	Create_TruthTable,	//Create Truth Table of the Circuit
 
 	Change_Switch,		//Change Switch Status in Simulation Mode

@@ -1,4 +1,6 @@
 #include "Output.h"
+#include <iostream>
+using namespace std;
 
 Output::Output()
 {
@@ -98,7 +100,7 @@ void Output::ClearWindow() const
 	if (UI.AppMode == SIMULATION)
 		pWind->DrawRectangle(0, 0, UI.width, UI.height);
 	else
-		pWind->DrawRectangle(0, UI.height - UI.Gate_Height - UI.StatusBarHeight, UI.width, UI.height);
+		pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 
 
 }
@@ -501,6 +503,14 @@ void Output::DrawTextbox(string msg, Component* component)
 	pWind->SetFont(15, BOLD | ITALICIZED, BY_NAME, "Arial"); // To format the font settings
 	pWind->SetPen(UI.MsgColor); // To format the textbox's string color
 	pWind->DrawString(MsgX, MsgY, msg); // To draw the string in the textbox
+}
+void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
+{
+	pWind->SetPen(WHITE, 1);
+	pWind->SetBrush(WHITE);
+	cout << "Clear 1" << endl;
+	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
+	cout << "Clear 2" << endl;
 }
 	// ==================================== Ahmed Alaa ====================================
 

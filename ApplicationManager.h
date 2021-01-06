@@ -17,6 +17,8 @@
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
 #include "Actions/Label.h"
+#include "Actions/Delete.h"
+#include "Actions/Clear.h"
 #include "Actions/Connect.h"
 
 
@@ -66,8 +68,13 @@ public:
 	Input* GetInput();
 
 	// ============================== Ahmed Alaa edited here ==============================
-	void SetLastSelectedComponent(Component*); // Set the last component has been selected
+	void SetLastSelectedComponent(int = -1); // Set the last component has been selected
 	Component* GetLastSelectedComponent(); // Get the last component has been selected
+	int which_component(COMP_TYPES&); // return the ID of the component
+	void DeselectComponentExcept(int = -1); // If the user clicked on blank space, all components should be deselected.
+	void SelectComponent(int = -1); // To set is_selected for the target = true
+	void DeleteComponent(); // To delete the last component has been selected
+	void DeleteAll(); // To delete all the component
 	// ==================================== Ahmed Alaa ====================================
 
 	//Adds a new component to the list of components

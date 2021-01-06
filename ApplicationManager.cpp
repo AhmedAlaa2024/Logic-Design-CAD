@@ -22,6 +22,61 @@
 
 using namespace std;
 
+void ApplicationManager::DeselectComponentExcept(int except)
+{
+	GetOutput()->PrintMsg(""); // To clear the status bar
+	if (except == -1)
+		SetLastSelectedComponent(-1); // To clear the component from the lastSelectedComponent in pManager
+
+	// Deselect all the components on the screen
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (i == except)
+			continue;
+		else
+			CompList[i]->set_is_selected(false); // To make a notation that the clicked component is not selected.
+	}
+}
+
+void ApplicationManager::SelectComponent(int target)
+{
+	CompList[target]->set_is_selected(true); // To set is_selected for the target = true
+}
+
+void ApplicationManager::DeleteComponent()
+{
+	if (lastSelectedComponent != nullptr)
+		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
+		{
+			if (lastSelectedComponent->get_id() == CompList[i]->get_id()) // To make the following codes on the lastSelectedComponent 
+			{
+				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+				delete CompList[i]; // To delete the pointer that pointing to the seleted component
+				CompList[i] = nullptr; // To make the pointer point to a null pointer
+				for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
+					swap(CompList[j], CompList[j + 1]);
+				CompCount--;
+				lastSelectedComponent = nullptr;
+				break;
+			}
+		}
+	else
+		GetOutput()->PrintMsg("You have to select a certain compnent before delete!");
+}
+
+void ApplicationManager::DeleteAll()
+{
+	for (int i = CompCount; i >= 0; i--) {
+		cout << "Drawing White Rectangle..." << endl;
+		delete CompList[i]; // To delete the pointer that pointing to the seleted component
+		CompList[i] = NULL; // To make the pointer point to a null pointer
+		cout << "Deleting..." << endl;
+		CompCount--;
+	}
+	GetOutput()->ClearWindow();
+	lastSelectedComponent = NULL;
+}
+
 ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
 {
 	CompCount = 0;
@@ -103,13 +158,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case ADD_Label:
-		if (lastSelectedComponent != NULL)
-			if (lastSelectedComponent->get_m_Label() == "") // To make sure that there is not an existing label
-				pAct = new Label(this, lastSelectedComponent);
-			else
-				this->GetOutput()->PrintMsg("There is already a label.");
-		else
-			this->GetOutput()->PrintMsg("Please, Select an component before adding a label.");
+		pAct = new Label(this, lastSelectedComponent);
+		break;
+	case DEL:
+		pAct = new Delete(this);
+		break;
+	case Clear_all:
+		pAct = new Clear(this);
 		break;
 		// ==================================== Ahmed Alaa ====================================
 
@@ -191,14 +246,45 @@ Input* ApplicationManager::GetInput()
 	return InputInterface;
 }
 
-void ApplicationManager::SetLastSelectedComponent(Component* component)
+void ApplicationManager::SetLastSelectedComponent(int target)
 {
-	lastSelectedComponent = component;
+	if (target == -1)
+		lastSelectedComponent = nullptr;
+	else
+		lastSelectedComponent = CompList[target];
 }
 
 Component* ApplicationManager::GetLastSelectedComponent()
 {
 	return lastSelectedComponent;
+}
+
+int ApplicationManager::which_component(COMP_TYPES& comptype)
+{
+	int x = 0, y = 0;
+	GetInput()->GetLastClicked(x, y); // To get the x, y coordinates of point clicked
+	int target = -1; // The default value of target is -1
+	comptype = COMP_TYPES::COMP_GENERAL; // The default value of the component clicked is COMP_GENERAL
+	for (int i = 0; i < CompCount; i++) { // We should loop on all of the components of compList to determine which component is selected
+		// To get a copy from the x1, y1, x2, y2 of each component
+		int x1 = CompList[i]->getGraphicsInfo().x1;
+		int y1 = CompList[i]->getGraphicsInfo().y1;
+		int x2 = CompList[i]->getGraphicsInfo().x2;
+		int y2 = CompList[i]->getGraphicsInfo().y2;
+
+		// I compare the clicked coordinates with the coordinates of each component.
+
+		if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
+			CompList[i]->set_is_selected(true); // Set the is_select data member to true.
+			comptype = CompList[i]->get_comp_type();
+			target = i;
+			break;
+		}
+	}
+
+
+
+	return target; // The index of the clicked component from the compList
 }
 
 ////////////////////////////////////////////////////////////////////

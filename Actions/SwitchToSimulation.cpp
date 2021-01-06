@@ -1,4 +1,6 @@
 #include "SwitchToSimulation.h"
+
+#include "SimulateCircuit.h"
 #include "..\ApplicationManager.h"
 
 SwitchToSimulation::SwitchToSimulation(ApplicationManager* pApp) :Action(pApp)
@@ -12,9 +14,14 @@ SwitchToSimulation::~SwitchToSimulation()
 
 void SwitchToSimulation::Execute()
 {
+	UI.AppMode = SIMULATION;
+	Action* pAct = new SimulateCircuit(pManager);
+	pAct->Execute();
+	delete pAct;
 
 	Output* pOut = pManager->GetOutput();
-	//TODO add action simulation
+
+	
 	int num;
 	auto comps = pManager->getComponents(num);
 	for (int i = 0; i < num; ++i)
@@ -23,7 +30,6 @@ void SwitchToSimulation::Execute()
 	}
 	pManager->SetLastSelectedComponent(nullptr);
 
-	
 
 
 	pOut->ClearWindow();

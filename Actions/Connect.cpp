@@ -130,7 +130,7 @@ void Connect::Execute()
 
 
 	InputPin* in;
-	InputPin input;
+	InputPin* input;
 
 
 	//=======================//
@@ -163,7 +163,7 @@ void Connect::Execute()
 				bool isConnected = in[j].get_is_connected();
 				if (isConnected == false)
 				{
-					input = in[j];
+					input = &in[j];
 					in[j].set_is_connected(true);
 
 					
@@ -330,8 +330,9 @@ void Connect::Execute()
 	//GInfo.x2 = a1;
 	//GInfo.y2 =b1 ;
 
-	
-	Connection* pA = new Connection(GInfo, out, &input);
+	Connection* pA = new Connection(GInfo, out, input);
+	out->ConnectTo(pA);
+
 	pA->Draw(pOut);
 	pManager->AddComponent(pA);
 

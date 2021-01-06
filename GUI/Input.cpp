@@ -1,7 +1,7 @@
 #include "Input.h"
 #include "Output.h"
 
-Input::Input(window* pW): last_x(0), last_y(0)
+Input::Input(window* pW) : last_x(0), last_y(0)
 {
 	pWind = pW; //point to the passed window
 }
@@ -73,7 +73,7 @@ ActionType Input::GetUserAction()
 	int ClickedItemOrder;
 	int x = 0, y = 0;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-	
+
 	last_x = x;
 	last_y = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -125,13 +125,13 @@ ActionType Input::GetUserAction()
 
 
 		//[3] User clicks on the status bar
-		if (y >= UI.height - UI.StatusBarHeight && y <= UI.height )
+		if (y >= UI.height - UI.StatusBarHeight && y <= UI.height)
 		{
 			return STATUS_BAR;
 
 		}
 
-		
+
 		//[4] user press ctrl+c or ctrl+v or ctrl+x
 
 
@@ -143,7 +143,7 @@ ActionType Input::GetUserAction()
 
 
 
-		
+
 	}
 	else	//Application is in Simulation mode
 	{
@@ -187,31 +187,33 @@ ActionType Input::AddGate() const
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 
-			//[1] If user clicks on the Toolbar
-			if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
+		//[1] If user clicks on the Toolbar
+		if (y >= UI.height - (UI.StatusBarHeight + UI.Gate_Height) && y <= UI.height - UI.StatusBarHeight)
+		{
+
+			int GateOrder = (x / UI.Gate_Width);
+			switch (GateOrder)
 			{
-				
-				int GateOrder = (x / UI.Gate_Width);
-				switch (GateOrder)
-				{
-				case AND_2IN: return ADD_AND_GATE_2;
-				case OR_2IN: return ADD_OR_GATE_2;
-				case BUF: return ADD_Buff;
-				case NOT: return ADD_INV;
-				case NAND_2IN: return ADD_NAND_GATE_2;
-				case NOR_2IN: return ADD_NOR_GATE_2;
-				case XOR_2IN: return ADD_XOR_GATE_2;
-				case XNOR_2IN: return ADD_XNOR_GATE_2;
-				case AND_3IN: return ADD_AND_GATE_3;
-				case OR_3IN: return ADD_OR_GATE_3;
-				case NAND_3IN: return ADD_NAND_GATE_3;
-				case NOR_3IN: return ADD_NOR_GATE_3;
-				case XOR_3IN: return ADD_XOR_GATE_3;
-				case XNOR_3IN: return ADD_XNOR_GATE_3;
-				default: return GATE_TOOL;	//A click on empty place in simulation toolbar
-				}
+			case AND_2IN: return ADD_AND_GATE_2;
+			case OR_2IN: return ADD_OR_GATE_2;
+			case BUF: return ADD_Buff;
+			case NOT: return ADD_INV;
+			case NAND_2IN: return ADD_NAND_GATE_2;
+			case NOR_2IN: return ADD_NOR_GATE_2;
+			case XOR_2IN: return ADD_XOR_GATE_2;
+			case XNOR_2IN: return ADD_XNOR_GATE_2;
+			case AND_3IN: return ADD_AND_GATE_3;
+			case OR_3IN: return ADD_OR_GATE_3;
+			case NAND_3IN: return ADD_NAND_GATE_3;
+			case NOR_3IN: return ADD_NOR_GATE_3;
+			case XOR_3IN: return ADD_XOR_GATE_3;
+			case XNOR_3IN: return ADD_XNOR_GATE_3;
+			case LED1: return  ADD_LED;
+			case SWITCH1: return  ADD_Switch;
+			default: return GATE_TOOL;	//A click on empty place in simulation toolbar
 			}
-	
+		}
+
 	}
 	return EXIT;
 }

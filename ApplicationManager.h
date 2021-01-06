@@ -23,6 +23,7 @@
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"
+#include "Components/SWITCH.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -55,7 +56,11 @@ public:
 	// ============================== Ahmed ATA edited here ==============================
 	COMP_TYPES get_clipboard() const;
 
-	
+
+	//to get the switches
+	SWITCH** get_switches(int& num) const;
+
+
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();
@@ -67,10 +72,12 @@ public:
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
-	Component* const* getComponents(int &count) const; //don't ask me about the type :(
+	Component* const* getComponents(int& count) const; //don't ask me about the type :(
 	void save(ofstream*&);
+
 	void load(ifstream*&);
 													   //destructor
+	//destructor
 	~ApplicationManager();
 
 	//===========================DOAA MAGDY============================

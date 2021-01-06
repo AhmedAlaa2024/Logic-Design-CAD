@@ -7,6 +7,8 @@ SWITCH::SWITCH(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(0, r_FanOut)
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
 
+	is_on = HIGH;
+	
 	comp_type = COMP_TYPES::COMP_SWITCH; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
 						   for identifying the suitable action

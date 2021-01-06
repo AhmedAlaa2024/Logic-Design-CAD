@@ -11,9 +11,9 @@ Output::Output()
 	//Initilaize interface colors
 	UI.DrawColor = BLACK;
 	UI.SelectColor = BLUE;
-	UI.ConnColor = RED;
+	UI.ConnColor =BLUE ;
 	UI.on_ConnColor = GREEN;
-	UI.selected_connColor = BLUE;
+	UI.selected_connColor = RED;
 
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
@@ -226,7 +226,7 @@ void Output::DrawINV(GraphicsInfo r_GfxInfo, bool selected) const
 	if (selected)	//use image in the highlighted case
 		GateImage = "Images\\Gates\\Gate_INV_Hi.jpeg";
 	else
-		GateImage = "Images\\Gates\\Gate_INV.jpeg";
+		GateImage = "Images\\Gates\\Gate_INV.jpg";
 
 	//Draw INV Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by INV Image Parameter in UI_Info
@@ -414,7 +414,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const 
 		if (selected)	//use image in the highlighted case
 			GateImage = "Images\\Gates\\LEDH.jpeg";
 		else
-			GateImage = "Images\\Gates\\LEDH.jpeg";
+			GateImage = "Images\\Gates\\off_LED.jpeg";
 	}
 	//Draw LED at Gfx_Info (1st corner)
 	//Set the Image Width & Height by LED Image Parameter in UI_Info
@@ -475,7 +475,11 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool is_high)
 	}
 	else
 	{
-		pWind->SetPen(UI.selected_connColor, UI.Conn_width);
+		if(selected)
+			pWind->SetPen(UI.selected_connColor, UI.Conn_width);
+		else
+			pWind->SetPen(UI.ConnColor, UI.Conn_width);
+
 
 	}
 

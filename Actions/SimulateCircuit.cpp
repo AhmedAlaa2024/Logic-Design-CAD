@@ -43,7 +43,7 @@ void SimulateCircuit::Execute()
 
 		//each connection has an end (Input pin)
 
-		for (int i = 0; i < no_conns; ++i) //operate ang get the pins on the connections
+		for (int i = 0; i < no_conns; ++i) //operate and get the pins on the connections
 		{
 			
 			Conns[i]->Operate();

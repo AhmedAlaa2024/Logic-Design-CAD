@@ -4,6 +4,22 @@
 #include <iostream>
 
 #include "Actions/Connect.h"
+
+//==============DOAA===========
+#include "Components\LED.h"
+#include "Components\SWITCH.h"
+#include "Components\AND2.h"
+#include "Components\AND3.h"
+#include "Components\NOR2.h"
+#include "Components\NOR3.h"
+#include "Components\XOR2.h"
+#include "Components\XOR3.h"
+#include "Components\OR2.h"
+#include "Components\NAND2.h"
+#include "Components\XNOR2.h"
+#include "Components\Buff.h"
+#include "Components\INV.h"
+
 using namespace std;
 
 ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
@@ -193,13 +209,71 @@ Output* ApplicationManager::GetOutput()
 
 ////////////////////////////////////////////////////////////////////
 
-//======================================Doaa
-/*
+//======================================Doaa=======================
+
 int ApplicationManager::getCompCount()
 {
 	return CompCount;
 }
+
+
+
+
+//=========================================DOAA MAGDY=============================================//
+bool ApplicationManager::CheckInsideArea(int i, int Cx, int Cy)
+{
+	bool d = CompList[i]->InsideArea(Cx, Cy);
+	return d;
+}
+
+COMP_TYPES ApplicationManager::CompType(int i)
+{
+	
+	COMP_TYPES type;
+	type = CompList[i]->get_comp_type();
+	return type;
+}
+
+OutputPin* ApplicationManager::getOutputPinOfComp(int i)
+{
+	OutputPin* o = CompList[i]->getOutputPin();
+	return o;
+}
+
+InputPin* ApplicationManager::getInputPinOfComp(int k)
+{
+	InputPin* i = CompList[k]->getInputPin();
+	return i;
+}
+
+void ApplicationManager::getGInfoOfComp(int& a, int& b, int& c, int& d, int i)
+{
+	CompList[i]->getm_GfxInfo(a, b, c, d);
+}
+
+int const ApplicationManager::getNoOfInputpinsOfComp(int k)
+{
+	int const a = CompList[k]->getNoOfInputpins();
+	return a;
+}
+
+bool ApplicationManager::CheckWheatherSrcIsTheDist(int i, int k)
+{
+	if (CompList[i] == CompList[k])
+		return true;
+	return false;
+}
+/*
+int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
+{
+	if (case1 == 1)
+		return CompList[currentComp]->GetOutPinStatus();	//returns status of outputpin if LED, return -1
+	else
+		return CompList[currentComp]->GetInputPinStatus(1);	//returns status of Inputpin # n if SWITCH, return -1
+}
 */
+//=========================================DOAA MAGDY=============================================//
+
 
 
 ApplicationManager::~ApplicationManager()

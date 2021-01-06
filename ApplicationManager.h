@@ -79,6 +79,15 @@ public:
 
 	//===========================DOAA MAGDY============================
 	int getCompCount();
+	bool CheckInsideArea(int i, int Cx, int Cy);
+	COMP_TYPES CompType(int i);
+	OutputPin* getOutputPinOfComp(int i);
+	InputPin* getInputPinOfComp(int k);
+	void getGInfoOfComp(int& a, int& b, int& c, int& d, int i);
+	int const getNoOfInputpinsOfComp(int k);
+	bool CheckWheatherSrcIsTheDist(int i, int k);//to check if the user choose the same gate as sousce and destination at the same time
+	//int CheckWhetherLEDorSWITCH(int case1, int currentComp);
+	//===========================DOAA MAGDY============================
 };
 
 #endif

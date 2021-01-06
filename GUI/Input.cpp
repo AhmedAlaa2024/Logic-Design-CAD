@@ -110,7 +110,7 @@ ActionType Input::GetUserAction()
 		{
 			if (x >= UI.width - UI.ToolBarHeight - 15)
 			{
-				ClickedItemOrder = (y / UI.ToolItemWidth) + 9;
+				ClickedItemOrder = (y / UI.ToolItemWidth) + 10;
 				switch (ClickedItemOrder)
 				{
 				case Copy: return COPY_;

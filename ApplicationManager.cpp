@@ -66,14 +66,12 @@ void ApplicationManager::DeleteComponent()
 
 void ApplicationManager::DeleteAll()
 {
-	for (int i = CompCount; i >= 0; i--) {
-		cout << "Drawing White Rectangle..." << endl;
+	for (int i = 0; i < CompCount; i++) {
+		GetOutput()->ClearDrawingArea();
 		delete CompList[i]; // To delete the pointer that pointing to the seleted component
 		CompList[i] = NULL; // To make the pointer point to a null pointer
-		cout << "Deleting..." << endl;
 		CompCount--;
 	}
-	GetOutput()->ClearWindow();
 	lastSelectedComponent = NULL;
 }
 
@@ -196,7 +194,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::UpdateInterface()
 {
 	for (int i = 0; i < CompCount; i++)
-		CompList[i]->Draw(OutputInterface);
+		if (CompList[i] != NULL)
+			CompList[i]->Draw(OutputInterface);
 
 }
 

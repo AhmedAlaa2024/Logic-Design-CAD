@@ -11,7 +11,7 @@ void Input::GetPointClicked(int& x, int& y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output* pOut) const
+string Input::GetString(Output* pOut, string startwith) const
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
@@ -96,7 +96,7 @@ ActionType Input::GetUserAction()
 			case EDIT_LABEL: return EDIT_Label;
 			case WIRE: return ADD_CONNECTION;
 			case ORGANIZE_SCREEN: return Organize;
-			case CLEAR: return Clear;
+			case CLEAR: return Clear_all;
 			case LOAD_ICON: return LOAD;
 			case SAVE_ICON: return SAVE;
 			case ITM_EXIT: return EXIT;

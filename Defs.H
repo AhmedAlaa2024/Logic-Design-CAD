@@ -29,7 +29,7 @@ enum ActionType
 	EDIT_Label,			//Edit Label of a Component, a Connection
 
 	Organize,
-	Clear,
+	Clear_all,
 	Create_TruthTable,	//Create Truth Table of the Circuit
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
@@ -114,8 +114,15 @@ enum DesignTools {
 	SWITCH1,
 	GATES_CNT
 };
-
-
+	// ============================== Ahmed Alaa edited here ==============================
+enum DsgnMenuItem2 {
+	COPY_ICON,
+	CUT_ICON,
+	PASTE_ICON,
+	DELETE_ICON,
+	ITM_DSN2_CNT	//no. of design menu items ==> This should be the last line in this enum
+};
+	// ==================================== Ahmed Alaa ====================================
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu

@@ -34,7 +34,6 @@ public:
 	virtual InputPin* const getInputPin() const = 0;
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 	virtual const GraphicsInfo getGraphicsInfo();
-
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
 

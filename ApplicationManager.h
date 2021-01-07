@@ -17,6 +17,8 @@
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
 #include "Actions/Label.h"
+#include "Actions/Delete.h"
+#include "Actions/Clear.h"
 #include "Actions/Connect.h"
 
 
@@ -66,8 +68,13 @@ public:
 	Input* GetInput();
 
 	// ============================== Ahmed Alaa edited here ==============================
-	void SetLastSelectedComponent(Component*); // Set the last component has been selected
+	void SetLastSelectedComponent(int = -1); // Set the last component has been selected
 	Component* GetLastSelectedComponent(); // Get the last component has been selected
+	int which_component(COMP_TYPES&); // return the ID of the component
+	void DeselectComponentExcept(int = -1); // If the user clicked on blank space, all components should be deselected.
+	void SelectComponent(int = -1); // To set is_selected for the target = true
+	void DeleteComponent(); // To delete the last component has been selected
+	void DeleteAll(); // To delete all the component
 	// ==================================== Ahmed Alaa ====================================
 
 	//Adds a new component to the list of components
@@ -82,6 +89,19 @@ public:
 
 	//===========================DOAA MAGDY============================
 	int getCompCount();
+	Component* CheckInsideArea(int cx, int cy);
+	bool PressOn_WhiteSpace(int cx, int cy);
+	bool checkIfSourceIsLED(int cx, int cy);
+	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
+	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo);
+	
+	//OutputPin* getOutputPinOfComp(int i);
+	//InputPin* getInputPinOfComp(int k);
+	//void getGInfoOfComp(int& a, int& b, int& c, int& d, int i);
+	//int const getNoOfInputpinsOfComp(int k);
+	//bool CheckWheatherSrcIsTheDist(int i, int k);//to check if the user choose the same gate as sousce and destination at the same time
+	//int CheckWhetherLEDorSWITCH(int case1, int currentComp);
+	//===========================DOAA MAGDY============================
 };
 
 #endif

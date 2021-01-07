@@ -520,9 +520,14 @@ void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
 {
 	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
-	cout << "Clear 1" << endl;
 	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
-	cout << "Clear 2" << endl;
+}
+void Output::ClearLabelArea(GraphicsInfo r_GfxInfo, int len)
+{
+	len *= 10;
+	pWind->SetPen(WHITE, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(r_GfxInfo.x1 - 15, r_GfxInfo.y1 - 15, r_GfxInfo.x1 - 15 + len, r_GfxInfo.y1);
 }
 	// ==================================== Ahmed Alaa ====================================
 

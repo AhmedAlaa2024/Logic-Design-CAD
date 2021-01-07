@@ -38,7 +38,7 @@ public:
 	virtual void set_is_selected(bool);
 
 	virtual void save(ofstream*&);
-	virtual void load(ifstream*);
+	virtual void load(ifstream*&);
 
 	
 	virtual COMP_TYPES get_comp_type() const;
@@ -58,6 +58,7 @@ public:
 	virtual int getNoOfInputpins() = 0;
 
 	void getm_GfxInfo(int &x1,int &y1, int &x2,int &y2);
+	Component* CreateNewComp(string CompType);
 };
 
 #endif

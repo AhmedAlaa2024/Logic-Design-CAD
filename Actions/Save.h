@@ -9,9 +9,10 @@ using namespace std;
 
 class Save : public Action
 {
+	Output* optr;
 	ofstream* output;
 public:
-	Save(ApplicationManager* pApp);
+	Save(ApplicationManager* pApp, string name, Output* optr);
 
 	virtual void ReadActionParameters();
 

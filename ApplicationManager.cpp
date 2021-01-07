@@ -213,7 +213,7 @@ COMP_TYPES ApplicationManager::get_clipboard() const
 	return Clipboard;
 }
 
-SWITCH** ApplicationManager::get_switches(int &num) const
+SWITCH** ApplicationManager::get_switches(int& num) const
 {
 	num = 0;
 	SWITCH** sh;
@@ -238,6 +238,32 @@ SWITCH** ApplicationManager::get_switches(int &num) const
 
 	return sh;
 
+}
+
+LED** ApplicationManager::get_leds(int & num) const
+{
+	num = 0;
+	LED** ld;
+	for (int i = 0; i < CompCount; ++i)
+	{
+
+		if (CompList[i]->GetOutPinStatus() == -1)
+		{
+			num++;
+		}
+	}
+	ld = new LED * [num];
+	int j = 0;
+	for (int i = 0; i < CompCount; ++i)
+	{
+
+		if (CompList[i]->GetOutPinStatus() == -1)
+		{
+			ld[j++] = (LED*)CompList[i];
+		}
+	}
+
+	return ld;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -378,7 +404,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 }
-bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo)
+bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*& selected_pin)
 {
 	int no_input_pins = distComp->getNoOfInputpins();
 	for (int j = 0; j < no_input_pins; j++)
@@ -386,176 +412,177 @@ bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* in
 		bool isConnected = inPin[j].get_is_connected();
 		if (isConnected == false)
 		{
+			selected_pin = &inPin[j];
 			inPin[j].set_is_connected(true);
 			//break;
 			//return true;
-		
 
-		COMP_TYPES type = distComp->get_comp_type();
-		int a1, b1, a2, b2;
-		distComp->getm_GfxInfo(a1, b1, a2, b2);
 
-		switch (type)
-		{
-			/*
-		case COMP_TYPES::COMP_GENERAL:
-			break;
-		case COMP_TYPES::COMP_GATE:
-			break;
-		case COMP_TYPES::COMP_SWITCH:
-			break;
-			*/
-		case COMP_TYPES::COMP_LED:
-		{
-			//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
-			GInfo.x2 = a1 + 23;
-			GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
-			break;
-		}
-		//case COMP_TYPES::COMP_CONN:
-			//break;
-		case COMP_TYPES::AND_2:
-			if (j == 0)
+			COMP_TYPES type = distComp->get_comp_type();
+			int a1, b1, a2, b2;
+			distComp->getm_GfxInfo(a1, b1, a2, b2);
+
+			switch (type)
 			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 15 + 1;
-
+				/*
+			case COMP_TYPES::COMP_GENERAL:
+				break;
+			case COMP_TYPES::COMP_GATE:
+				break;
+			case COMP_TYPES::COMP_SWITCH:
+				break;
+				*/
+			case COMP_TYPES::COMP_LED:
+			{
+				//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
+				GInfo.x2 = a1 + 23;
+				GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
+				break;
 			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 14 - 2;
-			}
-			break;
-		case COMP_TYPES::AND_3:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 16;
+			//case COMP_TYPES::COMP_CONN:
+				//break;
+			case COMP_TYPES::AND_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 15 + 1;
 
-			}
-			else if (j == 1)
-			{
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 14 - 2;
+				}
+				break;
+			case COMP_TYPES::AND_3:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 16;
+
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + (b2 - b1) / 2;
+
+				}
+				else if (j == 2)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 16;
+
+				}
+				break;
+			case COMP_TYPES::INV_:
 				GInfo.x2 = a1;
 				GInfo.y2 = b1 + (b2 - b1) / 2;
+				break;
+			case COMP_TYPES::NAND_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 15;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 14 + 3;
+				}
+				break;
+			case COMP_TYPES::NOR_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 15 + 7;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 14 - 4;
+				}
+				break;
+			case COMP_TYPES::NOR_3:
+				if (j == 0)
+				{
+					GInfo.x2 = a1 + 11;
+					GInfo.y2 = b1 + 16 + 1;
 
-			}
-			else if (j == 2)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 16;
-
-			}
-			break;
-		case COMP_TYPES::INV_:
-			GInfo.x2 = a1;
-			GInfo.y2 = b1 + (b2 - b1) / 2;
-			break;
-		case COMP_TYPES::NAND_2:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 15;
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 14 + 3;
-			}
-			break;
-		case COMP_TYPES::NOR_2:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 15 + 7;
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 14 - 4;
-			}
-			break;
-		case COMP_TYPES::NOR_3:
-			if (j == 0)
-			{
-				GInfo.x2 = a1 + 11;
-				GInfo.y2 = b1 + 16 + 1;
-
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1 + 11;
-				GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
-			}
-			else if (j == 2)
-			{
-				GInfo.x2 = a1 + 11;
-				GInfo.y2 = b2 - 16 + 1;
-			}
-			break;
-		case COMP_TYPES::Buff_:
-			GInfo.x2 = a1;
-			GInfo.y2 = b1 + (b2 - b1) / 2;
-			break;
-		case COMP_TYPES::OR_2:
-			if (j == 0)
-			{
-				GInfo.x2 = a1 + 8;
-				GInfo.y2 = b1 + 15 - 7;
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1 + 8;
-				GInfo.y2 = b2 - 14 + 3;
-			}
-			break;
-		case COMP_TYPES::XNOR_2:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 15 + 5;
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 14 - 5;
-			}
-			break;
-		case COMP_TYPES::XOR_2:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 15;
-			}
-			else if (j == 1)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 14;
-			}
-			break;
-		case COMP_TYPES::XOR_3:
-			if (j == 0)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + 16;
-			}
-			else if (j == 1)
-			{
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1 + 11;
+					GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
+				}
+				else if (j == 2)
+				{
+					GInfo.x2 = a1 + 11;
+					GInfo.y2 = b2 - 16 + 1;
+				}
+				break;
+			case COMP_TYPES::Buff_:
 				GInfo.x2 = a1;
 				GInfo.y2 = b1 + (b2 - b1) / 2;
-			}
-			else if (j == 2)
-			{
-				GInfo.x2 = a1;
-				GInfo.y2 = b2 - 16;
+				break;
+			case COMP_TYPES::OR_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1 + 8;
+					GInfo.y2 = b1 + 15 - 7;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1 + 8;
+					GInfo.y2 = b2 - 14 + 3;
+				}
+				break;
+			case COMP_TYPES::XNOR_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 15 + 5;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 14 - 5;
+				}
+				break;
+			case COMP_TYPES::XOR_2:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 15;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 14;
+				}
+				break;
+			case COMP_TYPES::XOR_3:
+				if (j == 0)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + 16;
+				}
+				else if (j == 1)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + (b2 - b1) / 2;
+				}
+				else if (j == 2)
+				{
+					GInfo.x2 = a1;
+					GInfo.y2 = b2 - 16;
+				}
+				break;
+			default:
+				break;
 			}
 			break;
-		default:
-			break;
-		}
-		break;
 
-	}
+		}
 
 
 		if (j == no_input_pins - 1 && isConnected == true)
@@ -563,9 +590,9 @@ bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* in
 			OutputInterface->PrintMsg("Error: All input pins of this component are already connected");
 			return false;
 		}
-		
+
 	}
-	return 1;
+	return true;
 }
 
 

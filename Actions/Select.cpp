@@ -1,10 +1,12 @@
 #include "Select.h"
 
-	// ============================== Ahmed Alaa edited here ==============================
+#include "SimulateCircuit.h"
 
-Select::Select(ApplicationManager* pApp): Action(pApp)
+// ============================== Ahmed Alaa edited here ==============================
+
+Select::Select(ApplicationManager* pApp) : Action(pApp)
 {
-	Execute();
+	//Execute();
 }
 
 void Select::ReadActionParameters()
@@ -18,7 +20,7 @@ void Select::Execute()
 
 	COMP_TYPES comp_type;
 	int target = pManager->which_component(comp_type); // To get the index of the target component.
-	
+
 	if (target == -1) // To check if the user clicked on a blank space
 	{
 		pManager->DeselectComponentExcept(); // To deselect all the components on the screen
@@ -36,8 +38,27 @@ void Select::Execute()
 			LastSelectedComponent->Draw(pManager->GetOutput()); // It will override a new image indicate that the gate is selected
 			break;
 		case COMP_TYPES::COMP_SWITCH:
-			pManager->GetOutput()->DrawSWITCH(r_GfxInfo, false, true); // It will override a new image indicate that the switch is selected
+		{
+			if (UI.AppMode == DESIGN) {
+				LastSelectedComponent->set_is_selected(true);
+
+				// It will override a new image indicate that the switch is selected
+				break;
+			}
+			if (dynamic_cast<SWITCH*>(LastSelectedComponent)->get_state())
+			{
+				dynamic_cast<SWITCH*>(LastSelectedComponent)->set_state(LOW);
+			}
+			else
+			{
+				dynamic_cast<SWITCH*>(LastSelectedComponent)->set_state(HIGH);
+			}
+			Action* pAct = new SimulateCircuit(pManager);
+			pAct->Execute();
+			delete pAct;
 			break;
+		}
+
 		case COMP_TYPES::COMP_LED:
 			pManager->GetOutput()->DrawLED(r_GfxInfo, false, true); // It will override a new image indicate that the led is selected
 			break;
@@ -62,4 +83,4 @@ Select::~Select()
 {
 }
 
-	// ==================================== Ahmed Alaa ====================================
+// ==================================== Ahmed Alaa ====================================

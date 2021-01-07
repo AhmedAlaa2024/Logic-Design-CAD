@@ -28,7 +28,7 @@ void SwitchToSimulation::Execute()
 	{
 		comps[i]->set_is_selected(false);
 	}
-	pManager->SetLastSelectedComponent(nullptr);
+	pManager->SetLastSelectedComponent(-1);
 
 
 

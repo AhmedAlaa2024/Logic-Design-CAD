@@ -34,12 +34,11 @@ public:
 	virtual InputPin* const getInputPin() const = 0;
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 	virtual const GraphicsInfo getGraphicsInfo();
-
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
 
 	virtual void save(ofstream*&);
-	virtual void load(ifstream*);
+	virtual void load(ifstream*&);
 
 	
 	virtual COMP_TYPES get_comp_type() const;
@@ -59,6 +58,7 @@ public:
 	virtual int getNoOfInputpins() = 0;
 
 	void getm_GfxInfo(int &x1,int &y1, int &x2,int &y2);
+	Component* CreateNewComp(string CompType);
 };
 
 #endif

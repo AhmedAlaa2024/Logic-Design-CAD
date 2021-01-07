@@ -1,6 +1,7 @@
 #include "Input.h"
 #include "Output.h"
 
+
 Input::Input(window* pW) : last_x(0), last_y(0)
 {
 	pWind = pW; //point to the passed window
@@ -11,7 +12,7 @@ void Input::GetPointClicked(int& x, int& y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output* pOut) const
+string Input::GetString(Output* pOut, string startwith) const
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
@@ -70,6 +71,7 @@ string Input::GetString(Output* pOut) const
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction()
 {
+	int ClickedItemOrder;
 	int x = 0, y = 0;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
@@ -82,7 +84,7 @@ ActionType Input::GetUserAction()
 		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			ClickedItemOrder = (x / UI.ToolItemWidth);
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
@@ -95,7 +97,7 @@ ActionType Input::GetUserAction()
 			case EDIT_LABEL: return EDIT_Label;
 			case WIRE: return ADD_CONNECTION;
 			case ORGANIZE_SCREEN: return Organize;
-			case CLEAR: return Clear;
+			case CLEAR: return Clear_all;
 			case LOAD_ICON: return LOAD;
 			case SAVE_ICON: return SAVE;
 			case ITM_EXIT: return EXIT;
@@ -107,6 +109,18 @@ ActionType Input::GetUserAction()
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
+			if (x >= UI.width - UI.ToolBarHeight - 15 )
+			{
+				ClickedItemOrder = (y / UI.ToolItemWidth) + 10;
+				switch (ClickedItemOrder)
+				{
+				case Copy: return COPY_;
+				case Cut: return CUT_;
+				case Paste:  return PASTE_;
+				case Del: return DEL;
+				default: return DSN_TOOL;
+				}
+			}
 			return SELECT;	//user want to select/unselect a component
 		}
 
@@ -137,7 +151,7 @@ ActionType Input::GetUserAction()
 	{
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			ClickedItemOrder = (x / UI.ToolItemWidth);
 			switch (ClickedItemOrder)
 			{
 			case ITM_DSN: return DSN_MODE;
@@ -210,6 +224,12 @@ void Input::GetLastClicked(int& x, int& y)
 {
 	x = last_x;
 	y = last_y;
+}
+
+string Input::getfilename(Output* pOut) const
+{
+	pOut->PrintMsg("Please, enter file name here!");
+	return GetString(pOut);
 }
 
 Input::~Input()

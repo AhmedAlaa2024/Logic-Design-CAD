@@ -152,7 +152,7 @@ void Connect::Execute()
 	
 	Component* DistComp = pManager->CheckInsideArea(Cx2, Cy2);
 
-	in = DistComp->getInputPin();
+	in = DistComp->getInputPin(); //array of inout pins
 
 	//COMP_TYPES type = DistComp->get_comp_type();
 
@@ -162,8 +162,8 @@ void Connect::Execute()
 	if (g == false)
 		return;
 
-	
-	bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo);
+	InputPin* selected_pin;
+	bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
 	if (i == false)
 		return;
 	
@@ -177,7 +177,7 @@ void Connect::Execute()
 
 	
 
-	Connection* pA = new Connection(GInfo, out, in);
+	Connection* pA = new Connection(GInfo, out, selected_pin);
 	out->ConnectTo(pA);
 
 	//pA->Draw(pOut);

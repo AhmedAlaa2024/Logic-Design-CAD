@@ -17,12 +17,15 @@
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
 #include "Actions/Label.h"
+#include "Actions/Delete.h"
+#include "Actions/Clear.h"
 #include "Actions/Connect.h"
 
 
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"
+#include "Components/LED.h"
 #include "Components/SWITCH.h"
 
 //Main class that manages everything in the application.
@@ -57,23 +60,31 @@ public:
 	COMP_TYPES get_clipboard() const;
 
 
-	//to get the switches
+	//to start and end the simulation
 	SWITCH** get_switches(int& num) const;
-
+	LED** get_leds(int &num )const;
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
 	Input* GetInput();
 
 	// ============================== Ahmed Alaa edited here ==============================
-	void SetLastSelectedComponent(Component*); // Set the last component has been selected
+	void SetLastSelectedComponent(int = -1); // Set the last component has been selected
 	Component* GetLastSelectedComponent(); // Get the last component has been selected
+	int which_component(COMP_TYPES&); // return the ID of the component
+	void DeselectComponentExcept(int = -1); // If the user clicked on blank space, all components should be deselected.
+	void SelectComponent(int = -1); // To set is_selected for the target = true
+	void DeleteComponent(); // To delete the last component has been selected
+	void DeleteAll(); // To delete all the component
 	// ==================================== Ahmed Alaa ====================================
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int& count) const; //don't ask me about the type :(
 	void save(ofstream*&);
+
+	void load(ifstream*&);
+													   //destructor
 	//destructor
 	~ApplicationManager();
 
@@ -83,8 +94,8 @@ public:
 	bool PressOn_WhiteSpace(int cx, int cy);
 	bool checkIfSourceIsLED(int cx, int cy);
 	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
-	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo);
-	
+	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*&);
+
 	//OutputPin* getOutputPinOfComp(int i);
 	//InputPin* getInputPinOfComp(int k);
 	//void getGInfoOfComp(int& a, int& b, int& c, int& d, int i);

@@ -1,4 +1,6 @@
 #include "Output.h"
+#include <iostream>
+using namespace std;
 
 Output::Output()
 {
@@ -88,7 +90,7 @@ void Output::ClearDrawingArea() const
 {
 	pWind->SetPen(RED, 1);
 	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
+	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
 void Output::ClearWindow() const
@@ -98,7 +100,7 @@ void Output::ClearWindow() const
 	if (UI.AppMode == SIMULATION)
 		pWind->DrawRectangle(0, 0, UI.width, UI.height);
 	else
-		pWind->DrawRectangle(0, UI.height - UI.Gate_Height - UI.StatusBarHeight, UI.width, UI.height);
+		pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 
 }
@@ -134,6 +136,18 @@ void Output::CreateDesignToolBar() const
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+	string CopyCutPasteDeleteMenu[ITM_DSN2_CNT];
+	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
+	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
+	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
+	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpg";
+
+	for (int i = 0; i < ITM_DSN2_CNT; i++)
+		pWind->DrawImage(CopyCutPasteDeleteMenu[i], UI.width - UI.ToolBarHeight - 15, (i + 1) * (UI.ToolItemWidth) + 5, UI.ToolBarHeight, UI.ToolItemWidth);
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(UI.width - UI.ToolBarHeight - 18, UI.ToolItemWidth + 5, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
 void Output::CreateDesignToolBarComponent() const
@@ -501,6 +515,19 @@ void Output::DrawTextbox(string msg, Component* component)
 	pWind->SetFont(15, BOLD | ITALICIZED, BY_NAME, "Arial"); // To format the font settings
 	pWind->SetPen(UI.MsgColor); // To format the textbox's string color
 	pWind->DrawString(MsgX, MsgY, msg); // To draw the string in the textbox
+}
+void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
+{
+	pWind->SetPen(WHITE, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
+}
+void Output::ClearLabelArea(GraphicsInfo r_GfxInfo, int len)
+{
+	len *= 10;
+	pWind->SetPen(WHITE, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(r_GfxInfo.x1 - 15, r_GfxInfo.y1 - 15, r_GfxInfo.x1 - 15 + len, r_GfxInfo.y1);
 }
 	// ==================================== Ahmed Alaa ====================================
 

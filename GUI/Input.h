@@ -12,11 +12,12 @@ private:
 public:
 	Input(window*);
 	void GetPointClicked(int &, int &);	//Get coordinate where user clicks
-	string GetString(Output*) const ;		//Returns a string entered by the user
+	string GetString(Output*, string = "") const ;		//Returns a string entered by the user
 
 	ActionType GetUserAction(); //Reads the user click and maps it to an action
 	ActionType AddGate() const;   //Reads the user click and maps it to an action
 
 	void GetLastClicked(int&, int&);
+	string getfilename(Output* pOut) const;
 	~Input();
 };

@@ -18,11 +18,12 @@ private:
 	Component* component;
 public:
 	Label(ApplicationManager*, Component*);
+	Label(ApplicationManager* pApp, Component* comp, int f);
 	string SetLabel();
 	string GetLabel();
 	void DisplayLabel();
 
-	void ReadActionParameters();
+	void ReadActionParameters(); // I don't need it as there is no parameters for Label action
 	void Execute();
 	void Undo();
 	void Redo();

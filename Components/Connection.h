@@ -16,7 +16,7 @@ public:
 
 	virtual void Operate();	//Calculates the output according to the inputs
 	virtual void Draw(Output* pOut);	//for each component to Draw itself
-
+	STATUS is_on;
 
 	void setSourcePin(OutputPin* pSrcPin);
 	void setDestPin(InputPin* pDstPin);

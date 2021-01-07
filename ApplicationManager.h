@@ -25,6 +25,7 @@
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"
+#include "Components/LED.h"
 #include "Components/SWITCH.h"
 
 //Main class that manages everything in the application.
@@ -59,9 +60,9 @@ public:
 	COMP_TYPES get_clipboard() const;
 
 
-	//to get the switches
+	//to start and end the simulation
 	SWITCH** get_switches(int& num) const;
-
+	LED** get_leds(int &num )const;
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
@@ -93,8 +94,8 @@ public:
 	bool PressOn_WhiteSpace(int cx, int cy);
 	bool checkIfSourceIsLED(int cx, int cy);
 	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
-	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo);
-	
+	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*&);
+
 	//OutputPin* getOutputPinOfComp(int i);
 	//InputPin* getInputPinOfComp(int k);
 	//void getGInfoOfComp(int& a, int& b, int& c, int& d, int i);

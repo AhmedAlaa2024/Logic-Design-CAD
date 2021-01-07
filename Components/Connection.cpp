@@ -10,7 +10,7 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 	is_selected = false;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
-
+	is_on = LOW;
 	comp_type = COMP_TYPES::COMP_CONN; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
 						   for identifying the suitable action
@@ -34,11 +34,12 @@ void Connection::Operate()
 {
 	//Status of connection destination pin = status of connection source pin
 	DstPin->setStatus(SrcPin->getStatus());
+	is_on = SrcPin->getStatus();
 }
 
 void Connection::Draw(Output* pOut)
 {
-	pOut->DrawConnection(m_GfxInfo, is_selected);
+	pOut->DrawConnection(m_GfxInfo, is_selected,is_on);
 }
 
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1

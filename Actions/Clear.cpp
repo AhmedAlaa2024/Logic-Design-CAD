@@ -3,7 +3,6 @@
 
 Clear::Clear(ApplicationManager* pApp) : Action(pApp)
 {
-	Execute();
 }
 
 void Clear::ReadActionParameters()

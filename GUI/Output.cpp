@@ -90,7 +90,7 @@ void Output::ClearDrawingArea() const
 {
 	pWind->SetPen(RED, 1);
 	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
+	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
 void Output::ClearWindow() const
@@ -100,7 +100,7 @@ void Output::ClearWindow() const
 	if (UI.AppMode == SIMULATION)
 		pWind->DrawRectangle(0, 0, UI.width, UI.height);
 	else
-		pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
+		pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 
 }
@@ -136,6 +136,18 @@ void Output::CreateDesignToolBar() const
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+	string CopyCutPasteDeleteMenu[ITM_DSN2_CNT];
+	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
+	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
+	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
+	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpg";
+
+	for (int i = 0; i < ITM_DSN2_CNT; i++)
+		pWind->DrawImage(CopyCutPasteDeleteMenu[i], UI.width - UI.ToolBarHeight - 15, (i + 1) * (UI.ToolItemWidth) + 5, UI.ToolBarHeight, UI.ToolItemWidth);
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(UI.width - UI.ToolBarHeight - 18, UI.ToolItemWidth + 5, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
 void Output::CreateDesignToolBarComponent() const

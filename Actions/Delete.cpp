@@ -3,7 +3,6 @@
 
 Delete::Delete(ApplicationManager* pApp) : Action(pApp)
 {
-	Execute();
 }
 
 void Delete::ReadActionParameters()

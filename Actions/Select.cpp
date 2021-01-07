@@ -2,9 +2,8 @@
 
 	// ============================== Ahmed Alaa edited here ==============================
 
-Select::Select(ApplicationManager* pApp): Action(pApp)
+Select::Select(ApplicationManager* pApp): Action(pApp), x(0), y(0)
 {
-	Execute();
 }
 
 void Select::ReadActionParameters()

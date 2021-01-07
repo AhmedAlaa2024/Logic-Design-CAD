@@ -11,7 +11,6 @@ void Clear::ReadActionParameters()
 
 void Clear::Execute()
 {
-	cout << "<Clear> action is activated!" << endl;
 	pManager->DeleteAll();
 }
 

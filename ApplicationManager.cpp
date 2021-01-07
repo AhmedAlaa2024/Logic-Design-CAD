@@ -32,9 +32,21 @@ void ApplicationManager::DeleteComponent()
 	if (lastSelectedComponent != nullptr)
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
-			if (lastSelectedComponent->get_id() == CompList[i]->get_id()) // To make the following codes on the lastSelectedComponent 
+			int x1 = CompList[i]->getGraphicsInfo().x1;
+			int y1 = CompList[i]->getGraphicsInfo().y1;
+			int x2 = CompList[i]->getGraphicsInfo().x2;
+			int y2 = CompList[i]->getGraphicsInfo().y2;
+
+			int l_x1 = lastSelectedComponent->getGraphicsInfo().x1;
+			int l_y1 = lastSelectedComponent->getGraphicsInfo().y1;
+			int l_x2 = lastSelectedComponent->getGraphicsInfo().x2;
+			int l_y2 = lastSelectedComponent->getGraphicsInfo().y2;
+
+			if (x1 == l_x1 && x2 == l_x2 && y1 == l_y1 && y2 == l_y2) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
+				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
 				CompList[i] = NULL; // To make the pointer point to a null pointer
 				for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component

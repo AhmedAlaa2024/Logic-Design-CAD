@@ -11,6 +11,8 @@ class Connect : public Action
 	//int count_check_d;
 
 	int noOfComp;
+	//Component* SrcComp;
+	//Component* DistComp;
 	//Component* const* cmp;
 	int id;
 	int Cx1, Cy1, Cx2, Cy2;	//2 Center points of the two gates
@@ -21,7 +23,7 @@ public:
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters(int& a, int& b, bool& checkIfSourceIsLED);
+	virtual void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED);
 	virtual void ReadActionParameters() {};
 
 

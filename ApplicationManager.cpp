@@ -220,20 +220,271 @@ int ApplicationManager::getCompCount()
 
 
 //=========================================DOAA MAGDY=============================================//
-bool ApplicationManager::CheckInsideArea(int i, int Cx, int Cy)
+bool ApplicationManager::checkIfSourceIsLED(int cx, int cy)
 {
-	bool d = CompList[i]->InsideArea(Cx, Cy);
-	return d;
+	for (int i = 0; i < CompCount; i++)
+	{
+		bool d = CompList[i]->InsideArea(cx, cy);
+		if (d)
+		{
+			COMP_TYPES type = CompList[i]->get_comp_type();
+			if (type == COMP_TYPES::COMP_LED)
+			{
+				OutputInterface->PrintMsg("Error: the led has no output pin");
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
-COMP_TYPES ApplicationManager::CompType(int i)
+bool ApplicationManager::PressOn_WhiteSpace(int cx, int cy)
 {
-	
-	COMP_TYPES type;
-	type = CompList[i]->get_comp_type();
-	return type;
+	int count_check_s = 0;
+	for (int i = 0; i < CompCount; i++)
+	{
+		bool d = CompList[i]->InsideArea(cx, cy);
+		if (d == true)
+		{
+			count_check_s++;
+		}
+	}
+
+	if (count_check_s == 0)
+	{
+		OutputInterface->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
+		return true;
+	}
+	else
+		return false;
 }
 
+Component* ApplicationManager::CheckInsideArea(int cx, int cy)
+{
+	int i;
+	for (i = 0; i < CompCount; i++)
+	{
+		bool d = CompList[i]->InsideArea(cx, cy);
+		if (d)
+		{
+			break;
+		}
+
+	}
+	return CompList[i];
+}
+
+bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
+{
+	if (distComp == srcComp)
+	{
+		OutputInterface->PrintMsg("Error: You have already chosen this gate as a source gate. You can not connect a gate to itself");
+		return 0;
+	}
+
+	COMP_TYPES type = distComp->get_comp_type();
+	if (type == COMP_TYPES::COMP_SWITCH)
+	{
+
+		OutputInterface->PrintMsg("Error: the switch has no input pins");
+		return 0;
+
+	}
+
+}
+bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo)
+{
+	int no_input_pins = distComp->getNoOfInputpins();
+	for (int j = 0; j < no_input_pins; j++)
+	{
+		bool isConnected = inPin[j].get_is_connected();
+		if (isConnected == false)
+		{
+			inPin[j].set_is_connected(true);
+			//break;
+			//return true;
+		
+
+		COMP_TYPES type = distComp->get_comp_type();
+		int a1, b1, a2, b2;
+		distComp->getm_GfxInfo(a1, b1, a2, b2);
+
+		switch (type)
+		{
+			/*
+		case COMP_TYPES::COMP_GENERAL:
+			break;
+		case COMP_TYPES::COMP_GATE:
+			break;
+		case COMP_TYPES::COMP_SWITCH:
+			break;
+			*/
+		case COMP_TYPES::COMP_LED:
+		{
+			//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
+			GInfo.x2 = a1 + 23;
+			GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
+			break;
+		}
+		//case COMP_TYPES::COMP_CONN:
+			//break;
+		case COMP_TYPES::AND_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 15 + 1;
+
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 14 - 2;
+			}
+			break;
+		case COMP_TYPES::AND_3:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 16;
+
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + (b2 - b1) / 2;
+
+			}
+			else if (j == 2)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 16;
+
+			}
+			break;
+		case COMP_TYPES::INV_:
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + (b2 - b1) / 2;
+			break;
+		case COMP_TYPES::NAND_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 15;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 14 + 3;
+			}
+			break;
+		case COMP_TYPES::NOR_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 15 + 7;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 14 - 4;
+			}
+			break;
+		case COMP_TYPES::NOR_3:
+			if (j == 0)
+			{
+				GInfo.x2 = a1 + 11;
+				GInfo.y2 = b1 + 16 + 1;
+
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1 + 11;
+				GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
+			}
+			else if (j == 2)
+			{
+				GInfo.x2 = a1 + 11;
+				GInfo.y2 = b2 - 16 + 1;
+			}
+			break;
+		case COMP_TYPES::Buff_:
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + (b2 - b1) / 2;
+			break;
+		case COMP_TYPES::OR_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1 + 8;
+				GInfo.y2 = b1 + 15 - 7;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1 + 8;
+				GInfo.y2 = b2 - 14 + 3;
+			}
+			break;
+		case COMP_TYPES::XNOR_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 15 + 5;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 14 - 5;
+			}
+			break;
+		case COMP_TYPES::XOR_2:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 15;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 14;
+			}
+			break;
+		case COMP_TYPES::XOR_3:
+			if (j == 0)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + 16;
+			}
+			else if (j == 1)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b1 + (b2 - b1) / 2;
+			}
+			else if (j == 2)
+			{
+				GInfo.x2 = a1;
+				GInfo.y2 = b2 - 16;
+			}
+			break;
+		default:
+			break;
+		}
+		break;
+
+	}
+
+
+		if (j == no_input_pins - 1 && isConnected == true)
+		{
+			OutputInterface->PrintMsg("Error: All input pins of this component are already connected");
+			return false;
+		}
+		
+	}
+	return 1;
+}
+
+
+
+/*
 OutputPin* ApplicationManager::getOutputPinOfComp(int i)
 {
 	OutputPin* o = CompList[i]->getOutputPin();
@@ -263,7 +514,8 @@ bool ApplicationManager::CheckWheatherSrcIsTheDist(int i, int k)
 		return true;
 	return false;
 }
-/*
+
+
 int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
 {
 	if (case1 == 1)

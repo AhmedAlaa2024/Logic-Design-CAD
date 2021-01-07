@@ -109,8 +109,15 @@ enum DesignTools {
 	SWITCH1,
 	GATES_CNT
 };
-
-
+	// ============================== Ahmed Alaa edited here ==============================
+enum DsgnMenuItem2 {
+	COPY_ICON,
+	CUT_ICON,
+	PASTE_ICON,
+	DELETE_ICON,
+	ITM_DSN2_CNT	//no. of design menu items ==> This should be the last line in this enum
+};
+	// ==================================== Ahmed Alaa ====================================
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu

@@ -52,11 +52,11 @@ void ApplicationManager::DeleteComponent()
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
-				CompList[i] = nullptr; // To make the pointer point to a null pointer
+				CompList[i] = NULL; // To make the pointer point to a null pointer
 				for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
 					swap(CompList[j], CompList[j + 1]);
 				CompCount--;
-				lastSelectedComponent = nullptr;
+				lastSelectedComponent = NULL;
 				break;
 			}
 		}

@@ -64,5 +64,6 @@ COMP_TYPES Connection::get_comp_type() const
 
 void Connection::save(ofstream* fptr)
 {
-	*fptr << (DstPin->getComponent())->get_id() << '\t' << (SrcPin->getComponent())->get_id();
+	*fptr << (DstPin->getComponent())->get_id() << '\t';
+	//(SrcPin->getComponent())->get_id();
 }

@@ -21,7 +21,7 @@ private:
 	int m_Conn;		//Actual No. of connections connected to that output pin
 
 	//Rufaidah
-	Component* pComp; //Component at which this pin is associated
+	//Component* pComp; //Component at which this pin is associated
 
 	//==========DOAA==========
 	bool is_connected;
@@ -32,9 +32,9 @@ public:
 
 	Connection** get_connections(int& m_conn) const ;
 
-	void setComponent(Component* pCmp);
+	//void setComponent(Component* pCmp);
 
-	Component* getComponent() const;
+	//Component* getComponent() const;
 
 
 	

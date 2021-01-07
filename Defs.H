@@ -91,7 +91,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	Copy,
 	Cut,
 	Paste,
-	Delete,
+	Del,
 
 };
 enum { MaxCompCount = 200 };	//Max no of Components	

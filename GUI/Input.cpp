@@ -117,7 +117,7 @@ ActionType Input::GetUserAction()
 				case Copy: return COPY_;
 				case Cut: return CUT_;
 				case Paste:  return PASTE_;
-				case Delete: return DEL;
+				case Del: return DEL;
 				default: return DSN_TOOL;
 				}
 			}

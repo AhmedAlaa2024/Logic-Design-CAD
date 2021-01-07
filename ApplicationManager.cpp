@@ -255,6 +255,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case Clear_all:
 		pAct = new Clear(this);
 		break;
+	case DEL:
+		pAct = new Delete(this);
+		break;
 		// ==================================== Ahmed Alaa ====================================
 
 

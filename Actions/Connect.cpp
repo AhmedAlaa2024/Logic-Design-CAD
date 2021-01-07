@@ -128,7 +128,7 @@ void Connect::ReadActionParameters(bool &a, bool &b, bool& checkIfSourceIsLED)
 void Connect::Execute()
 {
 	//Get the two Gates wanted to be connected
-	Output* pOut = pManager->GetOutput();
+	//Output* pOut = pManager->GetOutput();
 
 	bool a, b;
 	bool IfLED;

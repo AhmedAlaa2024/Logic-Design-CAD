@@ -82,6 +82,9 @@ public:
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int& count) const; //don't ask me about the type :(
 	void save(ofstream*&);
+
+	void load(ifstream*&);
+													   //destructor
 	//destructor
 	~ApplicationManager();
 

@@ -1,4 +1,7 @@
 #include "Connection.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)
 	
@@ -62,5 +65,6 @@ COMP_TYPES Connection::get_comp_type() const
 
 void Connection::save(ofstream* fptr)
 {
-
+	*fptr << (DstPin->getComponent())->get_id() << '\t';
+	//(SrcPin->getComponent())->get_id();
 }

@@ -69,12 +69,19 @@ void Component::save(ofstream*& fptr)
 	case COMP_TYPES::COMP_LED:
 		*fptr << "LED\t";
 		break;
+
 	}
 	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
 }
 
-void Component::load(ifstream* iptr)
+void Component::load(ifstream*& iptr)
 {
+	*iptr >> m_Id;
+	iptr->ignore();
+	getline(*iptr, m_Label, '\t');
+	*iptr >> m_GfxInfo.x1 >> m_GfxInfo.y1;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Gate_Width;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Gate_Height;
 
 }
 COMP_TYPES Component::get_comp_type() const

@@ -81,10 +81,37 @@ void Gate::save(ofstream*& fptr)
 	Component::save(fptr);
 }
 
+//void Gate::load(ifstream*&, )
+//{
+//	else if (CompType == "AND2")
+//	comp_type = COMP_TYPES::AND_2;
+//	else if (CompType == "AND3")
+//	comp_type = COMP_TYPES::AND_3;
+//	else if (CompType == "Buff")
+//	comp_type = COMP_TYPES::Buff_;
+//	else if (CompType == "Inv")
+//	comp_type = COMP_TYPES::INV_;
+//	else if (CompType == "NAND2")
+//	comp_type = COMP_TYPES::NAND_2;
+//	else if (CompType == "NOR2")
+//	comp_type = COMP_TYPES::NOR_2;
+//	else if (CompType == "NOR3")
+//	comp_type = COMP_TYPES::NOR_3;
+//	else if (CompType == "OR2")
+//	comp_type = COMP_TYPES::OR_2;
+//	else if (CompType == "XNOR2")
+//	comp_type = COMP_TYPES::XNOR_2;
+//	else if (CompType == "XOR2")
+//	comp_type = COMP_TYPES::XOR_2;
+//	else if (CompType == "XOR3")
+//	comp_type = COMP_TYPES::XOR_3;
+//}
+
 void Gate::set_comp_type(COMP_TYPES ct)
 {
 	comp_type = ct;
 }
+
 
 Gate::~Gate()
 {

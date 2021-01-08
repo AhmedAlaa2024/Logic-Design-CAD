@@ -12,15 +12,13 @@ Exit::~Exit(void)
 
 void Exit::Execute()
 {
-	//wrong
-	
-	/*Output* pOut = pManager->GetOutput();
+	Output* pOut = pManager->GetOutput();
 	if (pOut) {
 		
 		pOut->destroyWind();
 		pOut = NULL;
 
-	}*/
+	}
 }
 
 void Exit::ReadActionParameters()

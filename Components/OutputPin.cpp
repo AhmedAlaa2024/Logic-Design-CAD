@@ -1,13 +1,13 @@
 #include "OutputPin.h"
 #include "Connection.h"
-
+#include "Component.h"
 OutputPin::OutputPin(int r_FanOut)
 {
 	m_Conn = 0;		//initially Pin is not connected to anything.
 	m_FanOut = r_FanOut > MAX_CONNS ? MAX_CONNS: r_FanOut;	//set the fan out of the pin.
 	m_Connections = new Connection*[MAX_CONNS];
 	//=========DOAA========
-	//is_connected = false;
+	is_connected = false;
 }
 
 //Functionn ConnectTo:
@@ -31,13 +31,24 @@ Connection** OutputPin::get_connections(int& m_conn) const
 	return m_Connections;
 }
 
-/*
+
 //===========DOAA===========
-bool OutputPin::get_is_connected()
-{
-	return is_connected;
-}
-void OutputPin::set_is_connected(bool)
-{
-	is_connected = test;
-}*/
+//bool OutputPin::get_is_connected()
+//{
+//	return is_connected;
+//}
+//void OutputPin::set_is_connected(bool)
+//{
+//	is_connected = test;
+//}
+//void OutputPin::setComponent(Component* pCmp)
+//{
+//	this->pComp = pCmp;
+//
+//	is_connected = false;
+//}
+
+//Component* OutputPin::getComponent() const
+//{
+//	return pComp;
+//}

@@ -1,5 +1,20 @@
 #include "ApplicationManager.h"
 #include "Components/Connection.h"
+#include "Components/Gate.h"
+#include "Components/AND2.h"
+#include "Components/AND3.h"
+#include "Components/INV.h"
+#include "Components/NOR2.h"
+#include "Components/SWITCH.h"
+#include "Components/LED.h"
+#include "Components/Buff.h"
+#include "Components/NAND2.h"
+#include "Components/NOR3.h"
+#include "Components/OR2.h"
+#include "Components/XNOR2.h"
+#include "Components/XOR2.h"
+#include "Components/XOR3.h"
+
 
 #include <iostream>
 
@@ -48,15 +63,27 @@ void ApplicationManager::DeleteComponent()
 	if (lastSelectedComponent != nullptr)
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
-			if (lastSelectedComponent->get_id() == CompList[i]->get_id()) // To make the following codes on the lastSelectedComponent 
+			int x1 = CompList[i]->getGraphicsInfo().x1;
+			int y1 = CompList[i]->getGraphicsInfo().y1;
+			int x2 = CompList[i]->getGraphicsInfo().x2;
+			int y2 = CompList[i]->getGraphicsInfo().y2;
+
+			int l_x1 = lastSelectedComponent->getGraphicsInfo().x1;
+			int l_y1 = lastSelectedComponent->getGraphicsInfo().y1;
+			int l_x2 = lastSelectedComponent->getGraphicsInfo().x2;
+			int l_y2 = lastSelectedComponent->getGraphicsInfo().y2;
+
+			if (x1 == l_x1 && x2 == l_x2 && y1 == l_y1 && y2 == l_y2) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
+				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
-				CompList[i] = nullptr; // To make the pointer point to a null pointer
+				CompList[i] = NULL; // To make the pointer point to a null pointer
 				for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
 					swap(CompList[j], CompList[j + 1]);
 				CompCount--;
-				lastSelectedComponent = nullptr;
+				lastSelectedComponent = NULL;
 				break;
 			}
 		}
@@ -66,14 +93,12 @@ void ApplicationManager::DeleteComponent()
 
 void ApplicationManager::DeleteAll()
 {
-	for (int i = CompCount; i >= 0; i--) {
-		cout << "Drawing White Rectangle..." << endl;
+	for (int i = 0; i < CompCount; i++) {
+		GetOutput()->ClearDrawingArea();
 		delete CompList[i]; // To delete the pointer that pointing to the seleted component
 		CompList[i] = NULL; // To make the pointer point to a null pointer
-		cout << "Deleting..." << endl;
 		CompCount--;
 	}
-	GetOutput()->ClearWindow();
 	lastSelectedComponent = NULL;
 }
 
@@ -121,6 +146,77 @@ void ApplicationManager::save(ofstream*& fptr)
 	}
 	*fptr << "-1";
 }
+void ApplicationManager::load(ifstream*& iptr)
+{
+	OutputInterface->ClearDrawingArea();
+	Label* Actp = 0;
+	int NonConnCount;
+	string CompType;
+	Component* Cptr = NULL;
+	GraphicsInfo GfxInfo;
+	GfxInfo.x1 = 0;
+	GfxInfo.x2 = 0;
+	GfxInfo.y1 = 0;
+	GfxInfo.y2 = 0;
+
+	*iptr >> NonConnCount;
+	for (int i = 0; i < NonConnCount; i++)
+	{
+		
+		*iptr >> CompType;
+		
+		if (CompType == "SWTCH")
+			Cptr = new SWITCH(GfxInfo, FANOUT);
+		else if (CompType == "LED")
+			Cptr = new LED(GfxInfo, FANOUT);
+		else if (CompType == "AND2")
+			Cptr = new AND2(GfxInfo, FANOUT);
+		else if (CompType == "AND3")
+			Cptr = new AND3(GfxInfo, FANOUT);
+		else if (CompType == "Buff")
+			Cptr = new Buff(GfxInfo, FANOUT);
+		else if (CompType == "Inv")
+			Cptr = new INV(GfxInfo, FANOUT);
+		else if (CompType == "NAND2")
+			Cptr = new NAND2(GfxInfo, FANOUT);
+		else if (CompType == "NOR2")
+			Cptr = new NOR2(GfxInfo, FANOUT);
+		else if (CompType == "NOR3")
+			Cptr = new NOR3(GfxInfo, FANOUT);
+		else if (CompType == "OR2")
+			Cptr = new OR2(GfxInfo, FANOUT);
+		else if (CompType == "XNOR2")
+			Cptr = new XNOR2(GfxInfo, FANOUT);
+		else if (CompType == "XOR2")
+			Cptr = new XOR2(GfxInfo, FANOUT);
+		else if (CompType == "XOR3")
+			Cptr = new XOR3(GfxInfo, FANOUT);
+
+
+		if (Cptr)
+		{
+			AddComponent(Cptr);
+			Cptr->load(iptr);
+		}
+	}
+	string fflag;
+	*iptr >> fflag;
+	if (fflag == "Connections")
+	//here i should read the connections then reach the second flag.
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i]->Draw(OutputInterface);
+		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+		{
+			Actp = new Label(this, CompList[i], 0);
+		}
+	}
+	if (Actp)
+	{
+		delete Actp;
+		Actp = NULL;
+	}
+}
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
@@ -144,10 +240,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_Gate:
 		pAct = new Add(this);
 		break;
-	case ADD_AND_GATE_2:
-		pAct = new AddANDgate2(this);
-		break;
-
 	case ADD_CONNECTION:
 		//TODO: Create AddConection Action here
 		pAct = new Connect(this);
@@ -160,29 +252,30 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_Label:
 		pAct = new Label(this, lastSelectedComponent);
 		break;
-	case DEL:
-		pAct = new Delete(this);
-		break;
 	case Clear_all:
 		pAct = new Clear(this);
 		break;
+	case DEL:
+		pAct = new Delete(this);
+		break;
 		// ==================================== Ahmed Alaa ====================================
 
-	case DSN_MODE:
-		pAct = new SwitchToDesign(this);
-		break;
-	case SIM_MODE:
-		pAct = new SwitchToSimulation(this);
-		break;
-	case EXIT:
-		pAct = new Exit(this);
-		break;
-	case SAVE:
-		pAct = new Save(this);
-		break;
-		/*case LOAD:
+
+		case DSN_MODE:
+			pAct = new SwitchToDesign(this);
+			break;
+		case SIM_MODE:
+			pAct = new SwitchToSimulation(this);
+			break;
+		case EXIT:
+			pAct = new Exit(this);
+			break;
+		case SAVE:
+			pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
+			break;
+		case LOAD:
 			pAct = new Load(this);
-			break;*/
+			break;
 	}
 	if (pAct)
 	{
@@ -196,7 +289,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::UpdateInterface()
 {
 	for (int i = 0; i < CompCount; i++)
-		CompList[i]->Draw(OutputInterface);
+		if (CompList[i] != NULL)
+			CompList[i]->Draw(OutputInterface);
 
 }
 
@@ -327,8 +421,6 @@ int ApplicationManager::getCompCount()
 {
 	return CompCount;
 }
-
-
 
 
 //=========================================DOAA MAGDY=============================================//
@@ -638,7 +730,6 @@ int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
 }
 */
 //=========================================DOAA MAGDY=============================================//
-
 
 
 ApplicationManager::~ApplicationManager()

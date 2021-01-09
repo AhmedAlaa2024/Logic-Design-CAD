@@ -7,8 +7,10 @@
  a component. The output pin propagates its value immediately to the associated connections
 */
 
+
 #include "Pin.h"
 class Connection;	//Forward class declartion
+class Component; //Forward class declaration
 
 
 class OutputPin : public Pin	//inherited from class Pin
@@ -21,7 +23,7 @@ private:
 	int m_Conn;		//Actual No. of connections connected to that output pin
 
 	//Rufaidah
-	//Component* pComp; //Component at which this pin is associated
+	Component* pComp; //Component at which this pin is associated
 
 	//==========DOAA==========
 	bool is_connected;
@@ -32,9 +34,9 @@ public:
 
 	Connection** get_connections(int& m_conn) const ;
 
-	//void setComponent(Component* pCmp);
+	void setComponent(Component* pCmp);
 
-	//Component* getComponent() const;
+	Component* getComponent() const;
 
 
 	

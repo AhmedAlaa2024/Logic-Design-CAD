@@ -163,11 +163,8 @@ void Output::CreateDesignToolBarComponent() const
 	DesignTools[XOR_2IN] = "images\\Gates\\Gate_XOR.jpg";
 	DesignTools[XNOR_2IN] = "images\\Gates\\Gate_XNOR2.jpg";
 	DesignTools[AND_3IN] = "images\\Gates\\Gate_AND3.jpg";
-	DesignTools[OR_3IN] = "images\\Gates\\Gate_OR3.jpg";
-	DesignTools[NAND_3IN] = "images\\Gates\\Gate_AND3.jpg";
 	DesignTools[NOR_3IN] = "images\\Gates\\Gate_NOR3.jpg";
 	DesignTools[XOR_3IN] = "images\\Gates\\Gate_XOR3.jpg";
-	DesignTools[XNOR_3IN] = "images\\Gates\\3-IP-XNOR.jpg";
 	DesignTools[LED1] = "images\\Gates\\LED.jpg";
 	DesignTools[SWITCH1] = "images\\Gates\\off_switch.jpg";
 
@@ -384,7 +381,7 @@ void Output::DrawNOR3(GraphicsInfo r_GfxInfo, bool selected) const//done
 	//
 	//TODO: I need to change those heights and widths
 	//
-	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width + 40, UI.Gate_Height);
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
 void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
@@ -400,7 +397,7 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
 	//
 	//TODO: I need to change those heights and widths
 	//
-	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width + 40, UI.Gate_Height);
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width , UI.Gate_Height);
 }
 
 void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const //done

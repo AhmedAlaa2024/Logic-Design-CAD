@@ -17,7 +17,9 @@ Gate::Gate(int r_Inputs, int r_FanOut)
 	//Associate all input pins to this gate
 	for(int i=0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
-
+	/////////Rufaidah
+	m_OutputPin->setComponent(this);
+	////////////
 
 	comp_type = COMP_TYPES::COMP_GATE; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
@@ -40,8 +42,11 @@ void Gate::save(ofstream*& fptr)
 	string name;
 	switch (get_comp_type())
 	{
-	default:
-		name = "Gate";
+	case COMP_TYPES::COMP_SWITCH:
+		name = "SWTCH";
+		break;
+	case COMP_TYPES::COMP_LED:
+		name = "LED";
 		break;
 	case COMP_TYPES::AND_2:
 		name = "AND2";

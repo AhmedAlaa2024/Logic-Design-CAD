@@ -35,7 +35,8 @@ public:
 
 	virtual COMP_TYPES get_comp_type() const;
 
-	virtual void save(ofstream*);
+	virtual void save(ofstream*&);
+	virtual void load(ifstream*&);
 
 	//=============DOAA MAGDY===========
 	virtual int getNoOfInputpins() { return 0; };

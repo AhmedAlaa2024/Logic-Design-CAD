@@ -61,16 +61,6 @@ void Component::set_is_selected(bool test)
 
 void Component::save(ofstream*& fptr)
 {
-	switch (comp_type)
-	{
-	case COMP_TYPES::COMP_SWITCH:
-		*fptr << "SWTCH\t";
-		break;
-	case COMP_TYPES::COMP_LED:
-		*fptr << "LED\t";
-		break;
-
-	}
 	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
 }
 

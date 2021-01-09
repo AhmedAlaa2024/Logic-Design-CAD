@@ -162,7 +162,7 @@ void ApplicationManager::load(ifstream*& iptr)
 {
 	OutputInterface->ClearDrawingArea();
 	Label* Actp = 0;
-	int NonConnCount;
+	int NonConnCount, n;
 	string CompType;
 	Component* Cptr = NULL;
 	GraphicsInfo GfxInfo;
@@ -214,6 +214,11 @@ void ApplicationManager::load(ifstream*& iptr)
 	string fflag;
 	*iptr >> fflag;
 	if (fflag == "Connections")
+		
+		do
+		{
+			*iptr >> n;
+		} while (n != -1);
 	//here i should read the connections then reach the second flag.
 	for (int i = 0; i < CompCount; i++)
 	{

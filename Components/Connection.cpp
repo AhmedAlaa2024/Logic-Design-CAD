@@ -80,5 +80,5 @@ void Connection::save(ofstream*& fptr)
 
 void Connection::load(ifstream*& fptr)
 {
-	*fptr >> 
+//	*fptr >> 
 }

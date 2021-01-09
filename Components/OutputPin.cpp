@@ -41,11 +41,14 @@ Connection** OutputPin::get_connections(int& m_conn) const
 //{
 //	is_connected = test;
 //}
+
 /////////////////////Rufaidah
+
 void OutputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;
 }
+
 
 Component* OutputPin::getComponent() const
 {

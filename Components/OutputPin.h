@@ -6,9 +6,12 @@
  An output pin obtains its value as a result of calculating the outputs of
  a component. The output pin propagates its value immediately to the associated connections
 */
+
 class Component;
+
 #include "Pin.h"
 class Connection;	//Forward class declartion
+class Component; //Forward class declaration
 
 
 class OutputPin : public Pin	//inherited from class Pin
@@ -32,6 +35,7 @@ public:
 
 	Connection** get_connections(int& m_conn) const;
 	////////Rufaidah
+
 	void setComponent(Component* pCmp);
 
 	Component* getComponent() const;

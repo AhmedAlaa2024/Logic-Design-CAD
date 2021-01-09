@@ -46,9 +46,9 @@ void OutputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;
 }
-////////////////
 
 Component* OutputPin::getComponent() const
 {
 	return pComp;
 }
+////////////////

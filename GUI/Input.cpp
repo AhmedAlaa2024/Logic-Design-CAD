@@ -205,11 +205,8 @@ ActionType Input::AddGate() const
 			case XOR_2IN: return ADD_XOR_GATE_2;
 			case XNOR_2IN: return ADD_XNOR_GATE_2;
 			case AND_3IN: return ADD_AND_GATE_3;
-			case OR_3IN: return ADD_OR_GATE_3;
-			case NAND_3IN: return ADD_NAND_GATE_3;
 			case NOR_3IN: return ADD_NOR_GATE_3;
 			case XOR_3IN: return ADD_XOR_GATE_3;
-			case XNOR_3IN: return ADD_XNOR_GATE_3;
 			case LED1: return  ADD_LED;
 			case SWITCH1: return  ADD_Switch;
 			default: return GATE_TOOL;	//A click on empty place in simulation toolbar

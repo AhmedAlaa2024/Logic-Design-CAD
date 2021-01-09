@@ -46,44 +46,7 @@ void Connect::ReadActionParameters(bool &a, bool &b, bool& checkIfSourceIsLED)
 	checkIfSourceIsLED = pManager->checkIfSourceIsLED(Cx1, Cy1);
 	if (checkIfSourceIsLED == true)
 		return;
-	/*
-	for (int i = 0; i < noOfComp; i++)
-	{
-		bool d = pManager->CheckInsideArea(i, Cx1, Cy1);
-		if (d)
-		{
-			COMP_TYPES type = pManager->CompType(i);
-			if (type == COMP_TYPES::COMP_LED)
-			{
-				pOut->PrintMsg("Error: the led has no output pin");
-				checkIfSourceIsLED = true;
-				return;
-
-			}
-		}
-	}
-	*/
 	
-	/*
-	int count_check_s = 0;
-	for (int i = 0; i < noOfComp; i++)
-	{
-		bool d = pManager->CheckInsideArea(i, Cx1, Cy1);
-		if (d == true)
-		{
-			count_check_s ++;
-		}
-	}
-
-
-
-	a = count_check_s;
-	if (count_check_s == 0)
-	{
-		pOut->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
-		return;
-	}
-	*/
 
 	//Clear Status Bar
 	pOut->ClearStatusBar();
@@ -99,23 +62,7 @@ void Connect::ReadActionParameters(bool &a, bool &b, bool& checkIfSourceIsLED)
 	b = pManager->PressOn_WhiteSpace(Cx2, Cy2);
 	if (b == true)
 		return;
-	/*
-	int count_check_d = 0;
-	for (int i = 0; i < noOfComp; i++)
-	{
-		bool d = pManager->CheckInsideArea(i, Cx2, Cy2);
-		if (d == true)
-		{
-			count_check_d++;
-		}
-	}
-	b = count_check_d;
-	if (count_check_d == 0)
-	{
-		pOut->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
-		return;
-	}
-	*/
+	
 
 	//Clear Status Bar
 	pOut->ClearStatusBar();
@@ -128,7 +75,7 @@ void Connect::ReadActionParameters(bool &a, bool &b, bool& checkIfSourceIsLED)
 void Connect::Execute()
 {
 	//Get the two Gates wanted to be connected
-	//Output* pOut = pManager->GetOutput();
+	Output* pOut = pManager->GetOutput();
 
 	bool a, b;
 	bool IfLED;
@@ -140,6 +87,13 @@ void Connect::Execute()
 	}
 
 	Component* SrcComp = pManager->CheckInsideArea(Cx1, Cy1);
+	//SrcComp->set_is_selected(true);
+	//pManager->ExecuteAction(SELECT);
+	/*
+	COMP_TYPES comptype1;
+	Component* SrcComp = NULL;
+	int target1 = pManager->which_component(comptype1, SrcComp);
+	*/
 	OutputPin* out = SrcComp->getOutputPin();
 
 
@@ -150,7 +104,17 @@ void Connect::Execute()
 	//=======================//
 	InputPin* in;
 	
+	/*
+	COMP_TYPES type;
+	Component* DistComp = NULL;
+	int target2 = pManager->which_component(type);
+	*/
+
 	Component* DistComp = pManager->CheckInsideArea(Cx2, Cy2);
+	//SrcComp->set_is_selected(false);
+	//pManager->ExecuteAction(SELECT);
+
+	//DistComp->set_is_selected(true);
 
 	in = DistComp->getInputPin(); //array of inout pins
 
@@ -163,9 +127,194 @@ void Connect::Execute()
 		return;
 
 	InputPin* selected_pin;
-	bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
-	if (i == false)
-		return;
+	//bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
+
+
+
+
+
+	//=======================================================================
+
+	//bool ApplicationManager::Check_pins_to_connect(Component * distComp, InputPin * inPin, GraphicsInfo & GInfo, InputPin * &selected_pin)
+	//{
+		int no_input_pins = DistComp->getNoOfInputpins();
+		for (int j = 0; j < no_input_pins; j++)
+		{
+			bool isConnected = in[j].get_is_connected();
+			if (isConnected == false)
+			{
+				selected_pin = &in[j];
+				in[j].set_is_connected(true);
+				
+				COMP_TYPES type = DistComp->get_comp_type();
+				//int a1, b1, a2, b2;
+				DistComp->getm_GfxInfo(a1, b1, a2, b2);
+
+				switch (type)
+				{
+				case COMP_TYPES::COMP_LED:
+				{
+					GInfo.x2 = a1 + 23;
+					GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
+					break;
+				}
+				case COMP_TYPES::AND_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 15 + 1;
+
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 14 - 2;
+					}
+					break;
+				case COMP_TYPES::AND_3:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 16;
+
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + (b2 - b1) / 2;
+
+					}
+					else if (j == 2)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 16;
+
+					}
+					break;
+				case COMP_TYPES::INV_:
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + (b2 - b1) / 2;
+					break;
+				case COMP_TYPES::NAND_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 15;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 14 + 3;
+					}
+					break;
+				case COMP_TYPES::NOR_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 15 + 7;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 14 - 4;
+					}
+					break;
+				case COMP_TYPES::NOR_3:
+					if (j == 0)
+					{
+						GInfo.x2 = a1 + 11;
+						GInfo.y2 = b1 + 16 + 1;
+
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1 + 11;
+						GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
+					}
+					else if (j == 2)
+					{
+						GInfo.x2 = a1 + 11;
+						GInfo.y2 = b2 - 16 + 1;
+					}
+					break;
+				case COMP_TYPES::Buff_:
+					GInfo.x2 = a1;
+					GInfo.y2 = b1 + (b2 - b1) / 2;
+					break;
+				case COMP_TYPES::OR_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1 + 8;
+						GInfo.y2 = b1 + 15 - 7;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1 + 8;
+						GInfo.y2 = b2 - 14 + 3;
+					}
+					break;
+				case COMP_TYPES::XNOR_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 15 + 5;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 14 - 5;
+					}
+					break;
+				case COMP_TYPES::XOR_2:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 15;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 14;
+					}
+					break;
+				case COMP_TYPES::XOR_3:
+					if (j == 0)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + 16;
+					}
+					else if (j == 1)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b1 + (b2 - b1) / 2;
+					}
+					else if (j == 2)
+					{
+						GInfo.x2 = a1;
+						GInfo.y2 = b2 - 16;
+					}
+					break;
+				default:
+					break;
+				}
+				break;
+
+			}
+
+			if (j == no_input_pins - 1 && isConnected == true)
+			{
+				pOut->PrintMsg("Error: All input pins of this component are already connected");
+				return;
+			}
+
+		}
+
+			//======================================================
+
+
+
+//	if (i == false)
+		//return;
 	
 
 	SrcComp->getm_GfxInfo(x1, y1, x2, y2);

@@ -94,7 +94,7 @@ public:
 	bool PressOn_WhiteSpace(int cx, int cy);
 	bool checkIfSourceIsLED(int cx, int cy);
 	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
-	bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*&);
+	//bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*&);
 
 	//OutputPin* getOutputPinOfComp(int i);
 	//InputPin* getInputPinOfComp(int k);

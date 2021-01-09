@@ -496,6 +496,9 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 }
+
+
+/*
 bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*& selected_pin)
 {
 	int no_input_pins = distComp->getNoOfInputpins();
@@ -516,14 +519,6 @@ bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* in
 
 			switch (type)
 			{
-				/*
-			case COMP_TYPES::COMP_GENERAL:
-				break;
-			case COMP_TYPES::COMP_GATE:
-				break;
-			case COMP_TYPES::COMP_SWITCH:
-				break;
-				*/
 			case COMP_TYPES::COMP_LED:
 			{
 				//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
@@ -686,7 +681,7 @@ bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* in
 	}
 	return true;
 }
-
+*/
 
 
 /*

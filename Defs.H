@@ -105,11 +105,8 @@ enum DesignTools {
 	XOR_2IN,
 	XNOR_2IN,
 	AND_3IN,
-	OR_3IN,
-	NAND_3IN,
 	NOR_3IN,
 	XOR_3IN,
-	XNOR_3IN,
 	LED1,
 	SWITCH1,
 	GATES_CNT

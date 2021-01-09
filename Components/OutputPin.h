@@ -7,8 +7,10 @@
  a component. The output pin propagates its value immediately to the associated connections
 */
 class Component;
+
 #include "Pin.h"
 class Connection;	//Forward class declartion
+class Component; //Forward class declaration
 
 
 class OutputPin : public Pin	//inherited from class Pin
@@ -30,6 +32,7 @@ public:
 	OutputPin(int r_FanOut);
 	bool ConnectTo(Connection* r_Conn);	//connect to a new connection
 
+  
 	Connection** get_connections(int& m_conn) const;
 	////////Rufaidah
 	void setComponent(Component* pCmp);

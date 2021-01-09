@@ -41,14 +41,14 @@ Connection** OutputPin::get_connections(int& m_conn) const
 //{
 //	is_connected = test;
 //}
-//void OutputPin::setComponent(Component* pCmp)
-//{
-//	this->pComp = pCmp;
-//
-//	is_connected = false;
-//}
+void OutputPin::setComponent(Component* pCmp)
+{
+	this->pComp = pCmp;
 
-//Component* OutputPin::getComponent() const
-//{
-//	return pComp;
-//}
+	is_connected = false;
+}
+
+Component* OutputPin::getComponent() const
+{
+	return pComp;
+}

@@ -3,31 +3,40 @@
 #include <fstream>
 using namespace std;
 
-Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)
-	
+Connection::Connection(const GraphicsInfo& r_GfxInfo, OutputPin* pSrcPin, InputPin* pDstPin) :Component(r_GfxInfo)
+
 {
 
 	is_selected = false;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
+
 	is_on = LOW;
 	comp_type = COMP_TYPES::COMP_CONN; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
 						   for identifying the suitable action
 						   when the user select the arbitary component. */
 }
-void Connection::setSourcePin(OutputPin *pSrcPin)
-{	SrcPin = pSrcPin;	}
+void Connection::setSourcePin(OutputPin* pSrcPin)
+{
+	SrcPin = pSrcPin;
+}
 
 OutputPin* Connection::getSourcePin() const
-{	return SrcPin;	}
+{
+	return SrcPin;
+}
 
 
-void Connection::setDestPin(InputPin *pDstPin)
-{	DstPin = pDstPin;	}
+void Connection::setDestPin(InputPin* pDstPin)
+{
+	DstPin = pDstPin;
+}
 
 InputPin* Connection::getDestPin() const
-{	return DstPin;	}
+{
+	return DstPin;
+}
 
 
 void Connection::Operate()
@@ -39,7 +48,7 @@ void Connection::Operate()
 
 void Connection::Draw(Output* pOut)
 {
-	pOut->DrawConnection(m_GfxInfo, is_selected,is_on);
+	pOut->DrawConnection(m_GfxInfo, is_selected, is_on);
 }
 
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1
@@ -67,4 +76,10 @@ void Connection::save(ofstream* fptr)
 {
 	*fptr << (DstPin->getComponent())->get_id() << '\t';
 	//(SrcPin->getComponent())->get_id();
+}
+
+Connection::~Connection()
+{
+	DstPin->set_is_connected(false);
+
 }

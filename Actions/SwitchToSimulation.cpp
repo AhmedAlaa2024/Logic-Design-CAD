@@ -14,26 +14,19 @@ SwitchToSimulation::~SwitchToSimulation()
 
 void SwitchToSimulation::Execute()
 {
-	UI.AppMode = SIMULATION;
-	Action* pAct = new SimulateCircuit(pManager);
-	pAct->Execute();
-	delete pAct;
 
 	Output* pOut = pManager->GetOutput();
 
-	
+
 	int num;
-	auto comps = pManager->getComponents(num);
-	for (int i = 0; i < num; ++i)
-	{
-		comps[i]->set_is_selected(false);
-	}
-	pManager->SetLastSelectedComponent(-1);
-
-
+	pManager->DeselectComponentExcept();
 
 	pOut->ClearWindow();
 	pOut->CreateSimulationToolBar();
+	UI.AppMode = SIMULATION;
+	pManager->ExecuteAction(SIMULATE);
+
+	
 }
 
 void SwitchToSimulation::ReadActionParameters()

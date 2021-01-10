@@ -9,7 +9,9 @@ class Connect : public Action
 {
 	//int count_check_s;
 	//int count_check_d;
-
+	//////////Rufaidah
+	int InputPinNum;
+	/////////////////////////////
 	int noOfComp;
 	//Component* SrcComp;
 	//Component* DistComp;
@@ -36,6 +38,8 @@ public:
 	//To redo this action (code depends on action type)
 	virtual void Redo();
 
+	////////////////Rufaidah
+	int getInputPinNum();
 };
 
 #endif

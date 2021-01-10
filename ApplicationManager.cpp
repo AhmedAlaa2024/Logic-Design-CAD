@@ -100,17 +100,6 @@ void ApplicationManager::DeleteComponent()
 					if (i > index)
 						i--; //i is shifted
 				}
-
-
-
-
-
-
-
-
-
-
-
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
 				CompList[i] = NULL; // To make the pointer point to a null pointer
 				shift_to_end(i);
@@ -120,6 +109,7 @@ void ApplicationManager::DeleteComponent()
 			}
 			else
 				GetOutput()->PrintMsg("You have to select a certain component before delete!");
+
 		}
 }
 void ApplicationManager::DeleteAll()
@@ -181,7 +171,7 @@ void ApplicationManager::load(ifstream*& iptr)
 {
 	OutputInterface->ClearDrawingArea();
 	Label* Actp = 0;
-	int NonConnCount;
+	int NonConnCount, n;
 	string CompType;
 	Component* Cptr = NULL;
 	GraphicsInfo GfxInfo;
@@ -233,13 +223,22 @@ void ApplicationManager::load(ifstream*& iptr)
 	string fflag;
 	*iptr >> fflag;
 	if (fflag == "Connections")
-		//here i should read the connections then reach the second flag.
+		
+		do
+		{
+			*iptr >> n;
+		} while (n != -1);
+	//here i should read the connections then reach the second flag.
 		for (int i = 0; i < CompCount; i++)
 		{
 			CompList[i]->Draw(OutputInterface);
 			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 			{
-				Actp = new Label(this, CompList[i], 0);
+				CompList[i]->Draw(OutputInterface);
+				if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+				{
+					Actp = new Label(this, CompList[i], 0);
+				}
 			}
 		}
 	if (Actp)

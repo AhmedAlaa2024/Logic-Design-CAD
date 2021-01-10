@@ -297,6 +297,10 @@ void Connect::Execute()
 				default:
 					break;
 				}
+				/*/// <summary>
+				/// ///////////Rufaiah
+				/// </summary>
+				InputPinNum = j + 1;*/
 				break;
 
 			}
@@ -349,3 +353,10 @@ void Connect::Redo()
 {
 
 }
+
+///////////////////Rufaidah
+int Connect::getInputPinNum()
+{
+	return InputPinNum;
+}
+////////////////////////

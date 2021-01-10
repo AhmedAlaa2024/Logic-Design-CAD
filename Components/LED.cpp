@@ -28,7 +28,7 @@ void LED::Operate()
 void LED::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawLED(m_GfxInfo, is_high);
+	pOut->DrawLED(m_GfxInfo, is_high, is_selected);
 }
 
 //returns status of outputpin

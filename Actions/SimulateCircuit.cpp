@@ -30,6 +30,13 @@ void SimulateCircuit::Execute()
 	int sw_no = 0;
 	SWITCH** SWs = pManager->get_switches(sw_no);
 
+	if (SWs == NULL)
+	{
+		pOut->PrintMsg("Error there is no Switches");
+		return;
+	}
+
+
 	int j = 0;
 	//letting the switches operate ang getting the input pins of the next
 	for (int i = 0; i < sw_no; ++i) // for each switch
@@ -57,13 +64,20 @@ void SimulateCircuit::Execute()
 	//now i have all the input pins in next_in_pins and their number no_conn_to_next
 
 	int no_leds;
-	LED** leds = pManager->get_leds(no_leds);
+	LED** leds = pManager->get_connected_leds(no_leds);
+
+	if (leds == NULL)
+	{
+		pOut->PrintMsg("Error there is no LEDS");
+		return;
+	}
+
 	for (int i = 0; i < no_leds; ++i)
 	{
 		leds[i]->set_is_reached(false);
 	}
 
-	
+
 	while (true) {
 		j = 0; // to reuse it
 		int num = no_conn_to_next; //saving the number of conns before setting it to zero
@@ -72,7 +86,10 @@ void SimulateCircuit::Execute()
 		{
 
 			Component* current_comp = next_in_pins[i]->getComponent();
-			current_comp->Operate();
+			if (current_comp)
+				current_comp->Operate();
+			else
+				continue;
 
 
 
@@ -120,7 +137,7 @@ void SimulateCircuit::Execute()
 
 
 	}
-	
+
 
 
 }

@@ -40,9 +40,12 @@ private:
 	// 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Class Interface
-
+	
 	COMP_TYPES Clipboard;
 
+	void shift_to_end(int i); //utility function
+
+	
 public:
 	ApplicationManager(); //constructor
 
@@ -62,7 +65,8 @@ public:
 
 	//to start and end the simulation
 	SWITCH** get_switches(int& num) const;
-	LED** get_leds(int &num )const;
+	Connection** get_connections(int& num) const;
+	LED** get_connected_leds(int &num )const;
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();

@@ -421,7 +421,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const 
 	}
 	else {
 		if (selected)	//use image in the highlighted case
-			GateImage = "Images\\Gates\\LEDH.jpeg";
+			GateImage = "Images\\Gates\\LED_Hi.jpeg";
 		else
 			GateImage = "Images\\Gates\\off_LED.jpeg";
 	}

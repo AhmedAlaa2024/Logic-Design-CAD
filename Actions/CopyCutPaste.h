@@ -5,13 +5,7 @@
 #include "..\Actions/Add.h"
 #include "..\Components\Component.h"
 
-enum CopyCutPaste_mode
-{
-	COPY,
-	CUT,
-	PASTE
-	
-};
+
 class CopyCutPaste : public Action
 {
 private:

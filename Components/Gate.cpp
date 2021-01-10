@@ -15,7 +15,7 @@ Gate::Gate(int r_Inputs, int r_FanOut)
 	m_InputPins = new InputPin[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
 	//Associate all input pins to this gate
-	for(int i=0; i<m_Inputs; i++)
+	for (int i = 0; i < m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
 
 
@@ -110,6 +110,19 @@ void Gate::save(ofstream*& fptr)
 void Gate::set_comp_type(COMP_TYPES ct)
 {
 	comp_type = ct;
+}
+
+bool Gate::is_connected(InputPin& in)
+{
+	for (int i = 0; i < m_Inputs; ++i)
+	{
+		if (in.getComponent() == this)
+			return true;
+	}
+
+
+
+	return false;
 }
 
 

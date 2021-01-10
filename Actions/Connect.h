@@ -9,9 +9,9 @@ class Connect : public Action
 {
 	//int count_check_s;
 	//int count_check_d;
-	//////////Rufaidah
-	int InputPinNum;
-	/////////////////////////////
+	////////////Rufaidah
+	//int InputPinNum;
+	///////////////////////////////
 	int noOfComp;
 	//Component* SrcComp;
 	//Component* DistComp;

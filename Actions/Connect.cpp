@@ -138,8 +138,7 @@ void Connect::Execute()
 	//bool ApplicationManager::Check_pins_to_connect(Component * distComp, InputPin * inPin, GraphicsInfo & GInfo, InputPin * &selected_pin)
 	//{
 		int no_input_pins = DistComp->getNoOfInputpins();
-		int j;
-		for (j = 0; j < no_input_pins; j++)
+		for (int j = 0; j < no_input_pins; j++)
 		{
 			bool isConnected = in[j].get_is_connected();
 			if (isConnected == false)
@@ -298,10 +297,10 @@ void Connect::Execute()
 				default:
 					break;
 				}
-				/// <summary>
+				/*/// <summary>
 				/// ///////////Rufaiah
 				/// </summary>
-				InputPinNum = j + 1;
+				InputPinNum = j + 1;*/
 				break;
 
 			}

@@ -4,7 +4,6 @@
 
 Label::Label(ApplicationManager* pApp, Component* comp) : Action(pApp), component(comp)
 {
-    Execute();
 }
 
 //-----Rufaidah (I need this constructor)
@@ -40,11 +39,9 @@ void Label::Execute()
         {
             component->set_m_Label(SetLabel()); // To get the label from the user
             DisplayLabel(); // To display the label above the component.
-            pManager->SetLastSelectedComponent(-1); // To clear the component from the lastSelectedComponent in pManager
         }
         else {
             DisplayLabel(); // To display the label above the component.
-            pManager->SetLastSelectedComponent(-1); // To clear the component from the lastSelectedComponent in pManager
         }
     else
         pManager->GetOutput()->PrintMsg("Please, Select an component before adding a label.");

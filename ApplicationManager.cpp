@@ -162,9 +162,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT:
 		pAct = new Select(this);
 		break;
-
 	case ADD_Label:
 		pAct = new Label(this, lastSelectedComponent);
+		break;
+	case EDIT_Label:
+		pAct = new Edit(this, lastSelectedComponent);
 		break;
 	case DEL:
 		pAct = new Delete(this);

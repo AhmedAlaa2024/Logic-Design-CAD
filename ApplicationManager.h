@@ -17,6 +17,7 @@
 #include "Actions/SwitchToSimulation.h"
 #include "Actions/Add.h"
 #include "Actions/Label.h"
+#include "Actions/Edit.h"
 #include "Actions/Delete.h"
 #include "Actions/Clear.h"
 #include "Actions/Connect.h"

@@ -19,7 +19,7 @@ string Input::GetString(Output* pOut, string startwith) const
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 	keytype a;
-	string s;
+	string s = startwith;
 	char c;
 	pWind->FlushKeyQueue();
 

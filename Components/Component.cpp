@@ -5,13 +5,21 @@ using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	m_Id = LastID++;
+	last_taken_input_pin_place= 0;
 	//ID = id;
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
 	m_Label = "";
 }
+Component::Component()
+{
 
+	m_Id = LastID++;
+	last_taken_input_pin_place = 0;
+
+
+}
 //=================DOAA==========//
 int Component::LastID = 0;
 /*
@@ -22,6 +30,10 @@ int Component::getLastID()
 */
 //=================DOAA==========//
 
+int Component::get_place() 
+{
+	return last_taken_input_pin_place++;
+}
 
 
 void Component::set_m_Label(string label)
@@ -89,15 +101,7 @@ COMP_TYPES Component::get_comp_type() const
 	return COMP_TYPES::COMP_GENERAL;
 }
 
-Component::Component()
-{
 
-	m_Id = LastID++;
-
-}
-
-Component::~Component()
-{}
 
 //==================DOAA MAGDY===============i need this fn in class connect to know which gate sellected by the user
 bool Component::InsideArea(int x, int y)
@@ -116,3 +120,6 @@ void Component::getm_GfxInfo(int &x1, int &y1, int &x2, int &y2)
 
 }
 
+
+Component::~Component()
+{}

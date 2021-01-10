@@ -1,9 +1,11 @@
 #include "Select.h"
 
-	// ============================== Ahmed Alaa edited here ==============================
+#include "SimulateCircuit.h"
+
 
 Select::Select(ApplicationManager* pApp): Action(pApp), x(0), y(0)
 {
+
 }
 
 void Select::ReadActionParameters()
@@ -17,6 +19,7 @@ void Select::Execute()
 
 	COMP_TYPES comp_type;
 	int target = pManager->which_component(comp_type); // To get the index of the target component.
+
 	
 	if (target == -1) // To check if the user clicked on a blank space
 	{
@@ -28,20 +31,36 @@ void Select::Execute()
 		pManager->SelectComponent(target); // To make a notation that the clicked component is selected.
 		pManager->SetLastSelectedComponent(target); // To make a pointer to the last selected component
 		Component* LastSelectedComponent = pManager->GetLastSelectedComponent();
-		GraphicsInfo r_GfxInfo = LastSelectedComponent->getGraphicsInfo();
+		LastSelectedComponent->set_is_selected(true);
+		//GraphicsInfo r_GfxInfo = LastSelectedComponent->getGraphicsInfo();
 		switch (comp_type) // I used switch case because the behaviour will be different from Gate, Switch and Led.
 		{
 		case COMP_TYPES::COMP_GATE:
-			LastSelectedComponent->Draw(pManager->GetOutput()); // It will override a new image indicate that the gate is selected
 			break;
 		case COMP_TYPES::COMP_SWITCH:
-			pManager->GetOutput()->DrawSWITCH(r_GfxInfo, false, true); // It will override a new image indicate that the switch is selected
+		{
+			if (UI.AppMode == DESIGN) {
+
+				// It will override a new image indicate that the switch is selected
+				break;
+			}
+			if (dynamic_cast<SWITCH*>(LastSelectedComponent)->get_state())
+			{
+				dynamic_cast<SWITCH*>(LastSelectedComponent)->set_state(LOW);
+			}
+			else
+			{
+				dynamic_cast<SWITCH*>(LastSelectedComponent)->set_state(HIGH);
+			}
+			pManager->ExecuteAction(SIMULATE);
 			break;
+		}
+
 		case COMP_TYPES::COMP_LED:
-			pManager->GetOutput()->DrawLED(r_GfxInfo, false, true); // It will override a new image indicate that the led is selected
+			//pManager->GetOutput()->DrawLED(r_GfxInfo, false, true); // It will override a new image indicate that the led is selected
 			break;
 		case COMP_TYPES::COMP_CONN:
-			pManager->GetOutput()->DrawConnection(r_GfxInfo, true); // It will override a new image indicate that the conection is selected
+			//pManager->GetOutput()->DrawConnection(r_GfxInfo, true); // It will override a new image indicate that the conection is selected
 			break;
 		default:
 			break;
@@ -61,4 +80,4 @@ Select::~Select()
 {
 }
 
-	// ==================================== Ahmed Alaa ====================================
+// ==================================== Ahmed Alaa ====================================

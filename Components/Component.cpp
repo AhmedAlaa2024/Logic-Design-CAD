@@ -4,7 +4,7 @@
 using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
-	m_Id = ++LastID;
+	m_Id = LastID++;
 	//ID = id;
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
@@ -61,20 +61,17 @@ void Component::set_is_selected(bool test)
 
 void Component::save(ofstream*& fptr)
 {
-	switch (comp_type)
-	{
-	case COMP_TYPES::COMP_SWITCH:
-		*fptr << "SWTCH\t";
-		break;
-	case COMP_TYPES::COMP_LED:
-		*fptr << "LED\t";
-		break;
-	}
 	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
 }
 
-void Component::load(ifstream* iptr)
+void Component::load(ifstream*& iptr)
 {
+	*iptr >> m_Id;
+	iptr->ignore();
+	getline(*iptr, m_Label, '\t');
+	*iptr >> m_GfxInfo.x1 >> m_GfxInfo.y1;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Gate_Width;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Gate_Height;
 
 }
 COMP_TYPES Component::get_comp_type() const
@@ -83,7 +80,11 @@ COMP_TYPES Component::get_comp_type() const
 }
 
 Component::Component()
-{}
+{
+
+	m_Id = LastID++;
+
+}
 
 Component::~Component()
 {}

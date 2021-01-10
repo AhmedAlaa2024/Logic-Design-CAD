@@ -1,5 +1,6 @@
 #ifndef EDIT_H
 #define EDIT_H
+	// ============================== Ahmed Alaa edited here ==============================
 
 #include "Action.h"
 #include "..\\ApplicationManager.h"
@@ -22,3 +23,4 @@ public:
 };
 
 #endif
+	// ==================================== Ahmed Alaa ====================================

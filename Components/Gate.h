@@ -27,7 +27,11 @@ public:
 	OutputPin* getOutputPin() const;
 	
 	virtual void save(ofstream*&);
+	//virtual void load(ifstream*&);
 	virtual void set_comp_type(COMP_TYPES);
+
+	virtual bool is_connected(InputPin&) ;
+	
 	virtual InputPin* const getInputPin() const;
 	~Gate();
 	

@@ -15,9 +15,11 @@ Gate::Gate(int r_Inputs, int r_FanOut)
 	m_InputPins = new InputPin[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
 	//Associate all input pins to this gate
-	for(int i=0; i<m_Inputs; i++)
+	for (int i = 0; i < m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
-
+	/////////Rufaidah
+	m_OutputPin->setComponent(this);
+	////////////
 
 	comp_type = COMP_TYPES::COMP_GATE; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
@@ -40,8 +42,11 @@ void Gate::save(ofstream*& fptr)
 	string name;
 	switch (get_comp_type())
 	{
-	default:
-		name = "Gate";
+	case COMP_TYPES::COMP_SWITCH:
+		name = "SWTCH";
+		break;
+	case COMP_TYPES::COMP_LED:
+		name = "LED";
 		break;
 	case COMP_TYPES::AND_2:
 		name = "AND2";
@@ -81,10 +86,50 @@ void Gate::save(ofstream*& fptr)
 	Component::save(fptr);
 }
 
+//void Gate::load(ifstream*&, )
+//{
+//	else if (CompType == "AND2")
+//	comp_type = COMP_TYPES::AND_2;
+//	else if (CompType == "AND3")
+//	comp_type = COMP_TYPES::AND_3;
+//	else if (CompType == "Buff")
+//	comp_type = COMP_TYPES::Buff_;
+//	else if (CompType == "Inv")
+//	comp_type = COMP_TYPES::INV_;
+//	else if (CompType == "NAND2")
+//	comp_type = COMP_TYPES::NAND_2;
+//	else if (CompType == "NOR2")
+//	comp_type = COMP_TYPES::NOR_2;
+//	else if (CompType == "NOR3")
+//	comp_type = COMP_TYPES::NOR_3;
+//	else if (CompType == "OR2")
+//	comp_type = COMP_TYPES::OR_2;
+//	else if (CompType == "XNOR2")
+//	comp_type = COMP_TYPES::XNOR_2;
+//	else if (CompType == "XOR2")
+//	comp_type = COMP_TYPES::XOR_2;
+//	else if (CompType == "XOR3")
+//	comp_type = COMP_TYPES::XOR_3;
+//}
+
 void Gate::set_comp_type(COMP_TYPES ct)
 {
 	comp_type = ct;
 }
+
+bool Gate::is_connected(InputPin& in)
+{
+	for (int i = 0; i < m_Inputs; ++i)
+	{
+		if (in.getComponent() == this)
+			return true;
+	}
+
+
+
+	return false;
+}
+
 
 Gate::~Gate()
 {

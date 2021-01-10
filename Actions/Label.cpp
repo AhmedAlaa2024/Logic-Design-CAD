@@ -4,7 +4,12 @@
 
 Label::Label(ApplicationManager* pApp, Component* comp) : Action(pApp), component(comp)
 {
-    Execute();
+}
+
+//-----Rufaidah (I need this constructor)
+Label::Label(ApplicationManager* pApp, Component* comp, int f) : Action(pApp), component(comp)
+{
+    DisplayLabel(); // To display the label above the component.
 }
 
 string Label::SetLabel()

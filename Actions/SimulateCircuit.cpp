@@ -25,10 +25,17 @@ void SimulateCircuit::Execute()
 	//Component* const* CompList = pManager->getComponents(CompNum);
 	int no_conn_to_next = 0;
 	InputPin* next_in_pins[100]; //array of pointers to the next input pins in each stage
-	
+
 
 	int sw_no = 0;
 	SWITCH** SWs = pManager->get_switches(sw_no);
+
+	if (SWs == NULL)
+	{
+		pOut->PrintMsg("Error there is no Switches");
+		return;
+	}
+
 
 	int j = 0;
 	//letting the switches operate ang getting the input pins of the next
@@ -45,31 +52,63 @@ void SimulateCircuit::Execute()
 
 		for (int i = 0; i < no_conns; ++i) //operate and get the pins on the connections
 		{
-			
+
 			Conns[i]->Operate();
 			next_in_pins[j++] = Conns[i]->getDestPin();
 
 		}
 	}
 
-	
+
 
 	//now i have all the input pins in next_in_pins and their number no_conn_to_next
+
+	int no_leds;
+	LED** leds = pManager->get_connected_leds(no_leds);
+
+	if (leds == NULL)
+	{
+		pOut->PrintMsg("Error there is no LEDS");
+		return;
+	}
+
+	for (int i = 0; i < no_leds; ++i)
+	{
+		leds[i]->set_is_reached(false);
+	}
 
 
 	while (true) {
 		j = 0; // to reuse it
 		int num = no_conn_to_next; //saving the number of conns before setting it to zero
 		no_conn_to_next = 0;
+		InputPin* last_in[100]; //to store the next input pins and give it to next_in_pins after looping
 		for (int i = 0; i < num; ++i)
 		{
 
 			Component* current_comp = next_in_pins[i]->getComponent();
-			current_comp->Operate();
+			if (current_comp)
+				current_comp->Operate();
+			else
+				continue;
+
 
 			//check if its a led
 			if (current_comp->GetOutPinStatus() == -1)
-				return;
+			{
+				//condition to stop
+				bool stop = true;
+				for (int i = 0; i < no_leds; ++i)
+				{
+					if (leds[i]->get_is_reached() == false)
+						stop = false;
+				}
+				if (stop)
+					return;
+
+				continue;
+			}
+
 
 
 			int no_conns;
@@ -80,80 +119,24 @@ void SimulateCircuit::Execute()
 
 			//each connection has an end (Input pin)
 
-			for (int i = 0; i < no_conns; ++i) //operate ang get the pins on the connections
+			for (int i = 0; i < no_conns; ++i) //operate and get the pins on the connections
 			{
 
 				Conns[i]->Operate();
-				next_in_pins[j++] = Conns[i]->getDestPin();
+				last_in[j++] = Conns[i]->getDestPin();
 
 			}
-
-
-		}
-
-
-	}
-	/*
-	//operate the switches
-
-
-
-
-
-
-
-
-
-	for (int i = 0; i < CompNum; ++i)
-	{
-
-		if (CompList[i]->GetInputPinStatus(0) == -1)
-		{
-			CompList[i]->Operate(); //switches is done working
-			const OutputPin* switch_pin = (OutputPin*)CompList[i]->getOutputPin();
-
-			auto Conns = switch_pin->get_connections(no_conn_to_next);
-
-			next_in_pins = new InputPin* [no_conn_to_next];
-
-			for (int i = 0; i < no_conn_to_next; ++i)
-			{
-				Conns[i]->Operate();
-				next_in_pins[j++] = Conns[i]->getDestPin();
-
-			}
+			
 
 		}
-
-	}
-	j = 0;
-	while (true)
-	{
-		Component* pc;
-
 
 		for (int i = 0; i < no_conn_to_next; ++i)
 		{
-			pc = next_in_pins[i]->getComponent();
-			pc->Operate();
-			auto Conns = pc->getOutputPin()->get_connections(no_conn_to_next);
-
-			delete[] next_in_pins;
-			next_in_pins = new InputPin * [no_conn_to_next];
-
-			for (int i = 0; i < no_conn_to_next; ++i)
-			{
-				Conns[i]->Operate();
-				next_in_pins[j++] = Conns[i]->getDestPin();
-
-			}
-
+			next_in_pins[i] = last_in[i];
 		}
-		if (pc->GetOutPinStatus() == -1)
-			break;
+
 	}
 
-	*/
 
 
 }

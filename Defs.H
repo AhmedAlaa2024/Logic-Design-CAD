@@ -46,14 +46,26 @@ enum ActionType
 
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
-
+	SIMULATE,
 	EXIT,		//Exit the application
-
+	COPY_,
+	CUT_,
+	PASTE_,
 	STATUS_BAR,		//A click on the status bar
 	DSN_TOOL,	//A click on an empty place in the design tool bar
 	SIM_TOOL, 	//A click on an empty place in the simulation tool bar
 	GATE_TOOL   //A click on an empty place in the gates bar
 };
+
+enum CopyCutPaste_mode
+{
+	COPY,
+	CUT,
+	PASTE
+
+};
+
+
 
 //Possible Status for the pin
 enum STATUS
@@ -85,9 +97,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here
-
-	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
-
+	ITM_DSN_CNT,		//no. of design menu items ==> This should be the last line in this enum
 };
 enum { MaxCompCount = 200 };	//Max no of Components	
 enum DesignTools {
@@ -100,17 +110,16 @@ enum DesignTools {
 	XOR_2IN,
 	XNOR_2IN,
 	AND_3IN,
-	OR_3IN,
-	NAND_3IN,
 	NOR_3IN,
 	XOR_3IN,
-	XNOR_3IN,
 	LED1,
 	SWITCH1,
 	GATES_CNT
 };
 	// ============================== Ahmed Alaa edited here ==============================
 enum DsgnMenuItem2 {
+	ITM_UNDO,
+	ITM_REDO,
 	COPY_ICON,
 	CUT_ICON,
 	PASTE_ICON,
@@ -126,8 +135,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	Add_Label,
 	Edit_label,
 	ITM_CHANGE_SWITCH,
-	ITM_UNDO,
-	ITM_REDO,
 	ITM_LOAD,
 	ITM_SAVE,
 	SIM_EXIT,

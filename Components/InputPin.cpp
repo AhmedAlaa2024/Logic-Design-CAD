@@ -2,6 +2,7 @@
 
 InputPin::InputPin()
 {
+	pComp = NULL;
 	is_connected = false;
 }
 

@@ -22,8 +22,8 @@ public:
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void set_state(STATUS s);	//set status of Inputpin # n, to be used by connection class.
-	
-	
+	STATUS get_state() const;
+
 
 	virtual COMP_TYPES get_comp_type() const;
 	virtual void setInputPinStatus(int n, STATUS s) {};

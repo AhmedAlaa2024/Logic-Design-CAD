@@ -86,6 +86,11 @@ Component::Component()
 
 }
 
+InputPin* Component::GetInpuPin(int i) const
+{
+	return nullptr;
+}
+
 Component::~Component()
 {}
 

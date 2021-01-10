@@ -76,7 +76,7 @@ void Connection::save(ofstream*& fptr)
 {
 	int disID = (DstPin->getComponent())->get_id();
 	int SrcID = (SrcPin->getComponent())->get_id();
-	*fptr << disID << '\t' << SrcID << endl;
+	*fptr << SrcID << '\t' << disID << endl;
 }
 
 void Connection::load(ifstream*& fptr)

@@ -21,7 +21,6 @@ using namespace std;
 
 Connect::Connect(ApplicationManager* pApp) :Action(pApp)
 {
-
 }
 
 
@@ -79,6 +78,7 @@ void Connect::Execute()
 
 	bool a, b;
 	bool IfLED;
+
 	ReadActionParameters(a, b, IfLED);
 
 	if (a == true || b == true || IfLED == true)
@@ -129,14 +129,6 @@ void Connect::Execute()
 	InputPin* selected_pin;
 	//bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
 
-
-
-
-
-	//=======================================================================
-
-	//bool ApplicationManager::Check_pins_to_connect(Component * distComp, InputPin * inPin, GraphicsInfo & GInfo, InputPin * &selected_pin)
-	//{
 		int no_input_pins = DistComp->getNoOfInputpins();
 		for (int j = 0; j < no_input_pins; j++)
 		{
@@ -149,162 +141,9 @@ void Connect::Execute()
 				COMP_TYPES type = DistComp->get_comp_type();
 				//int a1, b1, a2, b2;
 				DistComp->getm_GfxInfo(a1, b1, a2, b2);
-
-				switch (type)
-				{
-				case COMP_TYPES::COMP_LED:
-				{
-					GInfo.x2 = a1 + 23;
-					GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
-					break;
-				}
-				case COMP_TYPES::AND_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 15 + 1;
-
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 14 - 2;
-					}
-					break;
-				case COMP_TYPES::AND_3:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 16;
-
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + (b2 - b1) / 2;
-
-					}
-					else if (j == 2)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 16;
-
-					}
-					break;
-				case COMP_TYPES::INV_:
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-					break;
-				case COMP_TYPES::NAND_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 15;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 14 + 3;
-					}
-					break;
-				case COMP_TYPES::NOR_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 15 + 7;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 14 - 4;
-					}
-					break;
-				case COMP_TYPES::NOR_3:
-					if (j == 0)
-					{
-						GInfo.x2 = a1 + 11;
-						GInfo.y2 = b1 + 16 + 1;
-
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1 + 11;
-						GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
-					}
-					else if (j == 2)
-					{
-						GInfo.x2 = a1 + 11;
-						GInfo.y2 = b2 - 16 + 1;
-					}
-					break;
-				case COMP_TYPES::Buff_:
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-					break;
-				case COMP_TYPES::OR_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1 + 8;
-						GInfo.y2 = b1 + 15 - 7;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1 + 8;
-						GInfo.y2 = b2 - 14 + 3;
-					}
-					break;
-				case COMP_TYPES::XNOR_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 15 + 5;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 14 - 5;
-					}
-					break;
-				case COMP_TYPES::XOR_2:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 15;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 14;
-					}
-					break;
-				case COMP_TYPES::XOR_3:
-					if (j == 0)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + 16;
-					}
-					else if (j == 1)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b1 + (b2 - b1) / 2;
-					}
-					else if (j == 2)
-					{
-						GInfo.x2 = a1;
-						GInfo.y2 = b2 - 16;
-					}
-					break;
-				default:
-					break;
-				}
-				/*/// <summary>
-				/// ///////////Rufaiah
-				/// </summary>
-				InputPinNum = j + 1;*/
+				setDisPinGInfo(type, j, a1, b1, a2, b2, GInfo);
 				break;
-
 			}
-
 			if (j == no_input_pins - 1 && isConnected == true)
 			{
 				pOut->PrintMsg("Error: All input pins of this component are already connected");
@@ -312,23 +151,10 @@ void Connect::Execute()
 			}
 
 		}
-
-			//======================================================
-
-
-
-//	if (i == false)
-		//return;
-	
-
 	SrcComp->getm_GfxInfo(x1, y1, x2, y2);
-	//pManager->getGInfoOfComp(x1, y1, x2, y2, i);
 
 	GInfo.x1 = x2;
 	GInfo.y1 = y1 + (y2 - y1) / 2;
-
-
-	
 
 	Connection* pA = new Connection(GInfo, out, selected_pin);
 	out->ConnectTo(pA);
@@ -354,9 +180,160 @@ void Connect::Redo()
 
 }
 
-///////////////////Rufaidah
-int Connect::getInputPinNum()
+void Connect::setDisPinGInfo(COMP_TYPES type, int j, int a1, int b1, int a2, int b2, GraphicsInfo& GInfo)
 {
-	return InputPinNum;
+	switch (type)
+	{
+	case COMP_TYPES::COMP_LED:
+	{
+		GInfo.x2 = a1 + 23;
+		GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
+		break;
+	}
+	case COMP_TYPES::AND_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 15 + 1;
+
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 14 - 2;
+		}
+		break;
+	case COMP_TYPES::AND_3:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 16;
+
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + (b2 - b1) / 2;
+
+		}
+		else if (j == 2)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 16;
+
+		}
+		break;
+	case COMP_TYPES::INV_:
+		GInfo.x2 = a1;
+		GInfo.y2 = b1 + (b2 - b1) / 2;
+		break;
+	case COMP_TYPES::NAND_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 15;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 14 + 3;
+		}
+		break;
+	case COMP_TYPES::NOR_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 15 + 7;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 14 - 4;
+		}
+		break;
+	case COMP_TYPES::NOR_3:
+		if (j == 0)
+		{
+			GInfo.x2 = a1 + 11;
+			GInfo.y2 = b1 + 16 + 1;
+
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1 + 11;
+			GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
+		}
+		else if (j == 2)
+		{
+			GInfo.x2 = a1 + 11;
+			GInfo.y2 = b2 - 16 + 1;
+		}
+		break;
+	case COMP_TYPES::Buff_:
+		GInfo.x2 = a1;
+		GInfo.y2 = b1 + (b2 - b1) / 2;
+		break;
+	case COMP_TYPES::OR_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1 + 8;
+			GInfo.y2 = b1 + 15 - 7;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1 + 8;
+			GInfo.y2 = b2 - 14 + 3;
+		}
+		break;
+	case COMP_TYPES::XNOR_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 15 + 5;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 14 - 5;
+		}
+		break;
+	case COMP_TYPES::XOR_2:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 15;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 14;
+		}
+		break;
+	case COMP_TYPES::XOR_3:
+		if (j == 0)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + 16;
+		}
+		else if (j == 1)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b1 + (b2 - b1) / 2;
+		}
+		else if (j == 2)
+		{
+			GInfo.x2 = a1;
+			GInfo.y2 = b2 - 16;
+		}
+		break;
+	default:
+		break;
+	}
 }
-////////////////////////
+
+///////////////////Rufaidah
+//int Connect::getInputPinNum()
+//{
+//	return InputPinNum;
+//}
+//////////////////////////

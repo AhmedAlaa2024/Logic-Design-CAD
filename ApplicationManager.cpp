@@ -90,6 +90,25 @@ void ApplicationManager::DeleteComponent()
 			if (lastSelectedComponent == CompList[i]) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+
+				if(lastSelectedComponent->get_comp_type() == COMP_TYPES::COMP_CONN)
+				{
+					auto conn = (Connection*)lastSelectedComponent;
+					conn->getSourcePin()->decrease_m_Connections();
+					int index = lastSelectedComponent->get_id();
+					delete CompList[index];
+					CompList[index] = NULL;
+					shift_to_end(index);
+					if (i > index)
+						i--; //i is shifted
+					break;
+					
+				}
+
+
+
+
+
 				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
 				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
 				int no_conns;

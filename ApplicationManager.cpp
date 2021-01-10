@@ -103,14 +103,6 @@ void ApplicationManager::DeleteComponent()
 
 
 
-
-
-
-
-
-
-
-
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
 				CompList[i] = NULL; // To make the pointer point to a null pointer
 				shift_to_end(i);
@@ -326,6 +318,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()

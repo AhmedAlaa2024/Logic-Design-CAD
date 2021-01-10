@@ -73,7 +73,7 @@ void ApplicationManager::shift_to_end(int i)
 
 void ApplicationManager::DeleteComponent()
 {
-	
+
 	if (lastSelectedComponent != nullptr)
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
@@ -107,11 +107,11 @@ void ApplicationManager::DeleteComponent()
 				lastSelectedComponent = NULL;
 				break;
 			}
-		}
-	else
-		GetOutput()->PrintMsg("You have to select a certain component before delete!");
-}
+			else
+				GetOutput()->PrintMsg("You have to select a certain component before delete!");
 
+		}
+}
 void ApplicationManager::DeleteAll()
 {
 	for (int i = 0; i < CompCount; i++) {

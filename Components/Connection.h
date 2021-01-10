@@ -8,6 +8,7 @@ class Connection : public Component
 	//Component*	SrcCmpnt;	//Connection source component
 	//Component*	DstCmpnt;	//Connection Destination component
 	//int		DstPin;		//The Input pin to which this connection is linked
+	
 	OutputPin* SrcPin;	//The Source pin of this connection (an output pin of certain Component)
 	InputPin* DstPin;	//The Destination pin of this connection (an input pin of certain Component)
 
@@ -41,6 +42,10 @@ public:
 
 	//=============DOAA MAGDY===========
 	virtual int getNoOfInputpins() { return 0; };
+
+
+
+	virtual ~Connection();
 
 
 };

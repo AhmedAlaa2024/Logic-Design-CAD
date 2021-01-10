@@ -10,6 +10,7 @@ Connection::Connection(const GraphicsInfo& r_GfxInfo, OutputPin* pSrcPin, InputP
 	is_selected = false;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
+
 	is_on = LOW;
 	comp_type = COMP_TYPES::COMP_CONN; /*This statement to overwrite the type of gate
 						   on comp_type protected datatype to be able to use it
@@ -81,4 +82,10 @@ void Connection::save(ofstream*& fptr)
 void Connection::load(ifstream*& fptr)
 {
 //	*fptr >> 
+}
+
+Connection::~Connection()
+{
+	DstPin->set_is_connected(false);
+
 }

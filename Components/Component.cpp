@@ -4,7 +4,7 @@
 using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
-	m_Id = ++LastID;
+	m_Id = LastID++;
 	//ID = id;
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
@@ -80,7 +80,11 @@ COMP_TYPES Component::get_comp_type() const
 }
 
 Component::Component()
-{}
+{
+
+	m_Id = LastID++;
+
+}
 
 Component::~Component()
 {}

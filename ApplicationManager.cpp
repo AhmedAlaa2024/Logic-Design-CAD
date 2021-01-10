@@ -21,6 +21,8 @@
 #include "Actions/Connect.h"
 
 //==============DOAA===========
+#include "Actions/CopyCutPaste.h"
+#include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
 #include "Components\SWITCH.h"
 #include "Components\AND2.h"
@@ -58,49 +60,56 @@ void ApplicationManager::SelectComponent(int target)
 	CompList[target]->set_is_selected(true); // To set is_selected for the target = true
 }
 
-void swap(Component*& x, Component*& y) {
-	Component* temp = x;
-	x = y;
-	y = temp;
+
+
+void ApplicationManager::shift_to_end(int i)
+{
+	for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
+		swap(CompList[j], CompList[j + 1]);
+
 }
+
+
 
 void ApplicationManager::DeleteComponent()
 {
 	
 	if (lastSelectedComponent != nullptr)
-		if(lastSelectedComponent->get_comp_type() != COMP_TYPES::COMP_CONN)
-			for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
-			{
-				int x1 = CompList[i]->getGraphicsInfo().x1;
-				int y1 = CompList[i]->getGraphicsInfo().y1;
-				int x2 = CompList[i]->getGraphicsInfo().x2;
-				int y2 = CompList[i]->getGraphicsInfo().y2;
 
-				int l_x1 = lastSelectedComponent->getGraphicsInfo().x1;
-				int l_y1 = lastSelectedComponent->getGraphicsInfo().y1;
-				int l_x2 = lastSelectedComponent->getGraphicsInfo().x2;
-				int l_y2 = lastSelectedComponent->getGraphicsInfo().y2;
-
-				if (x1 == l_x1 && x2 == l_x2 && y1 == l_y1 && y2 == l_y2) // To make the following codes on the lastSelectedComponent 
-				{
-					// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
-					// GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
-					GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
-					delete CompList[i]; // To delete the pointer that pointing to the seleted component
-					CompList[i] = NULL; // To make the pointer point to a null pointer
-					for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
-						swap(CompList[j], CompList[j + 1]);
-					CompCount--;
-					lastSelectedComponent = NULL;
-					break;
-				}
-			}
-		else
+		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
 
+
+			if (lastSelectedComponent == CompList[i]) // To make the following codes on the lastSelectedComponent 
+			{
+				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
+				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
+				int no_conns;
+
+				//first the output pin
+				auto conns = lastSelectedComponent->getOutputPin()->get_connections(no_conns);
+
+				for (int j = 0; j < no_conns; ++j)
+				{
+					int index = conns[j]->get_id();
+					delete CompList[index];
+					CompList[index] = NULL;
+					shift_to_end(index);
+					CompCount--;
+					if (i > index)
+						i--; //i is shifted
+				}
+				delete CompList[i]; // To delete the pointer that pointing to the seleted component
+				CompList[i] = NULL; // To make the pointer point to a null pointer
+				shift_to_end(i);
+				CompCount--;
+				lastSelectedComponent = NULL;
+				break;
+			}
 		}
 	else
-		GetOutput()->PrintMsg("You have to select a certain compnent before delete!");
+		GetOutput()->PrintMsg("You have to select a certain component before delete!");
 }
 
 void ApplicationManager::DeleteAll()
@@ -174,9 +183,9 @@ void ApplicationManager::load(ifstream*& iptr)
 	*iptr >> NonConnCount;
 	for (int i = 0; i < NonConnCount; i++)
 	{
-		
+
 		*iptr >> CompType;
-		
+
 		if (CompType == "SWTCH")
 			Cptr = new SWITCH(GfxInfo, FANOUT);
 		else if (CompType == "LED")
@@ -220,14 +229,18 @@ void ApplicationManager::load(ifstream*& iptr)
 			*iptr >> n;
 		} while (n != -1);
 	//here i should read the connections then reach the second flag.
-	for (int i = 0; i < CompCount; i++)
-	{
-		CompList[i]->Draw(OutputInterface);
-		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+		for (int i = 0; i < CompCount; i++)
 		{
-			Actp = new Label(this, CompList[i], 0);
+			CompList[i]->Draw(OutputInterface);
+			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+			{
+				CompList[i]->Draw(OutputInterface);
+				if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+				{
+					Actp = new Label(this, CompList[i], 0);
+				}
+			}
 		}
-	}
 	if (Actp)
 	{
 		delete Actp;
@@ -275,24 +288,35 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		pAct = new Delete(this);
 		break;
-		// ==================================== Ahmed Alaa ====================================
-
-
-		case DSN_MODE:
-			pAct = new SwitchToDesign(this);
-			break;
-		case SIM_MODE:
-			pAct = new SwitchToSimulation(this);
-			break;
-		case EXIT:
-			pAct = new Exit(this);
-			break;
-		case SAVE:
-			pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
-			break;
-		case LOAD:
-			pAct = new Load(this);
-			break;
+		// ==================================== Ahmed Alaao ====================================
+		//ahmed atta
+	case SIMULATE:
+		pAct = new SimulateCircuit(this);
+		break;
+	case CUT_:
+		pAct = new CopyCutPaste(this, CUT);
+		break;
+	case COPY_:
+		pAct = new CopyCutPaste(this, COPY);
+		break;
+	case PASTE_:
+		pAct = new CopyCutPaste(this, PASTE);
+		break;
+	case DSN_MODE:
+		pAct = new SwitchToDesign(this);
+		break;
+	case SIM_MODE:
+		pAct = new SwitchToSimulation(this);
+		break;
+	case EXIT:
+		pAct = new Exit(this);
+		break;
+	case SAVE:
+		pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
+		break;
+	case LOAD:
+		pAct = new Load(this);
+		break;
 	}
 	if (pAct)
 	{
@@ -327,7 +351,7 @@ COMP_TYPES ApplicationManager::get_clipboard() const
 SWITCH** ApplicationManager::get_switches(int& num) const
 {
 	num = 0;
-	SWITCH** sh;
+	SWITCH** sh = NULL; //the default is null
 	for (int i = 0; i < CompCount; ++i)
 	{
 
@@ -336,7 +360,8 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 			num++;
 		}
 	}
-	sh = new SWITCH * [num];
+	if (num > 0)
+		sh = new SWITCH * [num];
 	int j = 0;
 	for (int i = 0; i < CompCount; ++i)
 	{
@@ -351,26 +376,31 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 
 }
 
-LED** ApplicationManager::get_leds(int & num) const
+
+
+LED** ApplicationManager::get_connected_leds(int& num) const
 {
 	num = 0;
-	LED** ld;
+	LED** ld = NULL; //the default is NULL
 	for (int i = 0; i < CompCount; ++i)
 	{
 
 		if (CompList[i]->GetOutPinStatus() == -1)
 		{
-			num++;
+			if (CompList[i]->getInputPin()->get_is_connected())
+				num++;
 		}
 	}
-	ld = new LED * [num];
+	if (num > 0)
+		ld = new LED * [num];
 	int j = 0;
 	for (int i = 0; i < CompCount; ++i)
 	{
 
 		if (CompList[i]->GetOutPinStatus() == -1)
 		{
-			ld[j++] = (LED*)CompList[i];
+			if (CompList[i]->getInputPin()->get_is_connected())
+				ld[j++] = (LED*)CompList[i];
 		}
 	}
 
@@ -408,10 +438,69 @@ int ApplicationManager::which_component(COMP_TYPES& comptype)
 		int y1 = CompList[i]->getGraphicsInfo().y1;
 		int x2 = CompList[i]->getGraphicsInfo().x2;
 		int y2 = CompList[i]->getGraphicsInfo().y2;
-
 		// I compare the clicked coordinates with the coordinates of each component.
 
-		if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
+		//First check if the clicked is a connection
+		if (CompList[i]->get_comp_type() == COMP_TYPES::COMP_CONN)
+		{
+			GraphicsInfo Area;
+			//generate area  and check if the click is inside it
+			Area.x1 = x1;
+			Area.y1 = y1 - 5;
+			Area.x2 = x1 + 20;
+			Area.y2 = y1 + 5;
+			if (Area.x1 <= x && x <= Area.x2 && Area.y1 <= y && y <= Area.y2) {
+				CompList[i]->set_is_selected(true); // Set the is_select data member to true.
+				comptype = CompList[i]->get_comp_type();
+				target = i;
+				break;
+			}
+
+			//repeat for area 2
+			Area.x1 = x1 + 15;
+			Area.y1 = y2 - 5;
+			Area.x2 = x2;
+			Area.y2 = y2 + 5;
+			if (Area.x1 <= x && x <= Area.x2 && Area.y1 <= y && y <= Area.y2) {
+				CompList[i]->set_is_selected(true); // Set the is_select data member to true.
+				comptype = CompList[i]->get_comp_type();
+				target = i;
+				break;
+			}
+
+
+
+			if (y1 > y2)
+			{
+				Area.x1 = x1 + 15;
+				Area.y1 = y2 - 5;
+				Area.x2 = x1 + 20;
+				Area.y2 = y1 + 5;
+
+
+			}
+			else
+			{
+				Area.x1 = x1 + 15;
+				Area.y1 = y1 - 5;
+				Area.x2 = x1 + 20;
+				Area.y2 = y2 + 5;
+
+			}
+			if (Area.x1 <= x && x <= Area.x2 && Area.y1 <= y && y <= Area.y2) {
+				CompList[i]->set_is_selected(true); // Set the is_select data member to true.
+				comptype = CompList[i]->get_comp_type();
+				target = i;
+				break;
+			}
+
+
+
+
+
+
+		}
+		else if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
 			CompList[i]->set_is_selected(true); // Set the is_select data member to true.
 			comptype = CompList[i]->get_comp_type();
 			target = i;

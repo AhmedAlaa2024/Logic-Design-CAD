@@ -46,7 +46,7 @@ enum ActionType
 
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
-
+	SIMULATE,
 	EXIT,		//Exit the application
 	COPY_,
 	CUT_,
@@ -56,6 +56,16 @@ enum ActionType
 	SIM_TOOL, 	//A click on an empty place in the simulation tool bar
 	GATE_TOOL   //A click on an empty place in the gates bar
 };
+
+enum CopyCutPaste_mode
+{
+	COPY,
+	CUT,
+	PASTE
+
+};
+
+
 
 //Possible Status for the pin
 enum STATUS

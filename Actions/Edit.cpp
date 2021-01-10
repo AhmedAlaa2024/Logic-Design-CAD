@@ -8,6 +8,7 @@ Edit::Edit(ApplicationManager* pApp, Component* comp) : Action(pApp), component(
 
 string Edit::SetLabel()
 {
+    pManager->GetOutput()->PrintMsg(GetLabel());
     return pManager->GetInput()->GetString(pManager->GetOutput(), GetLabel()); // To make an input object to get the string from the user
 }
 
@@ -33,13 +34,12 @@ void Edit::Execute()
             pManager->GetOutput()->PrintMsg("Sorry, There is no label to be displayed!");
         }
         else {
-            pManager->GetOutput()->PrintMsg(GetLabel());
+            pManager->GetOutput()->ClearLabelArea(component->getGraphicsInfo(), GetLabel().size());
             component->set_m_Label(SetLabel()); // To get the label from the user
-            pManager->GetOutput()->ClearLabelArea(component->getGraphicsInfo(), (component->get_m_Label()).size());
             DisplayLabel(); // To display the label above the component.
         }
     else
-        pManager->GetOutput()->PrintMsg("Please, Select an component before editing the label.");
+        pManager->GetOutput()->PrintMsg("Please, Select an component before editing a label.");
 }
 
 void Edit::Undo()

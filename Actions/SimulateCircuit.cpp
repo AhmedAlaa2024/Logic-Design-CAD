@@ -82,6 +82,7 @@ void SimulateCircuit::Execute()
 		j = 0; // to reuse it
 		int num = no_conn_to_next; //saving the number of conns before setting it to zero
 		no_conn_to_next = 0;
+		InputPin* last_in[100]; //to store the next input pins and give it to next_in_pins after looping
 		for (int i = 0; i < num; ++i)
 		{
 
@@ -90,8 +91,6 @@ void SimulateCircuit::Execute()
 				current_comp->Operate();
 			else
 				continue;
-
-
 
 
 			//check if its a led
@@ -112,9 +111,6 @@ void SimulateCircuit::Execute()
 
 
 
-
-
-
 			int no_conns;
 
 			Connection** Conns = current_comp->getOutputPin()->get_connections(no_conns);
@@ -123,18 +119,21 @@ void SimulateCircuit::Execute()
 
 			//each connection has an end (Input pin)
 
-			for (int i = 0; i < no_conns; ++i) //operate ang get the pins on the connections
+			for (int i = 0; i < no_conns; ++i) //operate and get the pins on the connections
 			{
 
 				Conns[i]->Operate();
-				next_in_pins[j++] = Conns[i]->getDestPin();
+				last_in[j++] = Conns[i]->getDestPin();
 
 			}
-
+			
 
 		}
 
-
+		for (int i = 0; i < no_conn_to_next; ++i)
+		{
+			next_in_pins[i] = last_in[i];
+		}
 
 	}
 

@@ -54,6 +54,7 @@ void CopyCutPaste::Execute()
 void CopyCutPaste::copy()
 {
 	pManager->set_clipboard();
+	pManager->DeselectComponentExcept();
 
 }
 
@@ -63,7 +64,8 @@ void CopyCutPaste::cut()
 {
 	pManager->set_clipboard();
 	auto comp = pManager->GetLastSelectedComponent();
-	//TODO
+	//TODO: DELETE the component
+	
 
 
 }
@@ -78,9 +80,6 @@ void CopyCutPaste::paste()
 	Action* pAct = NULL;
 	switch (a)
 	{
-
-
-
 	case COMP_TYPES::COMP_SWITCH:
 		pAct = new AddSWITCH(pManager);
 		break;

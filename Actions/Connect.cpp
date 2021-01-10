@@ -158,6 +158,7 @@ void Connect::Execute()
 
 	Connection* pA = new Connection(GInfo, out, selected_pin);
 	out->ConnectTo(pA);
+	selected_pin->ConnectTo(pA);
 
 	//pA->Draw(pOut);
 	pManager->AddComponent(pA);

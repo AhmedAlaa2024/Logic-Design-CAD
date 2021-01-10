@@ -67,6 +67,13 @@ void ApplicationManager::shift_to_end(int i)
 {
 	for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
 		swap(CompList[j], CompList[j + 1]);
+	CompCount--;
+
+	for (int i = 0; i < CompCount; ++i)
+	{
+		if (CompList[i]->get_id() > i)
+			CompList[i]->set_id(CompList[i]->get_id() - 1);
+	}
 
 }
 
@@ -79,8 +86,7 @@ void ApplicationManager::DeleteComponent()
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
-
-
+			
 			if (lastSelectedComponent == CompList[i]) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
@@ -89,32 +95,56 @@ void ApplicationManager::DeleteComponent()
 				int no_conns;
 
 				//first the output pin
-				auto conns = lastSelectedComponent->getOutputPin()->get_connections(no_conns);
+				auto out_pin = lastSelectedComponent->getOutputPin();
+				if (out_pin) {
+					auto conns = out_pin->get_connections(no_conns);
 
-				for (int j = 0; j < no_conns; ++j)
-				{
-					int index = conns[j]->get_id();
-					delete CompList[index];
-					CompList[index] = NULL;
-					shift_to_end(index);
-					CompCount--;
-					if (i > index)
-						i--; //i is shifted
+					for (int j = 0; j < no_conns; ++j)
+					{
+						auto conn = conns[j];
+						int index = conn->get_id();
+						delete CompList[index];
+						CompList[index] = NULL;
+						shift_to_end(index);
+						if (i > index)
+							i--; //i is shifted
+
+					}
+				}
+
+				auto no_input_pins = lastSelectedComponent->getNoOfInputpins();
+				InputPin* input_pin = lastSelectedComponent->getInputPin();
+				if (input_pin) {
+					for (int i = 0; i < no_input_pins; ++i)
+					{
+						auto conn = input_pin[i].get_connection();
+
+
+						if (conn) {
+							conn->getSourcePin()->decrease_m_Connections();
+							int index = conn->get_id();
+							delete CompList[index];
+							CompList[index] = NULL;
+							shift_to_end(index);
+							if (i > index)
+								i--; //i is shifted
+						}
+					}
 				}
 
 
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
 				CompList[i] = NULL; // To make the pointer point to a null pointer
 				shift_to_end(i);
-				CompCount--;
 				lastSelectedComponent = NULL;
 				break;
 			}
-			else
-				GetOutput()->PrintMsg("You have to select a certain component before delete!");
-
 		}
+	else
+		GetOutput()->PrintMsg("You have to select a certain component before delete!");
+
 }
+
 void ApplicationManager::DeleteAll()
 {
 	for (int i = 0; i < CompCount; i++) {
@@ -257,18 +287,18 @@ void ApplicationManager::load(ifstream*& iptr)
 			Actp = NULL;
 		}
 	}
-		for (int i = 0; i < CompCount; i++)
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 		{
+			CompList[i]->Draw(OutputInterface);
 			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 			{
-				CompList[i]->Draw(OutputInterface);
-				if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
-				{
-					Actp = new Label(this, CompList[i], 0);
-				}
+				Actp = new Label(this, CompList[i], 0);
 			}
-
 		}
+
+	}
 	if (Actp)
 	{
 		delete Actp;
@@ -360,6 +390,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
+	
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
 			CompList[i]->Draw(OutputInterface);

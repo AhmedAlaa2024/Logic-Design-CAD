@@ -111,15 +111,15 @@ ActionType Input::GetUserAction()
 		{
 			if (x >= UI.width - UI.ToolBarHeight - 15 )
 			{
-				ClickedItemOrder = (y / UI.ToolItemWidth) + 10;
+				ClickedItemOrder = (y / UI.ToolItemWidth) - 1;
 				switch (ClickedItemOrder)
 				{
 				case ITM_UNDO: return UNDO;
 				case ITM_REDO: return REDO;
-				case Copy: return COPY_;
-				case Cut: return CUT_;
-				case Paste:  return PASTE_;
-				case Del: return DEL;
+				case COPY_ICON: return COPY_;
+				case CUT_ICON: return CUT_;
+				case PASTE_ICON:  return PASTE_;
+				case DELETE_ICON: return DEL;
 				default: return DSN_TOOL;
 				}
 			}

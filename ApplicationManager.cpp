@@ -17,6 +17,7 @@
 
 
 #include <iostream>
+#include <sstream>
 
 #include "Actions/Connect.h"
 
@@ -172,10 +173,12 @@ void ApplicationManager::save(ofstream*& fptr)
 void ApplicationManager::load(ifstream*& iptr)
 {
 	OutputInterface->ClearDrawingArea();
-	Label* Actp = 0;
+	Action* Actp = NULL;
 	int NonConnCount, n;
 	string CompType;
 	Component* Cptr = NULL;
+	Component* Cptr2 = NULL;
+	Component* Cptr1 = NULL;
 	GraphicsInfo GfxInfo;
 	GfxInfo.x1 = 0;
 	GfxInfo.x2 = 0;
@@ -225,15 +228,37 @@ void ApplicationManager::load(ifstream*& iptr)
 	string fflag;
 	*iptr >> fflag;
 	if (fflag == "Connections")
-		
-		do
+	{
+		int connCount;
+		int fID, sID, PinNo;
+		string s;
+		stringstream Read;
+		getline(*iptr, s, '-');
+		Read << s;
+		connCount = (s.length() - 1) / 6;
+		cout << s << endl << connCount << endl;
+		for (int i = 0; i < connCount; i++)
 		{
-			*iptr >> n;
-		} while (n != -1);
-	//here i should read the connections then reach the second flag.
+			Read >> fID >> sID >> PinNo;
+			for (int j = 0; j < CompCount; j++)
+			{
+				if (CompList[j]->get_id() == fID)
+					Cptr = CompList[j];
+				if (CompList[j]->get_id() == sID)
+					Cptr2 = CompList[j];
+			}
+			Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Cptr2->getInputPin());
+
+		}
+		//here i should read the connections then reach the second flag.
+		if (Actp)
+		{
+			delete Actp;
+			Actp = NULL;
+		}
+	}
 		for (int i = 0; i < CompCount; i++)
 		{
-			CompList[i]->Draw(OutputInterface);
 			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 			{
 				CompList[i]->Draw(OutputInterface);
@@ -242,6 +267,7 @@ void ApplicationManager::load(ifstream*& iptr)
 					Actp = new Label(this, CompList[i], 0);
 				}
 			}
+
 		}
 	if (Actp)
 	{

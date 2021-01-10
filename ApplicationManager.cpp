@@ -101,6 +101,8 @@ void ApplicationManager::DeleteComponent()
 					if (i > index)
 						i--; //i is shifted
 				}
+
+
 				delete CompList[i]; // To delete the pointer that pointing to the seleted component
 				CompList[i] = NULL; // To make the pointer point to a null pointer
 				shift_to_end(i);
@@ -304,9 +306,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT:
 		pAct = new Select(this);
 		break;
-
 	case ADD_Label:
 		pAct = new Label(this, lastSelectedComponent);
+		break;
+	case EDIT_Label:
+		pAct = new Edit(this, lastSelectedComponent);
 		break;
 	case Clear_all:
 		pAct = new Clear(this);
@@ -351,6 +355,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()

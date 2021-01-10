@@ -123,6 +123,8 @@ enum DesignTools {
 };
 	// ============================== Ahmed Alaa edited here ==============================
 enum DsgnMenuItem2 {
+	ITM_UNDO,
+	ITM_REDO,
 	COPY_ICON,
 	CUT_ICON,
 	PASTE_ICON,
@@ -138,8 +140,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	Add_Label,
 	Edit_label,
 	ITM_CHANGE_SWITCH,
-	ITM_UNDO,
-	ITM_REDO,
 	ITM_LOAD,
 	ITM_SAVE,
 	SIM_EXIT,

@@ -114,6 +114,8 @@ ActionType Input::GetUserAction()
 				ClickedItemOrder = (y / UI.ToolItemWidth) + 10;
 				switch (ClickedItemOrder)
 				{
+				case ITM_UNDO: return UNDO;
+				case ITM_REDO: return REDO;
 				case Copy: return COPY_;
 				case Cut: return CUT_;
 				case Paste:  return PASTE_;
@@ -159,8 +161,6 @@ ActionType Input::GetUserAction()
 			case Add_Label: return ADD_Label;
 			case Edit_label: return EDIT_Label;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
-			case ITM_UNDO: return UNDO;
-			case ITM_REDO: return REDO;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;
 			case SIM_EXIT: return EXIT; //TODO: weird line

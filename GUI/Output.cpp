@@ -138,6 +138,8 @@ void Output::CreateDesignToolBar() const
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
 	string CopyCutPasteDeleteMenu[ITM_DSN2_CNT];
+	CopyCutPasteDeleteMenu[ITM_UNDO] = "images\\Menu\\undo.jpg";
+	CopyCutPasteDeleteMenu[ITM_REDO] = "images\\Menu\\redo.jpg";
 	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
 	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
 	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
@@ -193,8 +195,6 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
 	MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\SimulationMenu\\closed_switch.jpg";
-	MenuItemImages[ITM_UNDO] = "images\\SimulationMenu\\undo.jpg";
-	MenuItemImages[ITM_REDO] = "images\\SimulationMenu\\redo.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\SimulationMenu\\load.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\SimulationMenu\\save.jpg";
 	MenuItemImages[SIM_EXIT] = "images\\SimulationMenu\\exit.jpg";

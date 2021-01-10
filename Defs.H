@@ -98,11 +98,6 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here
 	ITM_DSN_CNT,		//no. of design menu items ==> This should be the last line in this enum
-	Copy,
-	Cut,
-	Paste,
-	Del,
-
 };
 enum { MaxCompCount = 200 };	//Max no of Components	
 enum DesignTools {
@@ -123,6 +118,8 @@ enum DesignTools {
 };
 	// ============================== Ahmed Alaa edited here ==============================
 enum DsgnMenuItem2 {
+	ITM_UNDO,
+	ITM_REDO,
 	COPY_ICON,
 	CUT_ICON,
 	PASTE_ICON,
@@ -138,8 +135,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	Add_Label,
 	Edit_label,
 	ITM_CHANGE_SWITCH,
-	ITM_UNDO,
-	ITM_REDO,
 	ITM_LOAD,
 	ITM_SAVE,
 	SIM_EXIT,

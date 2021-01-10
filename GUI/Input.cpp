@@ -20,7 +20,7 @@ string Input::GetString(Output* pOut, string startwith) const
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 	keytype a;
-	string s;
+	string s = startwith;
 	char c;
 	pWind->FlushKeyQueue();
 
@@ -111,13 +111,15 @@ ActionType Input::GetUserAction()
 		{
 			if (x >= UI.width - UI.ToolBarHeight - 15 )
 			{
-				ClickedItemOrder = (y / UI.ToolItemWidth) + 10;
+				ClickedItemOrder = (y / UI.ToolItemWidth) - 1;
 				switch (ClickedItemOrder)
 				{
-				case Copy: return COPY_;
-				case Cut: return CUT_;
-				case Paste:  return PASTE_;
-				case Del: return DEL;
+				case ITM_UNDO: return UNDO;
+				case ITM_REDO: return REDO;
+				case COPY_ICON: return COPY_;
+				case CUT_ICON: return CUT_;
+				case PASTE_ICON:  return PASTE_;
+				case DELETE_ICON: return DEL;
 				default: return DSN_TOOL;
 				}
 			}
@@ -159,8 +161,6 @@ ActionType Input::GetUserAction()
 			case Add_Label: return ADD_Label;
 			case Edit_label: return EDIT_Label;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
-			case ITM_UNDO: return UNDO;
-			case ITM_REDO: return REDO;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;
 			case SIM_EXIT: return EXIT; //TODO: weird line

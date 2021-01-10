@@ -10,7 +10,7 @@ class Connect : public Action
 	//int count_check_s;
 	//int count_check_d;
 	////////////Rufaidah
-	//int InputPinNum;
+	int InputPinNum;
 	///////////////////////////////
 	int noOfComp;
 	//Component* SrcComp;
@@ -20,7 +20,9 @@ class Connect : public Action
 	int Cx1, Cy1, Cx2, Cy2;	//2 Center points of the two gates
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area of the source gate
 	int a1, b1, a2, b2;//Two corners of the rectangluar area of the destination gate
-	
+
+	bool isLoaded;
+
 public:
 	Connect(ApplicationManager* pApp);
 	virtual ~Connect(void);
@@ -40,7 +42,8 @@ public:
 	virtual void Redo();
 
 	////////////////Rufaidah
-	int getInputPinNum();
+	//int getInputPinNum();
+	void setDisPinGInfo(COMP_TYPES, int, int, int, int, int, GraphicsInfo&);
 };
 
 #endif

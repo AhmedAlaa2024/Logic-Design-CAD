@@ -86,7 +86,7 @@ public:
 	void AddComponent(Component* pComp);
 
 	Component* get_comp_at(int index) const;
-	int save(fstream*&);
+	int save(ofstream*&);
 
 
 	void load(ifstream*&);

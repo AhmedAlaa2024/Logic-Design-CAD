@@ -1,21 +1,44 @@
 #include "InputPin.h"
 
+#include "Component.h"
+
 InputPin::InputPin()
 {
 	pComp = NULL;
+	connection_ = NULL;
 	is_connected = false;
 }
 
-void InputPin::setComponent(Component *pCmp)
+void InputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;
-
+	set_m_index(pComp->get_place());
 	is_connected = false;
 }
 
 Component* InputPin::getComponent() const
 {
 	return pComp;
+}
+
+void InputPin::ConnectTo(Connection* r_Conn)
+{
+	connection_ = r_Conn;
+}
+
+void InputPin::set_m_index(int i)
+{
+	m_index = i;
+}
+
+int InputPin::get_m_index() const
+{
+	return m_index;
+}
+
+Connection* InputPin::get_connection() const
+{
+	return connection_;
 }
 
 

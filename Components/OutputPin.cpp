@@ -44,6 +44,11 @@ Connection** OutputPin::get_connections(int& m_conn) const
 
 /////////////////////Rufaidah
 
+void OutputPin::decrease_m_Connections()
+{
+	m_Conn--;
+}
+
 void OutputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;

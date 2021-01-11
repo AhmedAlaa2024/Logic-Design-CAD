@@ -20,7 +20,7 @@ public:
 	InputPin();
 	void setComponent(Component* pCmp);	//sets the component of this input pin
 	Component* getComponent() const;	//returns the component of this input pin
-	void ConnectTo(Connection* r_Conn);	//connect to a new connection
+	bool ConnectTo(Connection* r_Conn);	//connect to a new connection
 
 
 	void set_m_index(int);

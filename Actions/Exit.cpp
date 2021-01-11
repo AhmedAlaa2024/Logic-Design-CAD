@@ -10,41 +10,24 @@ Exit::Exit(ApplicationManager* pApp, Output* outp, Input* inp) :Action(pApp)
 	current = new ofstream("TempforExit.txt");
 }
 
-Exit::~Exit(void)
-{
-	if (lastSaved)
-	{
-		delete lastSaved;
-		lastSaved = 0;
-	}
-	if (current)
-	{
-		delete current;
-		current = 0;
-	}
-	if (Current)
-	{
-		delete Current;
-		Current = 0;
-	}
-}
-
-
 void Exit::Execute()
 {
 	bool isSaved = ReadActionParameters(1);
-	current->clear();
 	current->close();
+	current->open("TempforExit.txt", ios::trunc);
+	if (current->is_open())
+	{
+		current->close();
+	}
 	lastSaved->close();
-	if (isSaved || pManager->getCompCount() == 0)
+	if (isSaved)
 		return;
 	string name = inp->getfilename(outp, 1);
 	if(name != "")
 		Actp = new Save(pManager, name, outp);
-	current->open("LastSavedCircuit.txt");
+	current->open("LastSavedCircuit.txt", ios::trunc);
 	if (current->is_open())
 	{
-		current->clear();
 		current->close();
 	}
 }
@@ -82,4 +65,23 @@ void Exit::Undo()
 
 void Exit::Redo()
 {}
+
+Exit::~Exit(void)
+{
+	if (lastSaved)
+	{
+		delete lastSaved;
+		lastSaved = 0;
+	}
+	if (current)
+	{
+		delete current;
+		current = 0;
+	}
+	if (Current)
+	{
+		delete Current;
+		Current = 0;
+	}
+}
 

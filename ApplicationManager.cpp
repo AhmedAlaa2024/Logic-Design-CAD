@@ -311,11 +311,15 @@ void ApplicationManager::load(ifstream*& iptr)
 			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);
 			CActp->setSrcPinGInfo(Cptr->getGraphicsInfo(), GfxInfo);
 			InputPin* Inp= Cptr2->GetInpuPin(PinNo);
-			Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Inp);
-			Connection* ConnPtr = (Connection*)Cptr1;
-			(Cptr->getOutputPin())->ConnectTo(ConnPtr);
-			AddComponent(Cptr1);
-
+			if (Inp)
+			{
+				Inp->set_is_connected(true);
+				Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Inp);
+				Connection* ConnPtr = (Connection*)Cptr1;
+				(Cptr->getOutputPin())->ConnectTo(ConnPtr);
+				Inp->ConnectTo(ConnPtr);
+				AddComponent(Cptr1);
+			}
 		}
 		//here i should read the connections then reach the second flag.
 		if (Actp)

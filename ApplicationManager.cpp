@@ -22,6 +22,18 @@
 #include "Actions/Connect.h"
 
 //==============DOAA===========
+#include "Actions/AddANDgate3.h"
+#include "Actions/AddBUFFER.h"
+#include "Actions/AddINVgate.h"
+#include "Actions/AddLED.h"
+#include "Actions/AddNAND2gate.h"
+#include "Actions/AddNOR2gate.h"
+#include "Actions/AddNORgate3.h"
+#include "Actions/AddORgate2.h"
+#include "Actions/AddSWITCH.h"
+#include "Actions/AddXNORgate2.h"
+#include "Actions/AddXORgate2.h"
+#include "Actions/AddXORgate3.h"
 #include "Actions/CopyCutPaste.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
@@ -187,7 +199,7 @@ void ApplicationManager::DeleteAll()
 ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
 {
 	CompCount = 0;
-
+	Clipboard = ADD_Gate;
 	for (int i = 0; i < MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -414,6 +426,64 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 
+void ApplicationManager::Execute_Add_Gate_action(ActionType a)
+{
+	Action* pAct = NULL;
+
+	switch (a)
+	{
+	case ADD_AND_GATE_2:
+		pAct = new AddANDgate2(this);
+		break;
+	case ADD_OR_GATE_2:
+		pAct = new AddORgate2(this);
+		break;
+	case ADD_Buff:
+		pAct = new AddBUFFER(this);
+		break;
+	case ADD_INV:
+		pAct = new AddINVgate(this);
+		break;
+	case ADD_NAND_GATE_2:
+		pAct = new AddNANDgate2(this);
+		break;
+	case ADD_NOR_GATE_2:
+		pAct = new AddNORgate2(this);
+		break;
+	case ADD_XOR_GATE_2:
+		pAct = new AddXORgate2(this);
+		break;
+	case ADD_XNOR_GATE_2:
+		pAct = new AddXNORgate2(this);
+		break;
+	case ADD_AND_GATE_3:
+		pAct = new AddANDgate3(this);
+		break;	
+	case ADD_NOR_GATE_3:
+		pAct = new AddNORgate3(this);
+		break;
+	case ADD_XOR_GATE_3:
+		pAct = new AddXORgate3(this);
+		break;
+		//case ADD_XNOR_GATE_3:		
+	case ADD_Switch:
+		pAct = new AddSWITCH(this);
+		break;
+	case ADD_LED:
+		pAct = new AddLED(this);
+		break;
+	}
+	if (pAct)
+	{
+		pAct->Execute();
+		delete pAct;
+		pAct = NULL;
+		OutputInterface->ClearWindow();
+
+	}
+	
+}
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()
@@ -427,13 +497,78 @@ void ApplicationManager::UpdateInterface()
 
 void ApplicationManager::set_clipboard()
 {
-	Clipboard = lastSelectedComponent->get_comp_type();
+	COMP_TYPES a = lastSelectedComponent->get_comp_type();
+
+	switch (a)
+	{
+	case COMP_TYPES::COMP_SWITCH:
+		Clipboard = ADD_Switch;
+		break;
+
+	case COMP_TYPES::COMP_LED:
+		Clipboard = ADD_LED;
+		break;
+
+	case COMP_TYPES::AND_2:
+		Clipboard = ADD_AND_GATE_2;
+		break;
+
+	case COMP_TYPES::AND_3:
+		Clipboard = ADD_AND_GATE_3;
+
+		break;
+
+	case COMP_TYPES::INV_:
+		Clipboard = ADD_INV;
+		break;
+
+	case COMP_TYPES::NAND_2:
+		Clipboard = ADD_NAND_GATE_2;
+		break;
+
+	case COMP_TYPES::NOR_2:
+		Clipboard = ADD_NOR_GATE_2;
+		break;
+
+	case COMP_TYPES::NOR_3:
+		Clipboard = ADD_NOR_GATE_3;
+		break;
+
+	case COMP_TYPES::Buff_:
+		Clipboard = ADD_Buff;
+		break;
+
+	case COMP_TYPES::OR_2:
+		Clipboard = ADD_OR_GATE_2;
+		break;
+
+	case COMP_TYPES::XNOR_2:
+		Clipboard = ADD_XNOR_GATE_2;
+		break;
+
+	case COMP_TYPES::XOR_2:
+		Clipboard = ADD_XOR_GATE_2;
+
+		break;
+
+	case COMP_TYPES::XOR_3:
+		Clipboard = ADD_XOR_GATE_3;
+		break;
+
+
+	default:
+		break;
+
+
+
+	}
+	
 
 }
 
 
 
-COMP_TYPES ApplicationManager::get_clipboard() const
+ActionType ApplicationManager::get_clipboard() const
 {
 	return Clipboard;
 }
@@ -465,6 +600,8 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 	return sh;
 
 }
+
+
 
 
 

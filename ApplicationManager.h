@@ -42,7 +42,7 @@ private:
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 	
-	COMP_TYPES Clipboard;
+	ActionType Clipboard;
 
 	void shift_to_end(int i); //utility function
 
@@ -53,15 +53,15 @@ public:
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
 	ActionType AddGate();
-
 	//Creates an action and executes it
 	void ExecuteAction(ActionType);
+	void Execute_Add_Gate_action(ActionType a);
 
 	void UpdateInterface();	//Redraws all the drawing window
 
 	void set_clipboard();
 	// ============================== Ahmed ATA edited here ==============================
-	COMP_TYPES get_clipboard() const;
+	ActionType get_clipboard() const;
 
 
 	//to start and end the simulation

@@ -28,16 +28,6 @@ CopyCutPaste::~CopyCutPaste(void)
 
 void CopyCutPaste::ReadActionParameters()
 {
-	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-
-	//Wait for User Input
-	pIn->GetPointClicked(Cx, Cy);
-
-	//Clear Status Bar
-	pOut->ClearStatusBar();
 
 }
 
@@ -75,76 +65,9 @@ void CopyCutPaste::cut()
 void CopyCutPaste::paste()
 {
 
-	COMP_TYPES a = pManager->get_clipboard();
-
-	Action* pAct = NULL;
-	switch (a)
-	{
-	case COMP_TYPES::COMP_SWITCH:
-		pAct = new AddSWITCH(pManager);
-		break;
-
-	case COMP_TYPES::COMP_LED:
-		pAct = new AddLED(pManager);
-		break;
-
-	case COMP_TYPES::AND_2:
-		pAct = new AddANDgate2(pManager);
-		break;
-
-	case COMP_TYPES::AND_3:
-		pAct = new AddANDgate3(pManager);
-		break;
-
-	case COMP_TYPES::INV_:
-		pAct = new AddINVgate(pManager);
-		break;
-
-	case COMP_TYPES::NAND_2:
-		pAct = new AddNANDgate2(pManager);
-		break;
-
-	case COMP_TYPES::NOR_2:
-		pAct = new AddNORgate2(pManager);
-		break;
-
-	case COMP_TYPES::NOR_3:
-		pAct = new AddNORgate3(pManager);
-		break;
-
-	case COMP_TYPES::Buff_:
-		pAct = new AddBUFFER(pManager);
-		break;
-
-	case COMP_TYPES::OR_2:
-		pAct = new AddORgate2(pManager);
-		break;
-
-	case COMP_TYPES::XNOR_2:
-		pAct = new AddXNORgate2(pManager);
-		break;
-
-	case COMP_TYPES::XOR_2:
-		pAct = new AddXORgate2(pManager);
-		break;
-
-	case COMP_TYPES::XOR_3:
-		pAct = new AddXORgate3(pManager);
-		break;
-
-
-	default:
-		break;
-
-
-
-	}
-
-	if (pAct)
-	{
-		pAct->Execute();
-		delete pAct;
-		pAct = NULL;
+	ActionType a = pManager->get_clipboard();
+	if (a) {
+		pManager->Execute_Add_Gate_action(a);
 	}
 	
 }

@@ -203,7 +203,7 @@ Component* const* ApplicationManager::getComponents(int& count) const
 	count = CompCount;
 	return CompList;
 }
-void ApplicationManager::save(ofstream*& fptr)
+int ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
@@ -224,6 +224,7 @@ void ApplicationManager::save(ofstream*& fptr)
 			CompList[i]->save(fptr);
 	}
 	*fptr << "-1";
+	return -1;
 }
 void ApplicationManager::load(ifstream*& iptr)
 {
@@ -287,9 +288,10 @@ void ApplicationManager::load(ifstream*& iptr)
 	{
 		int connCount;
 		int fID, sID, PinNo;
-		string s;
+		string s, sflag;
 		stringstream Read;
 		getline(*iptr, s, '-');
+		*iptr >> sflag;
 		Read << s;
 		connCount = (s.length() - 1) / 6;
 		for (int i = 0; i < connCount; i++)

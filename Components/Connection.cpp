@@ -76,12 +76,12 @@ void Connection::save(ofstream*& fptr)
 {
 	int disID = (DstPin->getComponent())->get_id();
 	int SrcID = (SrcPin->getComponent())->get_id();
-	*fptr << disID << '\t' << SrcID << endl;
+	int PinNum = DstPin->get_m_index() + 1;
+	*fptr << SrcID << '\t' << disID << '\t' << PinNum << endl;
 }
 
 void Connection::load(ifstream*& fptr)
 {
-//	*fptr >> 
 }
 
 Connection::~Connection()

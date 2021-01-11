@@ -11,22 +11,20 @@ Save::Save(ApplicationManager* pApp, string name, Output* optr)
 	output = new ofstream(name+ ".txt", ios::out);
 }
 
-Save::~Save()
-{
-	delete output;
-	output = 0;
-}
-
 void Save::ReadActionParameters()
 {
 }
 
 void Save::Execute()
 {
-	pManager->save(output);
-	output->close();
-	optr->PrintMsg("Saved successfully!");
-	
+	int flag = pManager->save(output);
+	if (flag == -1)
+	{
+		output->close();
+		optr->PrintMsg("Saved successfully!");
+	}
+	else
+		optr->PrintMsg("Failed to save!");
 }
 
 void Save::Undo()
@@ -35,4 +33,10 @@ void Save::Undo()
 
 void Save::Redo()
 {
+}
+
+Save::~Save()
+{
+	delete output;
+	output = 0;
 }

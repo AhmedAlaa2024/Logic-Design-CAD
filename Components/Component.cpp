@@ -91,8 +91,14 @@ COMP_TYPES Component::get_comp_type() const
 	return COMP_TYPES::COMP_GENERAL;
 }
 
+//////Rufaida
+InputPin* Component::GetInpuPin(int i) const
+{
+	return nullptr;
+}
 
-
+Component::~Component()
+{}
 //==================DOAA MAGDY===============i need this fn in class connect to know which gate sellected by the user
 bool Component::InsideArea(int x, int y)
 {
@@ -109,7 +115,3 @@ void Component::getm_GfxInfo(int &x1, int &y1, int &x2, int &y2)
 	y2 = m_GfxInfo.y2;
 
 }
-
-
-Component::~Component()
-{}

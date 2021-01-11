@@ -43,7 +43,8 @@ public:
 
 	////////////////Rufaidah
 	//int getInputPinNum();
-	void setDisPinGInfo(COMP_TYPES, int, int, int, int, int, GraphicsInfo&);
+	void setDisPinGInfo(COMP_TYPES, int, const GraphicsInfo&, GraphicsInfo&);
+	void setSrcPinGInfo(const GraphicsInfo& gate, GraphicsInfo& GInfo);
 };
 
 #endif

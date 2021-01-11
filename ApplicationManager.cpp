@@ -296,7 +296,7 @@ void ApplicationManager::load(ifstream*& iptr)
 		getline(*iptr, s, '-');
 		*iptr >> sflag;
 		Read << s;
-		connCount = (s.length() - 1) / 6;
+		connCount = (s.length() - 1) / 6 - 1;
 		for (int i = 0; i < connCount; i++)
 		{
 			CActp = new Connect(this);

@@ -38,6 +38,11 @@ InputPin* Connection::getDestPin() const
 	return DstPin;
 }
 
+STATUS Connection::get_is_on() const
+{
+	return is_on;
+}
+
 
 void Connection::Operate()
 {

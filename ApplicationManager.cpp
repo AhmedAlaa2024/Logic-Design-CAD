@@ -131,12 +131,13 @@ void ApplicationManager::DeleteComponent()
 				auto out_pin = lastSelectedComponent->getOutputPin();
 				if (out_pin) {
 					auto conns = out_pin->get_connections(no_conns);
-					out_pin->decrease_m_Conn();
+					
 					for (int j = 0; j < no_conns; ++j)
 					{
 						auto conn = conns[j];
 						if (conn)
 						{
+							out_pin->decrease_m_Conn();
 							conn->getDestPin()->set_is_connected(false);
 							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 							int index = conn->get_id();

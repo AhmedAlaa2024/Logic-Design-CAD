@@ -63,8 +63,8 @@ void CopyCutPaste::copy()
 void CopyCutPaste::cut()
 {
 	pManager->set_clipboard();
-	auto comp = pManager->GetLastSelectedComponent();
-	//TODO: DELETE the component
+	pManager->DeleteComponent();
+	
 	
 
 

@@ -10,7 +10,8 @@ using namespace std;
 class Save : public Action
 {
 	Output* optr;
-	fstream* output;
+	ofstream* output;
+	ifstream* Temp;
 	ofstream* lastSave;
 	string temp;
 	string name;

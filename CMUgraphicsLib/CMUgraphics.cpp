@@ -366,7 +366,7 @@ void window::RestoreDrawStyle() {
 
 }
 
-bool window::SetWaitClose(const bool bSetting) const {
+bool window::SetWaitClose(const bool bSetting ) const {
 
   bool bReturnVal;
   

@@ -37,7 +37,7 @@ InputPin* const Gate::getInputPin() const
 	return m_InputPins;
 }
 
-void Gate::save(fstream*& fptr)
+void Gate::save(ofstream*& fptr)
 {
 	string name;
 	switch (get_comp_type())

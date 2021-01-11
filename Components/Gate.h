@@ -26,7 +26,7 @@ public:
 	
 	OutputPin* getOutputPin() const;
 	
-	virtual void save(fstream*&);
+	virtual void save(ofstream*&);
 	//virtual void load(ifstream*&);
 	virtual void set_comp_type(COMP_TYPES);
 

@@ -229,6 +229,7 @@
     <ClCompile Include="Components\XOR3.cpp" />
     <ClCompile Include="Actions\AddBUFFER.cpp" />
     <ClCompile Include="Actions\Clear.cpp" />
+    <ClCompile Include="Actions\CircuitProding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -415,6 +416,7 @@
     <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Actions\AddBUFFER.h" />
     <ClInclude Include="Actions\Clear.h" />
+    <ClInclude Include="Actions\CircuitProding.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

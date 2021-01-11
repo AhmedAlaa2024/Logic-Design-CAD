@@ -42,7 +42,7 @@ private:
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 	
-	COMP_TYPES Clipboard;
+	ActionType Clipboard;
 
 	void shift_to_end(int i); //utility function
 
@@ -53,20 +53,19 @@ public:
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
 	ActionType AddGate();
-
 	//Creates an action and executes it
 	void ExecuteAction(ActionType);
+	void Execute_Add_Gate_action(ActionType a);
 
 	void UpdateInterface();	//Redraws all the drawing window
 
 	void set_clipboard();
 	// ============================== Ahmed ATA edited here ==============================
-	COMP_TYPES get_clipboard() const;
+	ActionType get_clipboard() const;
 
 
 	//to start and end the simulation
 	SWITCH** get_switches(int& num) const;
-	Connection** get_connections(int& num) const;
 	LED** get_connected_leds(int &num )const;
 
 	//Gets a pointer to Input / Output Object
@@ -85,9 +84,14 @@ public:
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
-	Component* const* getComponents(int& count) const; //don't ask me about the type :(
-	int save(ofstream*&);
 
+	Component* get_comp_at(int index) const;
+
+
+	bool validate_circuit() const;
+
+	
+	int save(ofstream*&);
 	void load(ifstream*&);
 													   //destructor
 	//destructor

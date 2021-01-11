@@ -22,6 +22,19 @@
 #include "Actions/Connect.h"
 
 //==============DOAA===========
+#include "Actions/AddANDgate3.h"
+#include "Actions/AddBUFFER.h"
+#include "Actions/AddINVgate.h"
+#include "Actions/AddLED.h"
+#include "Actions/AddNAND2gate.h"
+#include "Actions/AddNOR2gate.h"
+#include "Actions/AddNORgate3.h"
+#include "Actions/AddORgate2.h"
+#include "Actions/AddSWITCH.h"
+#include "Actions/AddXNORgate2.h"
+#include "Actions/AddXORgate2.h"
+#include "Actions/AddXORgate3.h"
+#include "Actions/CircuitProding.h"
 #include "Actions/CopyCutPaste.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
@@ -119,12 +132,13 @@ void ApplicationManager::DeleteComponent()
 				auto out_pin = lastSelectedComponent->getOutputPin();
 				if (out_pin) {
 					auto conns = out_pin->get_connections(no_conns);
-					out_pin->decrease_m_Conn();
+
 					for (int j = 0; j < no_conns; ++j)
 					{
 						auto conn = conns[j];
 						if (conn)
 						{
+							out_pin->decrease_m_Conn();
 							conn->getDestPin()->set_is_connected(false);
 							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 							int index = conn->get_id();
@@ -146,6 +160,7 @@ void ApplicationManager::DeleteComponent()
 
 
 							if (conn) {
+
 								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 								conn->getDestPin()->set_is_connected(false);
 								conn->getSourcePin()->decrease_m_Conn();
@@ -187,7 +202,7 @@ void ApplicationManager::DeleteAll()
 ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
 {
 	CompCount = 0;
-
+	Clipboard = ADD_Gate;
 	for (int i = 0; i < MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -201,11 +216,64 @@ void ApplicationManager::AddComponent(Component* pComp)
 	CompList[CompCount++] = pComp;
 }
 
-Component* const* ApplicationManager::getComponents(int& count) const
+Component* ApplicationManager::get_comp_at(int index) const
 {
-	count = CompCount;
-	return CompList;
+	return CompList[index];
 }
+
+bool ApplicationManager::validate_circuit() const
+{
+
+	for (int i = 0; i < CompCount; ++i)
+	{
+		Component* pComp = CompList[i];
+		COMP_TYPES type = pComp->get_comp_type();
+		if (type == COMP_TYPES::COMP_CONN)
+			continue;
+		if (type == COMP_TYPES::COMP_LED) //if its a led //check for input only
+		{
+			if (pComp->GetInpuPin(0)->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//if its a switch //check for output pin only
+		if (type == COMP_TYPES::COMP_SWITCH) //if its a led //check for input only
+		{
+			if (pComp->getOutputPin()->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//now its just a gate
+
+		if (pComp->getOutputPin()->get_is_connected() == false)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < pComp->getNoOfInputpins(); ++i)
+		{
+			if (pComp->GetInpuPin(i)->get_is_connected() == false)
+			{
+				return false;
+			}
+		}
+		
+
+
+	}
+
+	return true;
+}
+
+
 int ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
@@ -314,7 +382,7 @@ void ApplicationManager::load(ifstream*& iptr)
 			}
 			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);
 			CActp->setSrcPinGInfo(Cptr->getGraphicsInfo(), GfxInfo);
-			InputPin* Inp= Cptr2->GetInpuPin(PinNo);
+			InputPin* Inp = Cptr2->GetInpuPin(PinNo);
 			if (Inp)
 			{
 				Inp->set_is_connected(true);
@@ -335,7 +403,7 @@ void ApplicationManager::load(ifstream*& iptr)
 	{
 		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 		{
-				Actp = new Label(this, CompList[i], 0);
+			Actp = new Label(this, CompList[i], 0);
 		}
 
 	}
@@ -403,6 +471,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_:
 		pAct = new CopyCutPaste(this, PASTE);
 		break;
+	case PROGING:
+		pAct = new CircuitProding(this);
+		break;
+
 	case DSN_MODE:
 		pAct = new SwitchToDesign(this);
 		break;
@@ -430,6 +502,64 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 
+void ApplicationManager::Execute_Add_Gate_action(ActionType a)
+{
+	Action* pAct = NULL;
+
+	switch (a)
+	{
+	case ADD_AND_GATE_2:
+		pAct = new AddANDgate2(this);
+		break;
+	case ADD_OR_GATE_2:
+		pAct = new AddORgate2(this);
+		break;
+	case ADD_Buff:
+		pAct = new AddBUFFER(this);
+		break;
+	case ADD_INV:
+		pAct = new AddINVgate(this);
+		break;
+	case ADD_NAND_GATE_2:
+		pAct = new AddNANDgate2(this);
+		break;
+	case ADD_NOR_GATE_2:
+		pAct = new AddNORgate2(this);
+		break;
+	case ADD_XOR_GATE_2:
+		pAct = new AddXORgate2(this);
+		break;
+	case ADD_XNOR_GATE_2:
+		pAct = new AddXNORgate2(this);
+		break;
+	case ADD_AND_GATE_3:
+		pAct = new AddANDgate3(this);
+		break;
+	case ADD_NOR_GATE_3:
+		pAct = new AddNORgate3(this);
+		break;
+	case ADD_XOR_GATE_3:
+		pAct = new AddXORgate3(this);
+		break;
+		//case ADD_XNOR_GATE_3:		
+	case ADD_Switch:
+		pAct = new AddSWITCH(this);
+		break;
+	case ADD_LED:
+		pAct = new AddLED(this);
+		break;
+	}
+	if (pAct)
+	{
+		pAct->Execute();
+		delete pAct;
+		pAct = NULL;
+		OutputInterface->ClearWindow();
+
+	}
+
+}
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()
@@ -443,13 +573,81 @@ void ApplicationManager::UpdateInterface()
 
 void ApplicationManager::set_clipboard()
 {
-	Clipboard = lastSelectedComponent->get_comp_type();
+	if (lastSelectedComponent) {
+		COMP_TYPES a = lastSelectedComponent->get_comp_type();
+
+		switch (a)
+		{
+		case COMP_TYPES::COMP_SWITCH:
+			Clipboard = ADD_Switch;
+			break;
+
+		case COMP_TYPES::COMP_LED:
+			Clipboard = ADD_LED;
+			break;
+
+		case COMP_TYPES::AND_2:
+			Clipboard = ADD_AND_GATE_2;
+			break;
+
+		case COMP_TYPES::AND_3:
+			Clipboard = ADD_AND_GATE_3;
+
+			break;
+
+		case COMP_TYPES::INV_:
+			Clipboard = ADD_INV;
+			break;
+
+		case COMP_TYPES::NAND_2:
+			Clipboard = ADD_NAND_GATE_2;
+			break;
+
+		case COMP_TYPES::NOR_2:
+			Clipboard = ADD_NOR_GATE_2;
+			break;
+
+		case COMP_TYPES::NOR_3:
+			Clipboard = ADD_NOR_GATE_3;
+			break;
+
+		case COMP_TYPES::Buff_:
+			Clipboard = ADD_Buff;
+			break;
+
+		case COMP_TYPES::OR_2:
+			Clipboard = ADD_OR_GATE_2;
+			break;
+
+		case COMP_TYPES::XNOR_2:
+			Clipboard = ADD_XNOR_GATE_2;
+			break;
+
+		case COMP_TYPES::XOR_2:
+			Clipboard = ADD_XOR_GATE_2;
+
+			break;
+
+		case COMP_TYPES::XOR_3:
+			Clipboard = ADD_XOR_GATE_3;
+			break;
+
+
+		default:
+			break;
+
+
+
+		}
+	}
+	else
+		OutputInterface->PrintMsg("Please select a component...");
 
 }
 
 
 
-COMP_TYPES ApplicationManager::get_clipboard() const
+ActionType ApplicationManager::get_clipboard() const
 {
 	return Clipboard;
 }
@@ -481,6 +679,8 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 	return sh;
 
 }
+
+
 
 
 

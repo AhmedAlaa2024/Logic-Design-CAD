@@ -20,11 +20,13 @@ public:
 	virtual void Draw(Output* pOut);	//for each component to Draw itself
 	STATUS is_on;
 
+
+	
 	void setSourcePin(OutputPin* pSrcPin);
 	void setDestPin(InputPin* pDstPin);
 	OutputPin* getSourcePin() const;
 	InputPin* getDestPin() const;
-
+	STATUS get_is_on() const;
 	//dummy
 	virtual OutputPin* getOutputPin() const { return nullptr; }
 	//dummy

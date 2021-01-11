@@ -87,12 +87,7 @@ void Connect::ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, i
 			return;
 
 		}
-		if (checkIfSourceIsLED == true)
-		{
-			pOut->PrintMsg("LED Can't be the source.");
 
-			return;
-		}
 
 		//Clear Status Bar
 		pOut->ClearStatusBar();
@@ -111,6 +106,7 @@ void Connect::Execute()
 
 	if (a == true || b == true || IfLED == true)
 	{
+
 		return;
 	}
 	Component* SrcComp = pManager->GetLastSelectedComponent();

@@ -47,92 +47,12 @@ void Add::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	pOut->CreateDesignToolBarComponent();
-	//pOut->CreateDesignToolBarComponent();
-	//ApplicationManager* pApp;
+
 	Action* pAct = NULL;
 	ActionType a = pManager->AddGate();
-	switch (a)
-	{
-	    case ADD_AND_GATE_2:
-			pAct = new AddANDgate2(pManager);
-			break;
-		case ADD_OR_GATE_2:	
-			pAct = new AddORgate2(pManager);
-			break;
-		case ADD_Buff:
-			pAct = new AddBUFFER(pManager);
-			break;
-		case ADD_INV:	
-			pAct = new AddINVgate(pManager);
-			break;
-		case ADD_NAND_GATE_2:
-			pAct = new AddNANDgate2(pManager);
-			break;
-		case ADD_NOR_GATE_2:
-			pAct = new AddNORgate2(pManager);
-			break;
-		case ADD_XOR_GATE_2:
-			pAct = new AddXORgate2(pManager);
-			break;
-		case ADD_XNOR_GATE_2:
-			pAct = new AddXNORgate2(pManager);
-			break;
-		case ADD_AND_GATE_3:
-			pAct = new AddANDgate3(pManager);
-			break;
-		//case ADD_OR_GATE_3:
-			//pAct = new AddORgate3(pManager);
-			//break;
-		//case ADD_NAND_GATE_3:		
-		case ADD_NOR_GATE_3:
-			pAct = new AddNORgate3(pManager);
-			break;
-		case ADD_XOR_GATE_3:
-			pAct = new AddXORgate3(pManager);
-			break;
-		//case ADD_XNOR_GATE_3:		
-		case ADD_Switch:
-			pAct = new AddSWITCH(pManager);
-			break;
-		case ADD_LED:
-			pAct = new AddLED(pManager);
-			break;
-		//case ADD_CONNECTION:		
-			//pAct = new Connect(pManager);
-			//break;
-	}
-	if (pAct)
-	{
-		pAct->Execute();
-		delete pAct;
-		pAct = NULL;
-		pOut->ClearWindow();
-		
-	}
+	pManager->Execute_Add_Gate_action(a);
 
 
-
-	//Get Center point of the Gate
-	//ReadActionParameters();
-	//Add* pA = new Add(GInfo, FANOUT);
-	//pManager->AddComponent(pA);
-	//ActionType a = pManager->GetUserAction();
-
-
-/*
-	//Calculate the rectangle Corners
-	int Len = UI.Gate_Height;
-	int Wdth = UI.Gate_Width;
-
-	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
-
-	GInfo.x1 = Cx - Len / 2;
-	GInfo.x2 = Cx + Len / 2;
-	GInfo.y1 = Cy - Wdth / 2;
-	GInfo.y2 = Cy + Wdth / 2;
-	AND2* pA = new AND2(GInfo, FANOUT);
-	pManager->AddComponent(pA);
-	*/
 }
 
 

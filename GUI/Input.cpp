@@ -159,9 +159,7 @@ ActionType Input::GetUserAction()
 			switch (ClickedItemOrder)
 			{
 			case ITM_DSN: return DSN_MODE;
-			case ITM_TRUTH: return Create_TruthTable;
-			case Add_Label: return ADD_Label;
-			case Edit_label: return EDIT_Label;
+			case ITM_PRODING: return PROGING;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;

@@ -71,7 +71,7 @@ void Component::set_is_selected(bool test)
 	is_selected = test;
 }
 
-void Component::save(ofstream*& fptr)
+void Component::save(fstream*& fptr)
 {
 	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
 }

@@ -86,7 +86,7 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	Component* const* getComponents(int& count) const; //don't ask me about the type :(
-	int save(ofstream*&);
+	int save(fstream*&);
 
 	void load(ifstream*&);
 													   //destructor

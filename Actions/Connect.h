@@ -28,7 +28,7 @@ public:
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED);
+	void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, int num_of_call);
 	virtual void ReadActionParameters() {};
 
 

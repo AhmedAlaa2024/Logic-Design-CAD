@@ -203,7 +203,7 @@ Component* const* ApplicationManager::getComponents(int& count) const
 	count = CompCount;
 	return CompList;
 }
-int ApplicationManager::save(ofstream*& fptr)
+int ApplicationManager::save(fstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
@@ -359,6 +359,7 @@ ActionType ApplicationManager::AddGate()
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
+	string name = ""; ///for save action
 	Action* pAct = NULL;
 	switch (ActType)
 	{
@@ -405,11 +406,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SIM_MODE:
 		pAct = new SwitchToSimulation(this);
 		break;
+		/////////Rufaidah
 	case EXIT:
 		pAct = new Exit(this);
 		break;
 	case SAVE:
-		pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
+		name = InputInterface->getfilename(OutputInterface);
+		if (name != "")
+			pAct = new Save(this, name, OutputInterface);
 		break;
 	case LOAD:
 		pAct = new Load(this);

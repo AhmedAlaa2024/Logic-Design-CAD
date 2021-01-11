@@ -26,7 +26,6 @@ string Input::GetString(Output* pOut, string startwith) const
 
 	while (true)
 	{
-
 		pWind->FlushMouseQueue();
 		a = pWind->WaitKeyPress(c);
 		switch (a)

@@ -41,7 +41,7 @@ public:
 	virtual void set_is_selected(bool);
 	virtual InputPin* GetInpuPin(int i) const;
 
-	virtual void save(fstream*&);
+	virtual void save(ofstream*&);
 	virtual void load(ifstream*&);
 
 	

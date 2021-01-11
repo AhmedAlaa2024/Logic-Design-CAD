@@ -221,7 +221,8 @@ Component* ApplicationManager::get_comp_at(int index) const
 	return CompList[index];
 }
 
-int ApplicationManager::save(fstream*& fptr)
+
+int ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
@@ -430,7 +431,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 		/////////Rufaidah
 	case EXIT:
-		pAct = new Exit(this);
+		pAct = new Exit(this, OutputInterface, InputInterface);
 		break;
 	case SAVE:
 		name = InputInterface->getfilename(OutputInterface);

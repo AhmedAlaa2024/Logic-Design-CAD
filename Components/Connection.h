@@ -39,7 +39,7 @@ public:
 
 	virtual COMP_TYPES get_comp_type() const;
 
-	virtual void save(fstream*&);
+	virtual void save(ofstream*&);
 	virtual void load(ifstream*&);
 
 	//=============DOAA MAGDY===========

@@ -102,7 +102,9 @@ ActionType Input::GetUserAction()
 			case CLEAR: return Clear_all;
 			case LOAD_ICON: return LOAD;
 			case SAVE_ICON: return SAVE;
-			case ITM_EXIT: return EXIT;
+			case ITM_EXIT: 
+				pWind->SetWaitClose(false);
+				return EXIT;
 
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
@@ -163,7 +165,9 @@ ActionType Input::GetUserAction()
 			case ITM_CHANGE_SWITCH: return Change_Switch;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;
-			case SIM_EXIT: return EXIT; //TODO: weird line
+			case SIM_EXIT: 
+				pWind->SetWaitClose(false); 
+				return EXIT; //TODO: weird line
 
 			default: return SIM_TOOL;	//A click on empty place in simulation toolbar
 			}
@@ -223,9 +227,12 @@ void Input::GetLastClicked(int& x, int& y)
 	y = last_y;
 }
 
-string Input::getfilename(Output* pOut) const
+string Input::getfilename(Output* pOut, int f) const
 {
-	pOut->PrintMsg("Please, enter file name here!");
+	if (f)
+		pOut->PrintMsg("The current circuit wasn't saved. Type file name to save or press Esc to exit.");
+	else
+		pOut->PrintMsg("Please, enter file name here!, Press Esc to cancel.");
 	return GetString(pOut);
 }
 

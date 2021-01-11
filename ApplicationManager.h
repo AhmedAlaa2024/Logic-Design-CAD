@@ -84,8 +84,10 @@ public:
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
+
 	Component* get_comp_at(int index) const;
 	int save(fstream*&);
+
 
 	void load(ifstream*&);
 													   //destructor

@@ -13,12 +13,21 @@ CircuitProding::~CircuitProding()
 
 void CircuitProding::Execute()
 {
+	Output* pOut = pManager->GetOutput();
+
+	pOut->PrintMsg("Please Select a Connection, LED or a Switch to see its state.");
+
 	COMP_TYPES type;
 	int x, y;
 	pManager->GetInput()->GetPointClicked(x, y);
 	int target = pManager->which_component(type);
-	Component* l_selected = pManager->get_comp_at(target);
-	Output* pOut = pManager->GetOutput();
+	Component* l_selected = NULL;
+
+
+	if (target != -1)
+		l_selected = pManager->get_comp_at(target);
+
+
 	if (l_selected) {
 		if (type == COMP_TYPES::COMP_CONN)
 		{

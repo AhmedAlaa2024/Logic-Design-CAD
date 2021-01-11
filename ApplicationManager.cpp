@@ -81,20 +81,21 @@ void ApplicationManager::shift_to_end(int i)
 
 void ApplicationManager::DeleteComponent()
 {
-
 	if (lastSelectedComponent != nullptr)
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
-			
+
 			if (lastSelectedComponent == CompList[i]) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
 
-				if(lastSelectedComponent->get_comp_type() == COMP_TYPES::COMP_CONN)
+				if (lastSelectedComponent->get_comp_type() == COMP_TYPES::COMP_CONN)
 				{
+
 					auto conn = (Connection*)lastSelectedComponent;
-					conn->getSourcePin()->decrease_m_Connections();
+					GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+					conn->getSourcePin()->decrease_m_Conn();
 					int index = lastSelectedComponent->get_id();
 					delete CompList[index];
 					CompList[index] = NULL;
@@ -102,7 +103,7 @@ void ApplicationManager::DeleteComponent()
 					if (i > index)
 						i--; //i is shifted
 					break;
-					
+
 				}
 
 
@@ -121,47 +122,52 @@ void ApplicationManager::DeleteComponent()
 					for (int j = 0; j < no_conns; ++j)
 					{
 						auto conn = conns[j];
-						int index = conn->get_id();
-						delete CompList[index];
-						CompList[index] = NULL;
-						shift_to_end(index);
-						if (i > index)
-							i--; //i is shifted
-
-					}
-				}
-
-				auto no_input_pins = lastSelectedComponent->getNoOfInputpins();
-				InputPin* input_pin = lastSelectedComponent->getInputPin();
-				if (input_pin) {
-					for (int i = 0; i < no_input_pins; ++i)
-					{
-						auto conn = input_pin[i].get_connection();
-
-
-						if (conn) {
-							conn->getSourcePin()->decrease_m_Connections();
+						if (conn)
+						{
+							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 							int index = conn->get_id();
 							delete CompList[index];
 							CompList[index] = NULL;
 							shift_to_end(index);
 							if (i > index)
-								i--; //i is shifted
+								i--; //i is shifted}
+
 						}
 					}
+
+					auto no_input_pins = lastSelectedComponent->getNoOfInputpins();
+					InputPin* input_pin = lastSelectedComponent->getInputPin();
+					if (input_pin) {
+						for (int i = 0; i < no_input_pins; ++i)
+						{
+							auto conn = input_pin[i].get_connection();
+
+
+							if (conn) {
+								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+								conn->getSourcePin()->decrease_m_Conn();
+								int index = conn->get_id();
+								delete CompList[index];
+								CompList[index] = NULL;
+								shift_to_end(index);
+								if (i > index)
+									i--; //i is shifted
+							}
+						}
+					}
+
+
+					delete CompList[i]; // To delete the pointer that pointing to the seleted component
+					CompList[i] = NULL; // To make the pointer point to a null pointer
+					shift_to_end(i);
+					lastSelectedComponent = NULL;
+					break;
 				}
-
-
-				delete CompList[i]; // To delete the pointer that pointing to the seleted component
-				CompList[i] = NULL; // To make the pointer point to a null pointer
-				shift_to_end(i);
-				lastSelectedComponent = NULL;
-				break;
 			}
-		}
-	else
-		GetOutput()->PrintMsg("You have to select a certain component before delete!");
+			else
+				GetOutput()->PrintMsg("You have to select a certain component before delete!");
 
+		}
 }
 
 void ApplicationManager::DeleteAll()
@@ -170,8 +176,8 @@ void ApplicationManager::DeleteAll()
 		GetOutput()->ClearDrawingArea();
 		delete CompList[i]; // To delete the pointer that pointing to the seleted component
 		CompList[i] = NULL; // To make the pointer point to a null pointer
-		CompCount--;
 	}
+	CompCount = 0;
 	lastSelectedComponent = NULL;
 }
 
@@ -417,7 +423,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-	
+
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
 			CompList[i]->Draw(OutputInterface);

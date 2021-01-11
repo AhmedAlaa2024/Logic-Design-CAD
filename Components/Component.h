@@ -39,8 +39,9 @@ public:
 	virtual const GraphicsInfo getGraphicsInfo();
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
+	virtual InputPin* GetInpuPin(int i) const;
 
-	virtual void save(ofstream*&);
+	virtual void save(fstream*&);
 	virtual void load(ifstream*&);
 
 	
@@ -49,7 +50,9 @@ public:
 	
 	
 	Component();	
-	
+
+	/// Rufaida
+
 	//Destructor must be virtual
 	virtual ~Component();
 

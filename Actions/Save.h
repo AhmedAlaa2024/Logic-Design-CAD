@@ -10,7 +10,10 @@ using namespace std;
 class Save : public Action
 {
 	Output* optr;
-	ofstream* output;
+	fstream* output;
+	ofstream* lastSave;
+	string temp;
+	string name;
 public:
 	Save(ApplicationManager* pApp, string name, Output* optr);
 

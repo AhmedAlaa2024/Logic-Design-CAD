@@ -218,7 +218,7 @@ Component* const* ApplicationManager::getComponents(int& count) const
 	count = CompCount;
 	return CompList;
 }
-void ApplicationManager::save(ofstream*& fptr)
+int ApplicationManager::save(fstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
@@ -239,12 +239,14 @@ void ApplicationManager::save(ofstream*& fptr)
 			CompList[i]->save(fptr);
 	}
 	*fptr << "-1";
+	return -1;
 }
 void ApplicationManager::load(ifstream*& iptr)
 {
-	OutputInterface->ClearDrawingArea();
-	Action* Actp = NULL;
-	int NonConnCount, n;
+	DeleteAll();
+	Label* Actp = NULL;
+	Connect* CActp = NULL;
+	int NonConnCount;
 	string CompType;
 	Component* Cptr = NULL;
 	Component* Cptr2 = NULL;
@@ -301,41 +303,51 @@ void ApplicationManager::load(ifstream*& iptr)
 	{
 		int connCount;
 		int fID, sID, PinNo;
-		string s;
+		string s, sflag;
 		stringstream Read;
 		getline(*iptr, s, '-');
+		*iptr >> sflag;
 		Read << s;
 		connCount = (s.length() - 1) / 6;
-		cout << s << endl << connCount << endl;
 		for (int i = 0; i < connCount; i++)
 		{
+			CActp = new Connect(this);
 			Read >> fID >> sID >> PinNo;
+			PinNo--;
 			for (int j = 0; j < CompCount; j++)
 			{
-				if (CompList[j]->get_id() == fID)
-					Cptr = CompList[j];
-				if (CompList[j]->get_id() == sID)
-					Cptr2 = CompList[j];
+				if (CompList[j])
+				{
+					if (CompList[j]->get_id() == fID)
+						Cptr = CompList[j];
+					if (CompList[j]->get_id() == sID)
+						Cptr2 = CompList[j];
+				}
 			}
-			Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Cptr2->getInputPin());
-
+			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);
+			CActp->setSrcPinGInfo(Cptr->getGraphicsInfo(), GfxInfo);
+			InputPin* Inp= Cptr2->GetInpuPin(PinNo);
+			if (Inp)
+			{
+				Inp->set_is_connected(true);
+				Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Inp);
+				Connection* ConnPtr = (Connection*)Cptr1;
+				(Cptr->getOutputPin())->ConnectTo(ConnPtr);
+				Inp->ConnectTo(ConnPtr);
+				AddComponent(Cptr1);
+			}
 		}
-		//here i should read the connections then reach the second flag.
-		if (Actp)
+		if (CActp)
 		{
-			delete Actp;
-			Actp = NULL;
+			delete CActp;
+			CActp = NULL;
 		}
 	}
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 		{
-			CompList[i]->Draw(OutputInterface);
-			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
-			{
 				Actp = new Label(this, CompList[i], 0);
-			}
 		}
 
 	}
@@ -362,6 +374,7 @@ ActionType ApplicationManager::AddGate()
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
+	string name = ""; ///for save action
 	Action* pAct = NULL;
 	switch (ActType)
 	{
@@ -408,11 +421,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SIM_MODE:
 		pAct = new SwitchToSimulation(this);
 		break;
+		/////////Rufaidah
 	case EXIT:
 		pAct = new Exit(this);
 		break;
 	case SAVE:
-		pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
+		name = InputInterface->getfilename(OutputInterface);
+		if (name != "")
+			pAct = new Save(this, name, OutputInterface);
 		break;
 	case LOAD:
 		pAct = new Load(this);
@@ -831,190 +847,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 }
 
 
-/*
-bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*& selected_pin)
-{
-	int no_input_pins = distComp->getNoOfInputpins();
-	for (int j = 0; j < no_input_pins; j++)
-	{
-		bool isConnected = inPin[j].get_is_connected();
-		if (isConnected == false)
-		{
-			selected_pin = &inPin[j];
-			inPin[j].set_is_connected(true);
-			//break;
-			//return true;
 
-
-			COMP_TYPES type = distComp->get_comp_type();
-			int a1, b1, a2, b2;
-			distComp->getm_GfxInfo(a1, b1, a2, b2);
-
-			switch (type)
-			{
-			case COMP_TYPES::COMP_LED:
-			{
-				//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
-				GInfo.x2 = a1 + 23;
-				GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
-				break;
-			}
-			//case COMP_TYPES::COMP_CONN:
-				//break;
-			case COMP_TYPES::AND_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 1;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 2;
-				}
-				break;
-			case COMP_TYPES::AND_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 16;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 16;
-
-				}
-				break;
-			case COMP_TYPES::INV_:
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + (b2 - b1) / 2;
-				break;
-			case COMP_TYPES::NAND_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 + 3;
-				}
-				break;
-			case COMP_TYPES::NOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 7;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 4;
-				}
-				break;
-			case COMP_TYPES::NOR_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b1 + 16 + 1;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b2 - 16 + 1;
-				}
-				break;
-			case COMP_TYPES::Buff_:
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + (b2 - b1) / 2;
-				break;
-			case COMP_TYPES::OR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1 + 8;
-					GInfo.y2 = b1 + 15 - 7;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1 + 8;
-					GInfo.y2 = b2 - 14 + 3;
-				}
-				break;
-			case COMP_TYPES::XNOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 5;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 5;
-				}
-				break;
-			case COMP_TYPES::XOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14;
-				}
-				break;
-			case COMP_TYPES::XOR_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 16;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 16;
-				}
-				break;
-			default:
-				break;
-			}
-			break;
-
-		}
-
-
-		if (j == no_input_pins - 1 && isConnected == true)
-		{
-			OutputInterface->PrintMsg("Error: All input pins of this component are already connected");
-			return false;
-		}
-
-	}
-	return true;
-}
-*/
 
 
 /*

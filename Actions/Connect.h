@@ -28,7 +28,7 @@ public:
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED);
+	void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, int num_of_call);
 	virtual void ReadActionParameters() {};
 
 
@@ -43,7 +43,8 @@ public:
 
 	////////////////Rufaidah
 	//int getInputPinNum();
-	void setDisPinGInfo(COMP_TYPES, int, int, int, int, int, GraphicsInfo&);
+	void setDisPinGInfo(COMP_TYPES, int, const GraphicsInfo&, GraphicsInfo&);
+	void setSrcPinGInfo(const GraphicsInfo& gate, GraphicsInfo& GInfo);
 };
 
 #endif

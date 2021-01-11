@@ -72,16 +72,16 @@ COMP_TYPES Connection::get_comp_type() const
 	return comp_type;
 }
 
-void Connection::save(ofstream*& fptr)
+void Connection::save(fstream*& fptr)
 {
 	int disID = (DstPin->getComponent())->get_id();
 	int SrcID = (SrcPin->getComponent())->get_id();
-	*fptr << disID << '\t' << SrcID << endl;
+	int PinNum = DstPin->get_m_index() + 1;
+	*fptr << SrcID << '\t' << disID << '\t' << PinNum << endl;
 }
 
 void Connection::load(ifstream*& fptr)
 {
-//	*fptr >> 
 }
 
 Connection::~Connection()

@@ -17,7 +17,13 @@ void Load::ReadActionParameters()
 void Load::Execute()
 {
 	input->open("InputFile.txt", ios::in);
-	pManager->load(input);
+	if (input->is_open())
+	{
+		pManager->load(input);
+		if (input->eof())
+			input->close();
+	}
+	
 }
 
 void Load::Undo()
@@ -30,4 +36,6 @@ void Load::Redo()
 
 Load::~Load()
 {
+	delete input;
+	input = NULL;
 }

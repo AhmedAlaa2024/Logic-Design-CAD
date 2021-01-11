@@ -87,6 +87,7 @@ public:
 
 	Component* get_comp_at(int index) const;
 
+
 	bool validate_circuit() const;
 
 	

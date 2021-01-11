@@ -191,9 +191,10 @@ void Output::CreateSimulationToolBar() const
 	string MenuItemImages[ITM_SIM_CNT];
 
 	MenuItemImages[ITM_DSN] = "images\\SimulationMenu\\design.jpg";
-	MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
-	MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
-	MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
+	// MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
+	// MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
+	// MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
+	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\Proding.jpg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\SimulationMenu\\closed_switch.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\SimulationMenu\\load.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\SimulationMenu\\save.jpg";

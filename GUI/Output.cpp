@@ -93,6 +93,9 @@ void Output::ClearDrawingArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
+
+
+
 void Output::ClearWindow() const
 {
 	pWind->SetPen(RED, 1);
@@ -515,9 +518,22 @@ void Output::DrawTextbox(string msg, Component* component)
 }
 void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
 {
+	
 	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
+}
+
+void Output::Clear_Connection_DrawingArea(GraphicsInfo r_GfxInfo) const
+{
+	pWind->SetPen(WHITE, UI.Conn_width);
+
+	int const x1_ = r_GfxInfo.x1 + 20;
+
+	pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, x1_, r_GfxInfo.y1);
+	pWind->DrawLine(x1_, r_GfxInfo.y1, x1_, r_GfxInfo.y2);
+	pWind->DrawLine(x1_, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
+
 }
 void Output::ClearLabelArea(GraphicsInfo r_GfxInfo, int len)
 {

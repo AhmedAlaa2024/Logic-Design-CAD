@@ -230,7 +230,7 @@ void ApplicationManager::load(ifstream*& iptr)
 	DeleteAll();
 	Label* Actp = NULL;
 	Connect* CActp = NULL;
-	int NonConnCount, n;
+	int NonConnCount;
 	string CompType;
 	Component* Cptr = NULL;
 	Component* Cptr2 = NULL;
@@ -292,7 +292,6 @@ void ApplicationManager::load(ifstream*& iptr)
 		getline(*iptr, s, '-');
 		Read << s;
 		connCount = (s.length() - 1) / 6;
-		cout << s << endl << connCount << endl;
 		for (int i = 0; i < connCount; i++)
 		{
 			CActp = new Connect(this);
@@ -321,11 +320,10 @@ void ApplicationManager::load(ifstream*& iptr)
 				AddComponent(Cptr1);
 			}
 		}
-		//here i should read the connections then reach the second flag.
-		if (Actp)
+		if (CActp)
 		{
-			delete Actp;
-			Actp = NULL;
+			delete CActp;
+			CActp = NULL;
 		}
 	}
 	for (int i = 0; i < CompCount; i++)

@@ -36,6 +36,10 @@ public:
 
 	Connection** get_connections(int& m_conn) const;
 
+
+
+	void decrease_m_Connections();
+	
 	////////Rufaidah
 	void setComponent(Component* pCmp);
 

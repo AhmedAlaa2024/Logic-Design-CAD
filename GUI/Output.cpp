@@ -146,7 +146,7 @@ void Output::CreateDesignToolBar() const
 	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
 	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
 	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
-	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpg";
+	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpeg";
 
 	for (int i = 0; i < ITM_DSN2_CNT; i++)
 		pWind->DrawImage(CopyCutPasteDeleteMenu[i], UI.width - UI.ToolBarHeight - 15, (i + 1) * (UI.ToolItemWidth) + 5, UI.ToolBarHeight, UI.ToolItemWidth);

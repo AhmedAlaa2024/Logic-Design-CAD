@@ -14,8 +14,11 @@ void SwitchToDesign::Execute()
 {
 
 	Output* pOut = pManager->GetOutput();
-	pOut->ClearWindow();
 
+
+	
+	pManager->DeselectComponentExcept();
+	pOut->ClearWindow();
 	pOut->CreateDesignToolBar();
 	
 }

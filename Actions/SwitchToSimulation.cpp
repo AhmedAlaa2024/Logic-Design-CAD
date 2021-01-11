@@ -21,10 +21,9 @@ void SwitchToSimulation::Execute()
 	if (valid) {
 		int num;
 		pManager->DeselectComponentExcept();
-
+		UI.AppMode = SIMULATION;
 		pOut->ClearWindow();
 		pOut->CreateSimulationToolBar();
-		UI.AppMode = SIMULATION;
 		pManager->ExecuteAction(SIMULATE);
 	}
 	else

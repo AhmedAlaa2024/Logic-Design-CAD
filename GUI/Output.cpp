@@ -129,7 +129,7 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[SAVE_ICON] = "images\\DesignMenu\\save.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\DesignMenu\\exit.jpg";
 
-	//TODO: Prepare image for each menu item and add it to the list
+	
 
 	//Draw menu item one image at a time
 	for (int i = 0; i < ITM_DSN_CNT; i++)

@@ -158,6 +158,7 @@ void ApplicationManager::DeleteComponent()
 
 
 							if (conn) {
+
 								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 								conn->getDestPin()->set_is_connected(false);
 								conn->getSourcePin()->decrease_m_Conn();
@@ -326,7 +327,7 @@ void ApplicationManager::load(ifstream*& iptr)
 			}
 			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);
 			CActp->setSrcPinGInfo(Cptr->getGraphicsInfo(), GfxInfo);
-			InputPin* Inp= Cptr2->GetInpuPin(PinNo);
+			InputPin* Inp = Cptr2->GetInpuPin(PinNo);
 			if (Inp)
 			{
 				Inp->set_is_connected(true);
@@ -347,7 +348,7 @@ void ApplicationManager::load(ifstream*& iptr)
 	{
 		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
 		{
-				Actp = new Label(this, CompList[i], 0);
+			Actp = new Label(this, CompList[i], 0);
 		}
 
 	}
@@ -474,7 +475,7 @@ void ApplicationManager::Execute_Add_Gate_action(ActionType a)
 		break;
 	case ADD_AND_GATE_3:
 		pAct = new AddANDgate3(this);
-		break;	
+		break;
 	case ADD_NOR_GATE_3:
 		pAct = new AddNORgate3(this);
 		break;
@@ -497,7 +498,7 @@ void ApplicationManager::Execute_Add_Gate_action(ActionType a)
 		OutputInterface->ClearWindow();
 
 	}
-	
+
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -513,72 +514,75 @@ void ApplicationManager::UpdateInterface()
 
 void ApplicationManager::set_clipboard()
 {
-	COMP_TYPES a = lastSelectedComponent->get_comp_type();
+	if (lastSelectedComponent) {
+		COMP_TYPES a = lastSelectedComponent->get_comp_type();
 
-	switch (a)
-	{
-	case COMP_TYPES::COMP_SWITCH:
-		Clipboard = ADD_Switch;
-		break;
+		switch (a)
+		{
+		case COMP_TYPES::COMP_SWITCH:
+			Clipboard = ADD_Switch;
+			break;
 
-	case COMP_TYPES::COMP_LED:
-		Clipboard = ADD_LED;
-		break;
+		case COMP_TYPES::COMP_LED:
+			Clipboard = ADD_LED;
+			break;
 
-	case COMP_TYPES::AND_2:
-		Clipboard = ADD_AND_GATE_2;
-		break;
+		case COMP_TYPES::AND_2:
+			Clipboard = ADD_AND_GATE_2;
+			break;
 
-	case COMP_TYPES::AND_3:
-		Clipboard = ADD_AND_GATE_3;
+		case COMP_TYPES::AND_3:
+			Clipboard = ADD_AND_GATE_3;
 
-		break;
+			break;
 
-	case COMP_TYPES::INV_:
-		Clipboard = ADD_INV;
-		break;
+		case COMP_TYPES::INV_:
+			Clipboard = ADD_INV;
+			break;
 
-	case COMP_TYPES::NAND_2:
-		Clipboard = ADD_NAND_GATE_2;
-		break;
+		case COMP_TYPES::NAND_2:
+			Clipboard = ADD_NAND_GATE_2;
+			break;
 
-	case COMP_TYPES::NOR_2:
-		Clipboard = ADD_NOR_GATE_2;
-		break;
+		case COMP_TYPES::NOR_2:
+			Clipboard = ADD_NOR_GATE_2;
+			break;
 
-	case COMP_TYPES::NOR_3:
-		Clipboard = ADD_NOR_GATE_3;
-		break;
+		case COMP_TYPES::NOR_3:
+			Clipboard = ADD_NOR_GATE_3;
+			break;
 
-	case COMP_TYPES::Buff_:
-		Clipboard = ADD_Buff;
-		break;
+		case COMP_TYPES::Buff_:
+			Clipboard = ADD_Buff;
+			break;
 
-	case COMP_TYPES::OR_2:
-		Clipboard = ADD_OR_GATE_2;
-		break;
+		case COMP_TYPES::OR_2:
+			Clipboard = ADD_OR_GATE_2;
+			break;
 
-	case COMP_TYPES::XNOR_2:
-		Clipboard = ADD_XNOR_GATE_2;
-		break;
+		case COMP_TYPES::XNOR_2:
+			Clipboard = ADD_XNOR_GATE_2;
+			break;
 
-	case COMP_TYPES::XOR_2:
-		Clipboard = ADD_XOR_GATE_2;
+		case COMP_TYPES::XOR_2:
+			Clipboard = ADD_XOR_GATE_2;
 
-		break;
+			break;
 
-	case COMP_TYPES::XOR_3:
-		Clipboard = ADD_XOR_GATE_3;
-		break;
-
-
-	default:
-		break;
+		case COMP_TYPES::XOR_3:
+			Clipboard = ADD_XOR_GATE_3;
+			break;
 
 
+		default:
+			break;
 
+
+
+		}
 	}
-	
+	else
+		OutputInterface->PrintMsg("Please select a component...");
 
 }
 

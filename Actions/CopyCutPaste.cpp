@@ -54,8 +54,8 @@ void CopyCutPaste::cut()
 {
 	pManager->set_clipboard();
 	pManager->DeleteComponent();
-	
-	
+
+
 
 
 }
@@ -66,10 +66,12 @@ void CopyCutPaste::paste()
 {
 
 	ActionType a = pManager->get_clipboard();
-	if (a) {
+	if (a) { //a is zero by default
 		pManager->Execute_Add_Gate_action(a);
 	}
-	
+	else
+		pManager->GetOutput()->PrintMsg("Clipboard is empty..");
+
 }
 
 

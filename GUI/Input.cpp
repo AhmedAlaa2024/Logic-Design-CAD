@@ -9,7 +9,10 @@ Input::Input(window* pW) : last_x(0), last_y(0)
 
 void Input::GetPointClicked(int& x, int& y)
 {
-	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+
+	last_x = x;
+	last_y = y;
 }
 
 string Input::GetString(Output* pOut, string startwith) const
@@ -70,12 +73,12 @@ string Input::GetString(Output* pOut, string startwith) const
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction()
 {
+
+	
 	int ClickedItemOrder;
 	int x = 0, y = 0;
-	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+	GetPointClicked(x, y);
 
-	last_x = x;
-	last_y = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
@@ -108,7 +111,7 @@ ActionType Input::GetUserAction()
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			if (x >= UI.width - UI.ToolBarHeight - 15 )
+			if (x >= UI.width - UI.ToolBarHeight - 15)
 			{
 				ClickedItemOrder = (y / UI.ToolItemWidth) - 1;
 				switch (ClickedItemOrder)

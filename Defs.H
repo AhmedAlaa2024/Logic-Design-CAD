@@ -47,6 +47,7 @@ enum ActionType
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
 	SIMULATE,
+	PROGING,
 	EXIT,		//Exit the application
 	COPY_,
 	CUT_,
@@ -131,9 +132,10 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	ITM_DSN,	//Simulate menu item
-	ITM_TRUTH,	//Truth table menu item
-	Add_Label,
-	Edit_label,
+	ITM_PRODING,
+	// ITM_TRUTH,	//Truth table menu item
+	// Add_Label,
+	// Edit_label,
 	ITM_CHANGE_SWITCH,
 	ITM_LOAD,
 	ITM_SAVE,

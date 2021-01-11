@@ -13,65 +13,70 @@ CircuitProding::~CircuitProding()
 
 void CircuitProding::Execute()
 {
-
-	pManager->ExecuteAction(SELECT);
-	Component* l_selected = pManager->GetLastSelectedComponent();
+	COMP_TYPES type;
+	int x, y;
+	pManager->GetInput()->GetPointClicked(x, y);
+	int target = pManager->which_component(type);
+	Component* l_selected = pManager->get_comp_at(target);
 	Output* pOut = pManager->GetOutput();
-	if(l_selected->get_comp_type() == COMP_TYPES::COMP_CONN)
-	{
-		Connection* conn = (Connection*)l_selected;
-		STATUS a =conn->get_is_on();
+	if (l_selected) {
+		if (type == COMP_TYPES::COMP_CONN)
+		{
+			Connection* conn = (Connection*)l_selected;
+			STATUS a = conn->get_is_on();
 
-		if(a)
+			if (a)
+			{
+				pOut->PrintMsg("The Connection is on");
+
+			}
+			else
+			{
+				pOut->PrintMsg("The Connection is off");
+
+			}
+
+
+		}
+		if (type == COMP_TYPES::COMP_SWITCH)
 		{
-			pOut->PrintMsg("The Connection is on");
-			
-		}else
-		{
-			pOut->PrintMsg("The Connection is off");
+			SWITCH* sw = (SWITCH*)l_selected;
+			STATUS a = sw->get_state();
+
+			if (a)
+			{
+				pOut->PrintMsg("The Switch is on");
+
+			}
+			else
+			{
+				pOut->PrintMsg("The Switch is off");
+
+			}
+
 
 		}
 
-		
+		if (type == COMP_TYPES::COMP_LED)
+		{
+			LED* led = (LED*)l_selected;
+			STATUS a = led->get_is_High();
+
+			if (a)
+			{
+				pOut->PrintMsg("The LED is on");
+
+			}
+			else
+			{
+				pOut->PrintMsg("The LED is off");
+
+			}
+
+
+		}
 	}
-	if (l_selected->get_comp_type() == COMP_TYPES::COMP_SWITCH)
-	{
-		SWITCH* sw = (SWITCH*)l_selected;
-		STATUS a = sw->get_state();
 
-		if (a)
-		{
-			pOut->PrintMsg("The Switch is on");
-
-		}
-		else
-		{
-			pOut->PrintMsg("The Switch is off");
-
-		}
-
-
-	}
-
-	if (l_selected->get_comp_type() == COMP_TYPES::COMP_LED)
-	{
-		LED* led = (LED*)l_selected;
-		STATUS a = led->get_is_High();
-
-		if (a)
-		{
-			pOut->PrintMsg("The LED is on");
-
-		}
-		else
-		{
-			pOut->PrintMsg("The LED is off");
-
-		}
-
-
-	}
-	
 
 }
 

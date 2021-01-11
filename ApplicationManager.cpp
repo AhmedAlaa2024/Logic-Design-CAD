@@ -34,6 +34,7 @@
 #include "Actions/AddXNORgate2.h"
 #include "Actions/AddXORgate2.h"
 #include "Actions/AddXORgate3.h"
+#include "Actions/CircuitProding.h"
 #include "Actions/CopyCutPaste.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
@@ -215,11 +216,11 @@ void ApplicationManager::AddComponent(Component* pComp)
 	CompList[CompCount++] = pComp;
 }
 
-Component* const* ApplicationManager::getComponents(int& count) const
+Component* ApplicationManager::get_comp_at(int index) const
 {
-	count = CompCount;
-	return CompList;
+	return CompList[index];
 }
+
 int ApplicationManager::save(fstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
@@ -417,6 +418,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_:
 		pAct = new CopyCutPaste(this, PASTE);
 		break;
+	case PROGING:
+		pAct = new CircuitProding(this);
+		break;
+
 	case DSN_MODE:
 		pAct = new SwitchToDesign(this);
 		break;

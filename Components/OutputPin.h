@@ -38,7 +38,7 @@ public:
 
 
 
-	void decrease_m_Connections();
+	void decrease_m_Conn();
 	
 	////////Rufaidah
 	void setComponent(Component* pCmp);

@@ -44,7 +44,7 @@ Connection** OutputPin::get_connections(int& m_conn) const
 
 /////////////////////Rufaidah
 
-void OutputPin::decrease_m_Connections()
+void OutputPin::decrease_m_Conn()
 {
 	m_Conn--;
 }

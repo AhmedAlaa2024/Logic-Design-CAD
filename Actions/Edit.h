@@ -15,6 +15,7 @@ public:
 	string SetLabel();
 	string GetLabel();
 	void DisplayLabel();
+
 	void ReadActionParameters(); // I don't need it as there is no parameters for Label action
 	void Execute();
 	void Undo();

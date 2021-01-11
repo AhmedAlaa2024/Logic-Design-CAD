@@ -96,6 +96,7 @@ void ApplicationManager::DeleteComponent()
 					auto conn = (Connection*)lastSelectedComponent;
 					GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 					conn->getSourcePin()->decrease_m_Conn();
+					conn->getDestPin()->set_is_connected(false);
 					int index = lastSelectedComponent->get_id();
 					delete CompList[index];
 					CompList[index] = NULL;
@@ -118,12 +119,13 @@ void ApplicationManager::DeleteComponent()
 				auto out_pin = lastSelectedComponent->getOutputPin();
 				if (out_pin) {
 					auto conns = out_pin->get_connections(no_conns);
-
+					out_pin->decrease_m_Conn();
 					for (int j = 0; j < no_conns; ++j)
 					{
 						auto conn = conns[j];
 						if (conn)
 						{
+							conn->getDestPin()->set_is_connected(false);
 							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
 							int index = conn->get_id();
 							delete CompList[index];
@@ -145,6 +147,7 @@ void ApplicationManager::DeleteComponent()
 
 							if (conn) {
 								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+								conn->getDestPin()->set_is_connected(false);
 								conn->getSourcePin()->decrease_m_Conn();
 								int index = conn->get_id();
 								delete CompList[index];

@@ -132,7 +132,7 @@ void ApplicationManager::DeleteComponent()
 				auto out_pin = lastSelectedComponent->getOutputPin();
 				if (out_pin) {
 					auto conns = out_pin->get_connections(no_conns);
-					
+
 					for (int j = 0; j < no_conns; ++j)
 					{
 						auto conn = conns[j];
@@ -219,6 +219,58 @@ void ApplicationManager::AddComponent(Component* pComp)
 Component* ApplicationManager::get_comp_at(int index) const
 {
 	return CompList[index];
+}
+
+bool ApplicationManager::validate_circuit() const
+{
+
+	for (int i = 0; i < CompCount; ++i)
+	{
+		Component* pComp = CompList[i];
+		COMP_TYPES type = pComp->get_comp_type();
+		if (type == COMP_TYPES::COMP_CONN)
+			continue;
+		if (type == COMP_TYPES::COMP_LED) //if its a led //check for input only
+		{
+			if (pComp->GetInpuPin(0)->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//if its a switch //check for output pin only
+		if (type == COMP_TYPES::COMP_SWITCH) //if its a led //check for input only
+		{
+			if (pComp->getOutputPin()->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//now its just a gate
+
+		if (pComp->getOutputPin()->get_is_connected() == false)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < pComp->getNoOfInputpins(); ++i)
+		{
+			if (pComp->GetInpuPin(i)->get_is_connected() == false)
+			{
+				return false;
+			}
+		}
+		
+
+
+	}
+
+	return true;
 }
 
 

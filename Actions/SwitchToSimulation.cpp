@@ -17,14 +17,20 @@ void SwitchToSimulation::Execute()
 
 	Output* pOut = pManager->GetOutput();
 
+	bool valid = pManager->validate_circuit();
+	if (valid) {
+		int num;
+		pManager->DeselectComponentExcept();
 
-	int num;
-	pManager->DeselectComponentExcept();
+		pOut->ClearWindow();
+		pOut->CreateSimulationToolBar();
+		UI.AppMode = SIMULATION;
+		pManager->ExecuteAction(SIMULATE);
+	}
+	else
+		pOut->PrintMsg("Ciruit is not Valid, please don't leave any pins floating");
 
-	pOut->ClearWindow();
-	pOut->CreateSimulationToolBar();
-	UI.AppMode = SIMULATION;
-	pManager->ExecuteAction(SIMULATE);
+
 
 	
 }

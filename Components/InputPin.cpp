@@ -21,9 +21,11 @@ Component* InputPin::getComponent() const
 	return pComp;
 }
 
-void InputPin::ConnectTo(Connection* r_Conn)
+bool InputPin::ConnectTo(Connection* r_Conn)
 {
+	Pin::ConnectTo(r_Conn);
 	connection_ = r_Conn;
+	return true;
 }
 
 void InputPin::set_m_index(int i)

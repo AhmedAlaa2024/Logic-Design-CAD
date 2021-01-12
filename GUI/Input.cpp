@@ -229,8 +229,10 @@ void Input::GetLastClicked(int& x, int& y)
 
 string Input::getfilename(Output* pOut, int f) const
 {
-	if (f)
+	if (f == 1)
 		pOut->PrintMsg("The current circuit wasn't saved. Type file name to save or press Esc to exit.");
+	else if (f == 2)
+		pOut->PrintMsg("Please enter file path relative to the program here, press Esc to cancel. Ex: InputFile");
 	else
 		pOut->PrintMsg("Please, enter file name here!, Press Esc to cancel.");
 	return GetString(pOut);

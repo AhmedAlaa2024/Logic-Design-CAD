@@ -2,24 +2,14 @@
 #include "..\ApplicationManager.h"
 
 #include "..\Components\Connection.h"
-#include "..\Components\LED.h"
-#include "..\Components\SWITCH.h"
-#include "..\Components\AND2.h"
-#include "..\Components\AND3.h"
-#include "..\Components\NOR2.h"
-#include "..\Components\NOR3.h"
-#include "..\Components\XOR2.h"
-#include "..\Components\XOR3.h"
-#include "..\Components\OR2.h"
-#include "..\Components\NAND2.h"
-#include "..\Components\XNOR2.h"
-#include "..\Components\Buff.h"
-#include "..\Components\INV.h"
+
 #include <typeinfo>
 #include <iostream>
+
 using namespace std;
 
-Connect::Connect(ApplicationManager* pApp) :Action(pApp)
+
+Connect::Connect(ApplicationManager* pApp) :Action(pApp), InputPinNum(0), isLoaded(0)
 {
 
 }
@@ -31,12 +21,13 @@ void Connect::ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, i
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-
 	pOut->PrintMsg("connect two gates: Choose the source gate");
 
+	int Cx;
+	int	Cy;
 	if (num_of_call == 1)
 	{
-		pIn->GetPointClicked(Cx1, Cy1);
+		pIn->GetPointClicked(Cx, Cy);
 
 		pManager->ExecuteAction(SELECT);
 
@@ -67,8 +58,11 @@ void Connect::ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, i
 
 
 	if (num_of_call == 2)
+
 	{
-		pIn->GetPointClicked(Cx2, Cy2);
+		Cx = 0;
+		Cy = 0;
+		pIn->GetPointClicked(Cx, Cy);
 
 		pManager->ExecuteAction(SELECT);
 
@@ -130,7 +124,7 @@ void Connect::Execute()
 	if (g == false)
 		return;
 
-	InputPin* selected_pin;
+	InputPin* selected_pin = NULL;
 	//bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
 
 

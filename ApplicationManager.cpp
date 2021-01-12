@@ -837,67 +837,6 @@ Output* ApplicationManager::GetOutput()
 
 //======================================Doaa=======================
 
-int ApplicationManager::getCompCount()
-{
-	return CompCount;
-}
-
-
-//=========================================DOAA MAGDY=============================================//
-bool ApplicationManager::checkIfSourceIsLED(int cx, int cy)
-{
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			COMP_TYPES type = CompList[i]->get_comp_type();
-			if (type == COMP_TYPES::COMP_LED)
-			{
-				OutputInterface->PrintMsg("Error: the led has no output pin");
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-bool ApplicationManager::PressOn_WhiteSpace(int cx, int cy)
-{
-	int count_check_s = 0;
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d == true)
-		{
-			count_check_s++;
-		}
-	}
-
-	if (count_check_s == 0)
-	{
-		OutputInterface->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
-		return true;
-	}
-	else
-		return false;
-}
-
-Component* ApplicationManager::CheckInsideArea(int cx, int cy)
-{
-	int i;
-	for (i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			break;
-		}
-
-	}
-	return CompList[i];
-}
-
 bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
 {
 	if (distComp == srcComp)
@@ -917,51 +856,6 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 
 }
 
-
-
-
-
-/*
-OutputPin* ApplicationManager::getOutputPinOfComp(int i)
-{
-	OutputPin* o = CompList[i]->getOutputPin();
-	return o;
-}
-
-InputPin* ApplicationManager::getInputPinOfComp(int k)
-{
-	InputPin* i = CompList[k]->getInputPin();
-	return i;
-}
-
-void ApplicationManager::getGInfoOfComp(int& a, int& b, int& c, int& d, int i)
-{
-	CompList[i]->getm_GfxInfo(a, b, c, d);
-}
-
-int const ApplicationManager::getNoOfInputpinsOfComp(int k)
-{
-	int const a = CompList[k]->getNoOfInputpins();
-	return a;
-}
-
-bool ApplicationManager::CheckWheatherSrcIsTheDist(int i, int k)
-{
-	if (CompList[i] == CompList[k])
-		return true;
-	return false;
-}
-
-
-int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
-{
-	if (case1 == 1)
-		return CompList[currentComp]->GetOutPinStatus();	//returns status of outputpin if LED, return -1
-	else
-		return CompList[currentComp]->GetInputPinStatus(1);	//returns status of Inputpin # n if SWITCH, return -1
-}
-*/
-//=========================================DOAA MAGDY=============================================//
 
 
 ApplicationManager::~ApplicationManager()

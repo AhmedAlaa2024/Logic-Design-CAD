@@ -1,7 +1,7 @@
 #include "AddXORgate2.h"
 #include "..\ApplicationManager.h"
 
-AddXORgate2::AddXORgate2(ApplicationManager* pApp) :Action(pApp)
+AddXORgate2::AddXORgate2(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,11 +43,6 @@ void AddXORgate2::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	XOR2* pA = new XOR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
-}
-int AddXORgate2::getId()
-{
-	return id;
 }
 
 void AddXORgate2::Undo()

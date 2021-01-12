@@ -44,11 +44,3 @@ void AddINVgate::Execute()
 	INV* pA = new INV(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-
-void AddINVgate::Undo()
-{}
-
-void AddINVgate::Redo()
-{}
-

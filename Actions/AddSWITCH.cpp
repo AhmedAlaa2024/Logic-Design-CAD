@@ -44,10 +44,3 @@ void AddSWITCH::Execute()
     SWITCH* pA = new SWITCH(GInfo, SWITCH_FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddSWITCH::Undo()
-{}
-
-void AddSWITCH::Redo()
-{}
-

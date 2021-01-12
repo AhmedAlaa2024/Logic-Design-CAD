@@ -44,10 +44,3 @@ void AddXORgate2::Execute()
 	XOR2* pA = new XOR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddXORgate2::Undo()
-{}
-
-void AddXORgate2::Redo()
-{}
-

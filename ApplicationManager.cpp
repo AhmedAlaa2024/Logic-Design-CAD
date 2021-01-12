@@ -92,8 +92,10 @@ void ApplicationManager::shift_to_end(int i)
 
 
 
-void ApplicationManager::DeleteComponent()
+void ApplicationManager::DeleteComponent(int f)
 {
+	if (f)
+		lastSelectedComponent = CompList[CompCount - 1];
 	if (lastSelectedComponent != nullptr)
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
@@ -119,10 +121,6 @@ void ApplicationManager::DeleteComponent()
 					break;
 
 				}
-
-
-
-
 
 				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
 				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
@@ -491,6 +489,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case LOAD:
 			pAct = new Load(this);
 		break;
+	case UNDO:
 	}
 	if (pAct)
 	{

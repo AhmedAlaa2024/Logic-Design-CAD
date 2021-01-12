@@ -44,10 +44,3 @@ void AddORgate2::Execute()
 	OR2* pA = new OR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddORgate2::Undo()
-{}
-
-void AddORgate2::Redo()
-{}
-

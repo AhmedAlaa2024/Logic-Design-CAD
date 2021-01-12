@@ -44,10 +44,3 @@ void AddNORgate3::Execute()
 	NOR3* pA = new NOR3(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddNORgate3::Undo()
-{}
-
-void AddNORgate3::Redo()
-{}
-

@@ -44,11 +44,3 @@ void AddXNORgate2::Execute()
 	XNOR2* pA = new XNOR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-
-void AddXNORgate2::Undo()
-{}
-
-void AddXNORgate2::Redo()
-{}
-

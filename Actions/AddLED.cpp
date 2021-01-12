@@ -44,10 +44,3 @@ void AddLED::Execute()
 	LED* pA = new LED(GInfo, SWITCH_FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddLED::Undo()
-{}
-
-void AddLED::Redo()
-{}
-

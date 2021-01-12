@@ -155,6 +155,7 @@
     <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\AddSWITCH.cpp" />
     <ClCompile Include="Actions\Clear.cpp" />
+    <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\AddSWITCH.h" />
     <ClInclude Include="Actions\Clear.h" />
+    <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

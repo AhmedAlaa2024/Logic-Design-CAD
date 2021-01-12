@@ -40,7 +40,10 @@ void Add::Execute()
 
 
 void Add::Undo()
-{}
+{
+
+	pManager->DeleteComponent(1);
+}
 
 void Add::Redo()
 {}

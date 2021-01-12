@@ -44,10 +44,3 @@ void AddNANDgate2::Execute()
 	NAND2* pA = new NAND2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddNANDgate2::Undo()
-{}
-
-void AddNANDgate2::Redo()
-{}
-

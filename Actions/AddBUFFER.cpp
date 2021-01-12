@@ -45,9 +45,3 @@ void AddBUFFER::Execute()
 	pManager->AddComponent(pA);
 }
 
-void AddBUFFER::Undo()
-{}
-
-void AddBUFFER::Redo()
-{}
-

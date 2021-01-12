@@ -73,7 +73,7 @@ public:
 	int which_component(COMP_TYPES&); // return the ID of the component
 	void DeselectComponentExcept(int = -1); // If the user clicked on blank space, all components should be deselected.
 	void SelectComponent(int = -1); // To set is_selected for the target = true
-	void DeleteComponent(); // To delete the last component has been selected
+	void DeleteComponent(int = 0); // To delete the last component has been selected
 	void DeleteAll(); // To delete all the component
 	// ==================================== Ahmed Alaa ====================================
 

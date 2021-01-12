@@ -44,10 +44,3 @@ void AddANDgate2::Execute()
 	AND2 *pA=new AND2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
 }
-
-void AddANDgate2::Undo()
-{}
-
-void AddANDgate2::Redo()
-{}
-

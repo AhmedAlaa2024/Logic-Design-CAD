@@ -228,6 +228,7 @@ void Input::GetLastClicked(int& x, int& y)
 }
 
 string Input::getfilename(Output* pOut, int f) const
+
 {
 	if (f == 1)
 		pOut->PrintMsg("The current circuit wasn't saved. Type file name to save or press Esc to exit.");

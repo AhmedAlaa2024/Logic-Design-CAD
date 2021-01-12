@@ -106,6 +106,7 @@ void ApplicationManager::DeleteComponent()
 				if (lastSelectedComponent->get_comp_type() == COMP_TYPES::COMP_CONN)
 				{
 
+
 					Connection* conn = (Connection*)lastSelectedComponent; // To make a pointer to the last selected component and make down casting to it
 					GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo()); // To redraw a white lines above the connections
 					conn->getSourcePin()->decrease_m_Conn(); // To decrease the m_Conn by 1
@@ -117,11 +118,13 @@ void ApplicationManager::DeleteComponent()
 					if (i > index)
 						i--; //i is shifted
 					break;
+
 				}
 
 				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo()); // To draw a white rectangle above the component
 				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size()); // To write a null string with the same lenth of the old label
 				int no_conns;
+
 
 				// first the output pin
 				OutputPin* out_pin = lastSelectedComponent->getOutputPin();
@@ -142,6 +145,7 @@ void ApplicationManager::DeleteComponent()
 							delete CompList[index]; // To deallocte the connection as a component from CompList
 							CompList[index] = NULL; // To make the deleted connection points to NULL.
 							shift_to_end(index); // To shift the deleted component to the end of the array to prevent any using for it
+
 							if (i > index)
 								i--; //i is shifted}
 
@@ -150,10 +154,13 @@ void ApplicationManager::DeleteComponent()
 
 					// then delete the input pins
 					int no_input_pins = lastSelectedComponent->getNoOfInputpins(); // To get the number of input pins of the last selected component
+
+
 					InputPin* input_pin = lastSelectedComponent->getInputPin();
 					if (input_pin) {
 						for (int i = 0; i < no_input_pins; ++i)
 						{
+
 							Connection* conn = input_pin[i].get_connection();
 
 							if (conn) {
@@ -173,7 +180,10 @@ void ApplicationManager::DeleteComponent()
 
 					delete CompList[i]; // To delete the pointer that pointing to the seleted component
 					CompList[i] = NULL; // To make the pointer point to a null pointer
+
 					shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
+=======
+					
 					lastSelectedComponent = NULL;
 					break;
 				}
@@ -218,7 +228,6 @@ Component* ApplicationManager::get_comp_at(int index) const
 
 bool ApplicationManager::validate_circuit() const
 {
-
 	for (int i = 0; i < CompCount; ++i)
 	{
 		Component* pComp = CompList[i];
@@ -475,7 +484,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SIM_MODE:
 		pAct = new SwitchToSimulation(this);
 		break;
-		/////////Rufaidah
 	case EXIT:
 		pAct = new Exit(this);
 		break;
@@ -578,6 +586,7 @@ bool ApplicationManager::set_clipboard()
 			Clipboard = ADD_Switch;
 			break;
 
+
 		case COMP_TYPES::COMP_LED:
 			Clipboard = ADD_LED;
 			break;
@@ -585,6 +594,7 @@ bool ApplicationManager::set_clipboard()
 		case COMP_TYPES::AND_2:
 			Clipboard = ADD_AND_GATE_2;
 			break;
+
 
 		case COMP_TYPES::AND_3:
 			Clipboard = ADD_AND_GATE_3;

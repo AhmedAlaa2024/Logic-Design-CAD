@@ -19,5 +19,6 @@ public:
 
 	void GetLastClicked(int&, int&);
 	string getfilename(Output* pOut, int = 0) const;
+
 	~Input();
 };

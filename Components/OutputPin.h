@@ -42,7 +42,6 @@ public:
 	
 	////////Rufaidah
 	void setComponent(Component* pCmp);
-
 	Component* getComponent() const;
 
 	////////

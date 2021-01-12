@@ -1,10 +1,7 @@
 
-
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
-
 #include <fstream>
-
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
@@ -21,8 +18,6 @@
 #include "Actions/Delete.h"
 #include "Actions/Clear.h"
 #include "Actions/Connect.h"
-
-
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"

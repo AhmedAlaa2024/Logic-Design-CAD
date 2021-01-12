@@ -19,7 +19,7 @@ void SwitchToSimulation::Execute()
 
 	bool valid = pManager->validate_circuit();
 	if (valid) {
-		int num;
+		
 		pManager->DeselectComponentExcept();
 		UI.AppMode = SIMULATION;
 		pOut->ClearWindow();

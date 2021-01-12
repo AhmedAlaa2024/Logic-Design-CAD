@@ -1,6 +1,6 @@
 #include "INV.h"
 
-#include <iostream>
+
 
 INV::INV(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 {
@@ -14,7 +14,6 @@ INV::INV(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 
 void INV::Operate()
 {
-	cout << m_InputPins[0].getStatus() << endl;
 	switch (m_InputPins[0].getStatus())
 	{
 	case HIGH:

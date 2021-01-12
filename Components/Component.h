@@ -15,12 +15,15 @@ private:
 	int m_Id;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	int last_taken_input_pin_place;
 	bool is_selected;
 	COMP_TYPES comp_type;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	//Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
+
+	int get_place();
 
 	virtual void set_m_Label(string label); // To set the m_label for the component
 	virtual string get_m_Label(); // To get the m_label from the component
@@ -36,6 +39,7 @@ public:
 	virtual const GraphicsInfo getGraphicsInfo();
 	virtual bool get_is_selected();
 	virtual void set_is_selected(bool);
+	virtual InputPin* GetInpuPin(int i) const;
 
 	virtual void save(ofstream*&);
 	virtual void load(ifstream*&);
@@ -46,7 +50,9 @@ public:
 	
 	
 	Component();	
-	
+
+	/// Rufaida
+
 	//Destructor must be virtual
 	virtual ~Component();
 
@@ -54,7 +60,7 @@ public:
 	//=================DOAA MAGDY================
 	int getLastID();
 
-	bool InsideArea(int x, int y);
+	
 	virtual int getNoOfInputpins() = 0;
 
 	void getm_GfxInfo(int &x1,int &y1, int &x2,int &y2);

@@ -4,29 +4,58 @@
 #include <iostream>
 using namespace std;
 
-Save::Save(ApplicationManager* pApp, string name, Output* optr)
+Save::Save(ApplicationManager* pApp, int flag)
 	:Action(pApp)
 {
-	this->optr = optr;
-	output = new ofstream(name+ ".txt", ios::out);
-}
-
-Save::~Save()
-{
-	delete output;
-	output = 0;
+	this->name = name;
+	this->flag = flag;
+	optr = pManager->GetOutput();
+	iptr = pManager->GetInput();
+	output = NULL;
+	Temp = NULL;
+	lastSave = NULL;
 }
 
 void Save::ReadActionParameters()
 {
+	if (flag)
+		name = iptr->getfilename(optr, 1);
+	else
+	name = iptr->getfilename(optr);
 }
 
 void Save::Execute()
 {
-	pManager->save(output);
+	ReadActionParameters();
+	if (name == "")
+		return;
+	output = new ofstream("SavedCircuits/" + name + ".txt");
+	lastSave = new ofstream;
+	if (output->is_open())
+	{
+		int flag = pManager->save(output);
+		if (flag == -1)
+		{
+
+			lastSave->open("ForExitAction/LastSavedCircuit.txt");
+			if (lastSave->is_open())
+			{
+				Temp = new ifstream("SavedCircuits/" + name + ".txt");
+				if (Temp->is_open())
+				{
+					getline(*Temp, temp, '-');
+					temp += "-1";
+					Temp->close();
+				}
+			}
+			*lastSave << temp.c_str();
+			optr->PrintMsg("Saved successfully!");
+		}
+		else
+			optr->PrintMsg("Failed to save!");
+	}
 	output->close();
-	optr->PrintMsg("Saved successfully!");
-	
+	lastSave->close();
 }
 
 void Save::Undo()
@@ -35,4 +64,24 @@ void Save::Undo()
 
 void Save::Redo()
 {
+}
+
+Save::~Save()
+{
+	if (output)
+	{
+		delete output;
+		output = 0;
+	}
+	if (lastSave)
+	{
+		delete lastSave;
+		lastSave = 0;
+	}
+	if (Temp)
+	{
+		delete Temp;
+		Temp = 0;
+	}
+	
 }

@@ -33,6 +33,8 @@ public:
 	virtual bool is_connected(InputPin&) ;
 	
 	virtual InputPin* const getInputPin() const;
+	//////Rufaidah
+	virtual InputPin* GetInpuPin(int i) const;
 	~Gate();
 	
 

@@ -44,6 +44,11 @@ int LED::GetInputPinStatus(int n)
 	return m_InputPins[n - 1].getStatus();	//n starts from 1 but array index starts from 0.
 }
 
+STATUS LED::get_is_High() const
+{
+	return is_high;
+}
+
 //Set status of an input pin ot HIGH or LOW
 void LED::setInputPinStatus(int n, STATUS s)
 {

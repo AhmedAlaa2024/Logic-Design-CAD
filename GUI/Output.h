@@ -27,7 +27,9 @@ public:
 
 	// ============================== Ahmed Alaa edited here ==============================
 	void DrawTextbox(string, Component*); // To draw a textbox
-	void ClearComponentArea(GraphicsInfo); // To draw a white rectangle above the deleted component
+	void ClearComponentArea(GraphicsInfo);
+	void Clear_Connection_DrawingArea(GraphicsInfo r_GfxInfo) const;
+	// To draw a white rectangle above the deleted component
 	void ClearLabelArea(GraphicsInfo, int = 0); // To draw a white rectangle above the deleted component's label
 	// ==================================== Ahmed Alaa ====================================
 

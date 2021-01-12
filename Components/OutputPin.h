@@ -27,18 +27,21 @@ private:
 	Component* pComp; //Component at which this pin is associated
 
 	//==========DOAA==========
-	bool is_connected;
+	
 
 public:
 	OutputPin(int r_FanOut);
-	bool ConnectTo(Connection* r_Conn);	//connect to a new connection
+	bool ConnectTo(Connection* r_Conn);
 
 
 	Connection** get_connections(int& m_conn) const;
 
+	bool get_is_connected() const;
+
+	void decrease_m_Conn();
+	
 	////////Rufaidah
 	void setComponent(Component* pCmp);
-
 	Component* getComponent() const;
 
 	////////

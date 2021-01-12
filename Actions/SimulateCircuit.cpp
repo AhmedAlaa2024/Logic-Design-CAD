@@ -7,12 +7,6 @@
 
 SimulateCircuit::SimulateCircuit(ApplicationManager* pApp) :Action(pApp)
 {
-
-
-
-
-
-
 }
 
 
@@ -22,7 +16,7 @@ void SimulateCircuit::Execute()
 {
 
 	Output* pOut = pManager->GetOutput();
-	//Component* const* CompList = pManager->getComponents(CompNum);
+	
 	int no_conn_to_next = 0;
 	InputPin* next_in_pins[100]; //array of pointers to the next input pins in each stage
 
@@ -32,13 +26,14 @@ void SimulateCircuit::Execute()
 
 	if (SWs == NULL)
 	{
-		pOut->PrintMsg("Error there is no Switches");
+		pOut->PrintMsg("Error: There is NO Switches");
 		return;
 	}
 
 
 	int j = 0;
-	//letting the switches operate ang getting the input pins of the next
+	
+	//letting the switches operate and getting the input pins of the next
 	for (int i = 0; i < sw_no; ++i) // for each switch
 	{
 		SWs[i]->Operate();
@@ -68,7 +63,7 @@ void SimulateCircuit::Execute()
 
 	if (leds == NULL)
 	{
-		pOut->PrintMsg("Error there is no LEDS");
+		pOut->PrintMsg("Error: There is NO LEDS");
 		return;
 	}
 
@@ -93,7 +88,7 @@ void SimulateCircuit::Execute()
 				continue;
 
 
-			//check if its a led
+			//check if its a led then check if all leds are reached to stop the simulation
 			if (current_comp->GetOutPinStatus() == -1)
 			{
 				//condition to stop

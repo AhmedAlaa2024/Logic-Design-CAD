@@ -1,7 +1,7 @@
 #include "AddINVgate.h"
 #include "..\ApplicationManager.h"
 
-AddINVgate::AddINVgate(ApplicationManager* pApp) :Action(pApp)
+AddINVgate::AddINVgate(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,12 +43,8 @@ void AddINVgate::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	INV* pA = new INV(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
 }
-int AddINVgate::getId()
-{
-	return id;
-}
+
 
 void AddINVgate::Undo()
 {}

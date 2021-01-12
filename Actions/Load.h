@@ -10,6 +10,9 @@ using namespace std;
 class Load : public Action
 {
 	ifstream* input;
+	Output* optr;
+	Input* iptr;
+	string name;
 public:
 	Load(ApplicationManager* pApp);
 

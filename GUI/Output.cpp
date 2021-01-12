@@ -93,6 +93,9 @@ void Output::ClearDrawingArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width - UI.ToolBarHeight - 18, UI.height - UI.StatusBarHeight);
 
 }
+
+
+
 void Output::ClearWindow() const
 {
 	pWind->SetPen(RED, 1);
@@ -126,7 +129,7 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[SAVE_ICON] = "images\\DesignMenu\\save.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\DesignMenu\\exit.jpg";
 
-	//TODO: Prepare image for each menu item and add it to the list
+	
 
 	//Draw menu item one image at a time
 	for (int i = 0; i < ITM_DSN_CNT; i++)
@@ -143,7 +146,7 @@ void Output::CreateDesignToolBar() const
 	CopyCutPasteDeleteMenu[COPY_ICON] = "images\\Menu\\copy.jpg";
 	CopyCutPasteDeleteMenu[CUT_ICON] = "images\\Menu\\cut.jpg";
 	CopyCutPasteDeleteMenu[PASTE_ICON] = "images\\Menu\\paste.jpg";
-	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpg";
+	CopyCutPasteDeleteMenu[DELETE_ICON] = "images\\Menu\\delete.jpeg";
 
 	for (int i = 0; i < ITM_DSN2_CNT; i++)
 		pWind->DrawImage(CopyCutPasteDeleteMenu[i], UI.width - UI.ToolBarHeight - 15, (i + 1) * (UI.ToolItemWidth) + 5, UI.ToolBarHeight, UI.ToolItemWidth);
@@ -194,7 +197,7 @@ void Output::CreateSimulationToolBar() const
 	// MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
 	// MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
 	// MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
-	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\Proding.jpg";
+	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\prode.jpeg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\SimulationMenu\\closed_switch.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\SimulationMenu\\load.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\SimulationMenu\\save.jpg";
@@ -516,9 +519,22 @@ void Output::DrawTextbox(string msg, Component* component)
 }
 void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
 {
+	
 	pWind->SetPen(WHITE, 1);
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
+}
+
+void Output::Clear_Connection_DrawingArea(GraphicsInfo r_GfxInfo) const
+{
+	pWind->SetPen(WHITE, UI.Conn_width);
+
+	int const x1_ = r_GfxInfo.x1 + 20;
+
+	pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, x1_, r_GfxInfo.y1);
+	pWind->DrawLine(x1_, r_GfxInfo.y1, x1_, r_GfxInfo.y2);
+	pWind->DrawLine(x1_, r_GfxInfo.y2, r_GfxInfo.x2, r_GfxInfo.y2);
+
 }
 void Output::ClearLabelArea(GraphicsInfo r_GfxInfo, int len)
 {

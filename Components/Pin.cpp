@@ -9,6 +9,12 @@ void Pin::setStatus(STATUS r_Status)
 {
 	m_Status = r_Status;
 }
+bool Pin::ConnectTo(Connection* r_Conn)
+{
+	is_connected = true;
+
+	return false;	//can't connect to any more connections
+}
 
 STATUS Pin::getStatus()
 {

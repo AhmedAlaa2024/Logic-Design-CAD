@@ -22,6 +22,19 @@
 #include "Actions/Connect.h"
 
 //==============DOAA===========
+#include "Actions/AddANDgate3.h"
+#include "Actions/AddBUFFER.h"
+#include "Actions/AddINVgate.h"
+#include "Actions/AddLED.h"
+#include "Actions/AddNAND2gate.h"
+#include "Actions/AddNOR2gate.h"
+#include "Actions/AddNORgate3.h"
+#include "Actions/AddORgate2.h"
+#include "Actions/AddSWITCH.h"
+#include "Actions/AddXNORgate2.h"
+#include "Actions/AddXORgate2.h"
+#include "Actions/AddXORgate3.h"
+#include "Actions/CircuitProding.h"
 #include "Actions/CopyCutPaste.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
@@ -67,6 +80,13 @@ void ApplicationManager::shift_to_end(int i)
 {
 	for (int j = i; j < CompCount - 1; j++) // To shift the components in compList to avoid leting a blank component
 		swap(CompList[j], CompList[j + 1]);
+	CompCount--;
+
+	for (int i = 0; i < CompCount; ++i)
+	{
+		if (CompList[i]->get_id() > i)
+			CompList[i]->set_id(CompList[i]->get_id() - 1);
+	}
 
 }
 
@@ -74,62 +94,117 @@ void ApplicationManager::shift_to_end(int i)
 
 void ApplicationManager::DeleteComponent()
 {
-
 	if (lastSelectedComponent != nullptr)
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
 
-
 			if (lastSelectedComponent == CompList[i]) // To make the following codes on the lastSelectedComponent 
 			{
 				// The delete of the pointer to the input and output pins of the selected component is the responsibilty of the desturctor of the class Gate
+
+				if (lastSelectedComponent->get_comp_type() == COMP_TYPES::COMP_CONN)
+				{
+
+					auto conn = (Connection*)lastSelectedComponent;
+					GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+					conn->getSourcePin()->decrease_m_Conn();
+					conn->getDestPin()->set_is_connected(false);
+					int index = lastSelectedComponent->get_id();
+					delete CompList[index];
+					CompList[index] = NULL;
+					shift_to_end(index);
+					if (i > index)
+						i--; //i is shifted
+					break;
+
+				}
+
+
+
+
+
 				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo());
 				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size());
 				int no_conns;
 
 				//first the output pin
-				auto conns = lastSelectedComponent->getOutputPin()->get_connections(no_conns);
+				auto out_pin = lastSelectedComponent->getOutputPin();
+				if (out_pin) {
+					auto conns = out_pin->get_connections(no_conns);
 
-				for (int j = 0; j < no_conns; ++j)
-				{
-					int index = conns[j]->get_id();
-					delete CompList[index];
-					CompList[index] = NULL;
-					shift_to_end(index);
-					CompCount--;
-					if (i > index)
-						i--; //i is shifted
+					for (int j = 0; j < no_conns; ++j)
+					{
+						auto conn = conns[j];
+						if (conn)
+						{
+							out_pin->decrease_m_Conn();
+							conn->getDestPin()->set_is_connected(false);
+							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+
+
+							int index = conn->get_id();
+							delete CompList[index];
+							CompList[index] = NULL;
+							shift_to_end(index);
+							if (i > index)
+								i--; //i is shifted}
+
+						}
+					}
+					//then delete the input pins
+					auto no_input_pins = lastSelectedComponent->getNoOfInputpins();
+					InputPin* input_pin = lastSelectedComponent->getInputPin();
+					if (input_pin) {
+						for (int i = 0; i < no_input_pins; ++i)
+						{
+							auto conn = input_pin[i].get_connection();
+
+
+							if (conn) {
+
+								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+								conn->getDestPin()->set_is_connected(false);
+								conn->getSourcePin()->decrease_m_Conn();
+								int index = conn->get_id();
+								delete CompList[index];
+								CompList[index] = NULL;
+								shift_to_end(index);
+								if (i > index)
+									i--; //i is shifted
+							}
+						}
+					}
+
+
+					delete CompList[i]; // To delete the pointer that pointing to the seleted component
+					CompList[i] = NULL; // To make the pointer point to a null pointer
+					shift_to_end(i);
+					lastSelectedComponent = NULL;
+					break;
 				}
-
-
-				delete CompList[i]; // To delete the pointer that pointing to the seleted component
-				CompList[i] = NULL; // To make the pointer point to a null pointer
-				shift_to_end(i);
-				CompCount--;
-				lastSelectedComponent = NULL;
-				break;
 			}
 			else
 				GetOutput()->PrintMsg("You have to select a certain component before delete!");
 
 		}
 }
+
 void ApplicationManager::DeleteAll()
 {
 	for (int i = 0; i < CompCount; i++) {
 		GetOutput()->ClearDrawingArea();
 		delete CompList[i]; // To delete the pointer that pointing to the seleted component
 		CompList[i] = NULL; // To make the pointer point to a null pointer
-		CompCount--;
 	}
+	CompCount = 0;
 	lastSelectedComponent = NULL;
 }
 
 ApplicationManager::ApplicationManager() : lastSelectedComponent(NULL)
 {
 	CompCount = 0;
-
+	Clipboard = ADD_Gate;
 	for (int i = 0; i < MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -143,12 +218,65 @@ void ApplicationManager::AddComponent(Component* pComp)
 	CompList[CompCount++] = pComp;
 }
 
-Component* const* ApplicationManager::getComponents(int& count) const
+Component* ApplicationManager::get_comp_at(int index) const
 {
-	count = CompCount;
-	return CompList;
+	return CompList[index];
 }
-void ApplicationManager::save(ofstream*& fptr)
+
+bool ApplicationManager::validate_circuit() const
+{
+
+	for (int i = 0; i < CompCount; ++i)
+	{
+		Component* pComp = CompList[i];
+		COMP_TYPES type = pComp->get_comp_type();
+		if (type == COMP_TYPES::COMP_CONN)
+			continue;
+		if (type == COMP_TYPES::COMP_LED) //if its a led //check for input only
+		{
+			if (pComp->GetInpuPin(0)->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//if its a switch //check for output pin only
+		if (type == COMP_TYPES::COMP_SWITCH) //if its a led //check for input only
+		{
+			if (pComp->getOutputPin()->get_is_connected() == false)
+			{
+				return false;
+			}
+			continue;
+
+		}
+
+		//now its just a gate
+
+		if (pComp->getOutputPin()->get_is_connected() == false)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < pComp->getNoOfInputpins(); ++i)
+		{
+			if (pComp->GetInpuPin(i)->get_is_connected() == false)
+			{
+				return false;
+			}
+		}
+
+
+
+	}
+
+	return true;
+}
+
+
+int ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
 	for (int i = 0; i < CompCount; i++)
@@ -169,12 +297,14 @@ void ApplicationManager::save(ofstream*& fptr)
 			CompList[i]->save(fptr);
 	}
 	*fptr << "-1";
+	return -1;
 }
 void ApplicationManager::load(ifstream*& iptr)
 {
-	OutputInterface->ClearDrawingArea();
-	Action* Actp = NULL;
-	int NonConnCount, n;
+	DeleteAll();
+	Label* Actp = NULL;
+	Connect* CActp = NULL;
+	int NonConnCount;
 	string CompType;
 	Component* Cptr = NULL;
 	Component* Cptr2 = NULL;
@@ -231,44 +361,54 @@ void ApplicationManager::load(ifstream*& iptr)
 	{
 		int connCount;
 		int fID, sID, PinNo;
-		string s;
+		string s, sflag;
 		stringstream Read;
 		getline(*iptr, s, '-');
+		*iptr >> sflag;
 		Read << s;
-		connCount = (s.length() - 1) / 6;
-		cout << s << endl << connCount << endl;
+		connCount = (s.length() - 1) / 6 - 1;
 		for (int i = 0; i < connCount; i++)
 		{
+			CActp = new Connect(this);
 			Read >> fID >> sID >> PinNo;
+			PinNo--;
 			for (int j = 0; j < CompCount; j++)
 			{
-				if (CompList[j]->get_id() == fID)
-					Cptr = CompList[j];
-				if (CompList[j]->get_id() == sID)
-					Cptr2 = CompList[j];
-			}
-			Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Cptr2->getInputPin());
-
-		}
-		//here i should read the connections then reach the second flag.
-		if (Actp)
-		{
-			delete Actp;
-			Actp = NULL;
-		}
-	}
-		for (int i = 0; i < CompCount; i++)
-		{
-			if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
-			{
-				CompList[i]->Draw(OutputInterface);
-				if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+				if (CompList[j])
 				{
-					Actp = new Label(this, CompList[i], 0);
+					if (CompList[j]->get_id() == fID)
+						Cptr = CompList[j];
+					if (CompList[j]->get_id() == sID)
+						Cptr2 = CompList[j];
 				}
 			}
-
+			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);
+			CActp->setSrcPinGInfo(Cptr->getGraphicsInfo(), GfxInfo);
+			InputPin* Inp = Cptr2->GetInpuPin(PinNo);
+			if (Inp)
+			{
+				Inp->set_is_connected(true);
+				Cptr1 = new Connection(GfxInfo, Cptr->getOutputPin(), Inp);
+				Connection* ConnPtr = (Connection*)Cptr1;
+				(Cptr->getOutputPin())->ConnectTo(ConnPtr);
+				Inp->ConnectTo(ConnPtr);
+				AddComponent(Cptr1);
+			}
 		}
+		if (CActp)
+		{
+			delete CActp;
+			CActp = NULL;
+		}
+	}
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+		{
+			Actp = new Label(this, CompList[i], 0);
+		}
+
+	}
 	if (Actp)
 	{
 		delete Actp;
@@ -318,7 +458,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		pAct = new Delete(this);
 		break;
-		// ==================================== Ahmed Alaao ====================================
+		// ==================================== Ahmed Alaa ====================================
 		//ahmed atta
 	case SIMULATE:
 		pAct = new SimulateCircuit(this);
@@ -332,20 +472,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_:
 		pAct = new CopyCutPaste(this, PASTE);
 		break;
+	case PROGING:
+		pAct = new CircuitProding(this);
+		break;
+
 	case DSN_MODE:
 		pAct = new SwitchToDesign(this);
 		break;
 	case SIM_MODE:
 		pAct = new SwitchToSimulation(this);
 		break;
+		/////////Rufaidah
 	case EXIT:
 		pAct = new Exit(this);
 		break;
 	case SAVE:
-		pAct = new Save(this, InputInterface->getfilename(OutputInterface), OutputInterface);
+			pAct = new Save(this);
 		break;
 	case LOAD:
-		pAct = new Load(this);
+			pAct = new Load(this);
 		break;
 	}
 	if (pAct)
@@ -356,10 +501,69 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 
+void ApplicationManager::Execute_Add_Gate_action(ActionType a)
+{
+	Action* pAct = NULL;
+
+	switch (a)
+	{
+	case ADD_AND_GATE_2:
+		pAct = new AddANDgate2(this);
+		break;
+	case ADD_OR_GATE_2:
+		pAct = new AddORgate2(this);
+		break;
+	case ADD_Buff:
+		pAct = new AddBUFFER(this);
+		break;
+	case ADD_INV:
+		pAct = new AddINVgate(this);
+		break;
+	case ADD_NAND_GATE_2:
+		pAct = new AddNANDgate2(this);
+		break;
+	case ADD_NOR_GATE_2:
+		pAct = new AddNORgate2(this);
+		break;
+	case ADD_XOR_GATE_2:
+		pAct = new AddXORgate2(this);
+		break;
+	case ADD_XNOR_GATE_2:
+		pAct = new AddXNORgate2(this);
+		break;
+	case ADD_AND_GATE_3:
+		pAct = new AddANDgate3(this);
+		break;
+	case ADD_NOR_GATE_3:
+		pAct = new AddNORgate3(this);
+		break;
+	case ADD_XOR_GATE_3:
+		pAct = new AddXORgate3(this);
+		break;
+		//case ADD_XNOR_GATE_3:		
+	case ADD_Switch:
+		pAct = new AddSWITCH(this);
+		break;
+	case ADD_LED:
+		pAct = new AddLED(this);
+		break;
+	}
+	if (pAct)
+	{
+		pAct->Execute();
+		delete pAct;
+		pAct = NULL;
+		OutputInterface->ClearWindow();
+
+	}
+
+}
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()
 {
+
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
 		{ 
@@ -370,15 +574,87 @@ void ApplicationManager::UpdateInterface()
 
 }
 
-void ApplicationManager::set_clipboard()
+bool ApplicationManager::set_clipboard()
 {
-	Clipboard = lastSelectedComponent->get_comp_type();
+	if (lastSelectedComponent) {
+		COMP_TYPES a = lastSelectedComponent->get_comp_type();
 
+		switch (a)
+		{
+		case COMP_TYPES::COMP_SWITCH:
+			Clipboard = ADD_Switch;
+			break;
+
+		case COMP_TYPES::COMP_LED:
+			Clipboard = ADD_LED;
+			break;
+
+		case COMP_TYPES::AND_2:
+			Clipboard = ADD_AND_GATE_2;
+			break;
+
+		case COMP_TYPES::AND_3:
+			Clipboard = ADD_AND_GATE_3;
+
+			break;
+
+		case COMP_TYPES::INV_:
+			Clipboard = ADD_INV;
+			break;
+
+		case COMP_TYPES::NAND_2:
+			Clipboard = ADD_NAND_GATE_2;
+			break;
+
+		case COMP_TYPES::NOR_2:
+			Clipboard = ADD_NOR_GATE_2;
+			break;
+
+		case COMP_TYPES::NOR_3:
+			Clipboard = ADD_NOR_GATE_3;
+			break;
+
+		case COMP_TYPES::Buff_:
+			Clipboard = ADD_Buff;
+			break;
+
+		case COMP_TYPES::OR_2:
+			Clipboard = ADD_OR_GATE_2;
+			break;
+
+		case COMP_TYPES::XNOR_2:
+			Clipboard = ADD_XNOR_GATE_2;
+			break;
+
+		case COMP_TYPES::XOR_2:
+			Clipboard = ADD_XOR_GATE_2;
+
+			break;
+
+		case COMP_TYPES::XOR_3:
+			Clipboard = ADD_XOR_GATE_3;
+			break;
+
+
+		default:
+			OutputInterface->PrintMsg("Please select only a Gate...");
+			return false;
+
+
+
+
+		}
+	}
+	else {
+		OutputInterface->PrintMsg("Please select a component...");
+		return false;
+	}
+	return true;
 }
 
 
 
-COMP_TYPES ApplicationManager::get_clipboard() const
+ActionType ApplicationManager::get_clipboard() const
 {
 	return Clipboard;
 }
@@ -410,9 +686,6 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 	return sh;
 
 }
-
-
-
 LED** ApplicationManager::get_connected_leds(int& num) const
 {
 	num = 0;
@@ -558,67 +831,6 @@ Output* ApplicationManager::GetOutput()
 
 //======================================Doaa=======================
 
-int ApplicationManager::getCompCount()
-{
-	return CompCount;
-}
-
-
-//=========================================DOAA MAGDY=============================================//
-bool ApplicationManager::checkIfSourceIsLED(int cx, int cy)
-{
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			COMP_TYPES type = CompList[i]->get_comp_type();
-			if (type == COMP_TYPES::COMP_LED)
-			{
-				OutputInterface->PrintMsg("Error: the led has no output pin");
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-bool ApplicationManager::PressOn_WhiteSpace(int cx, int cy)
-{
-	int count_check_s = 0;
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d == true)
-		{
-			count_check_s++;
-		}
-	}
-
-	if (count_check_s == 0)
-	{
-		OutputInterface->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
-		return true;
-	}
-	else
-		return false;
-}
-
-Component* ApplicationManager::CheckInsideArea(int cx, int cy)
-{
-	int i;
-	for (i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			break;
-		}
-
-	}
-	return CompList[i];
-}
-
 bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
 {
 	if (distComp == srcComp)
@@ -637,237 +849,6 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 }
-
-
-/*
-bool ApplicationManager::Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*& selected_pin)
-{
-	int no_input_pins = distComp->getNoOfInputpins();
-	for (int j = 0; j < no_input_pins; j++)
-	{
-		bool isConnected = inPin[j].get_is_connected();
-		if (isConnected == false)
-		{
-			selected_pin = &inPin[j];
-			inPin[j].set_is_connected(true);
-			//break;
-			//return true;
-
-
-			COMP_TYPES type = distComp->get_comp_type();
-			int a1, b1, a2, b2;
-			distComp->getm_GfxInfo(a1, b1, a2, b2);
-
-			switch (type)
-			{
-			case COMP_TYPES::COMP_LED:
-			{
-				//pManager->getGInfoOfComp(a1, b1, a2, b2, k);
-				GInfo.x2 = a1 + 23;
-				GInfo.y2 = (b1 + (b2 - b1) / 2) + 26;
-				break;
-			}
-			//case COMP_TYPES::COMP_CONN:
-				//break;
-			case COMP_TYPES::AND_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 1;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 2;
-				}
-				break;
-			case COMP_TYPES::AND_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 16;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 16;
-
-				}
-				break;
-			case COMP_TYPES::INV_:
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + (b2 - b1) / 2;
-				break;
-			case COMP_TYPES::NAND_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 + 3;
-				}
-				break;
-			case COMP_TYPES::NOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 7;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 4;
-				}
-				break;
-			case COMP_TYPES::NOR_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b1 + 16 + 1;
-
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b1 + (b2 - b1) / 2 + 1;
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1 + 11;
-					GInfo.y2 = b2 - 16 + 1;
-				}
-				break;
-			case COMP_TYPES::Buff_:
-				GInfo.x2 = a1;
-				GInfo.y2 = b1 + (b2 - b1) / 2;
-				break;
-			case COMP_TYPES::OR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1 + 8;
-					GInfo.y2 = b1 + 15 - 7;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1 + 8;
-					GInfo.y2 = b2 - 14 + 3;
-				}
-				break;
-			case COMP_TYPES::XNOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15 + 5;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14 - 5;
-				}
-				break;
-			case COMP_TYPES::XOR_2:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 15;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 14;
-				}
-				break;
-			case COMP_TYPES::XOR_3:
-				if (j == 0)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + 16;
-				}
-				else if (j == 1)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b1 + (b2 - b1) / 2;
-				}
-				else if (j == 2)
-				{
-					GInfo.x2 = a1;
-					GInfo.y2 = b2 - 16;
-				}
-				break;
-			default:
-				break;
-			}
-			break;
-
-		}
-
-
-		if (j == no_input_pins - 1 && isConnected == true)
-		{
-			OutputInterface->PrintMsg("Error: All input pins of this component are already connected");
-			return false;
-		}
-
-	}
-	return true;
-}
-*/
-
-
-/*
-OutputPin* ApplicationManager::getOutputPinOfComp(int i)
-{
-	OutputPin* o = CompList[i]->getOutputPin();
-	return o;
-}
-
-InputPin* ApplicationManager::getInputPinOfComp(int k)
-{
-	InputPin* i = CompList[k]->getInputPin();
-	return i;
-}
-
-void ApplicationManager::getGInfoOfComp(int& a, int& b, int& c, int& d, int i)
-{
-	CompList[i]->getm_GfxInfo(a, b, c, d);
-}
-
-int const ApplicationManager::getNoOfInputpinsOfComp(int k)
-{
-	int const a = CompList[k]->getNoOfInputpins();
-	return a;
-}
-
-bool ApplicationManager::CheckWheatherSrcIsTheDist(int i, int k)
-{
-	if (CompList[i] == CompList[k])
-		return true;
-	return false;
-}
-
-
-int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
-{
-	if (case1 == 1)
-		return CompList[currentComp]->GetOutPinStatus();	//returns status of outputpin if LED, return -1
-	else
-		return CompList[currentComp]->GetInputPinStatus(1);	//returns status of Inputpin # n if SWITCH, return -1
-}
-*/
-//=========================================DOAA MAGDY=============================================//
-
-
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

@@ -16,9 +16,12 @@ OutputPin::OutputPin(int r_FanOut)
 
 bool OutputPin::ConnectTo(Connection* r_Conn)
 {
+	
 	if (m_Conn < m_FanOut)
 	{
+		Pin::ConnectTo(r_Conn);
 		m_Connections[m_Conn++] = r_Conn;	//add a new connection the the array of connections
+
 		return true;
 	}
 
@@ -29,6 +32,11 @@ Connection** OutputPin::get_connections(int& m_conn) const
 {
 	m_conn = m_Conn;
 	return m_Connections;
+}
+
+bool OutputPin::get_is_connected() const
+{
+	return is_connected;
 }
 
 
@@ -43,6 +51,11 @@ Connection** OutputPin::get_connections(int& m_conn) const
 //}
 
 /////////////////////Rufaidah
+
+void OutputPin::decrease_m_Conn()
+{
+	m_Conn--;
+}
 
 void OutputPin::setComponent(Component* pCmp)
 {

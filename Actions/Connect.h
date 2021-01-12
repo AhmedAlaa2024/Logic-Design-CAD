@@ -7,27 +7,18 @@
 
 class Connect : public Action
 {
-	//int count_check_s;
-	//int count_check_d;
-	////////////Rufaidah
-	int InputPinNum;
-	///////////////////////////////
 	int noOfComp;
-	//Component* SrcComp;
-	//Component* DistComp;
-	//Component* const* cmp;
 	int id;
 	int Cx1, Cy1, Cx2, Cy2;	//2 Center points of the two gates
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area of the source gate
 	int a1, b1, a2, b2;//Two corners of the rectangluar area of the destination gate
-	///////////Rufaidah
-	bool isLoaded;
+
 public:
 	Connect(ApplicationManager* pApp);
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED);
+	void ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, int num_of_call);
 	virtual void ReadActionParameters() {};
 
 
@@ -41,8 +32,8 @@ public:
 	virtual void Redo();
 
 	////////////////Rufaidah
-	//int getInputPinNum();
-	void setDisPinGInfo(COMP_TYPES, int, int, int, int, int, GraphicsInfo&);
+	void setDisPinGInfo(COMP_TYPES, int, const GraphicsInfo&, GraphicsInfo&);
+	void setSrcPinGInfo(const GraphicsInfo& gate, GraphicsInfo& GInfo);
 };
 
 #endif

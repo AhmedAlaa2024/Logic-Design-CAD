@@ -14,8 +14,6 @@ void SwitchToDesign::Execute()
 {
 
 	Output* pOut = pManager->GetOutput();
-
-
 	
 	pManager->DeselectComponentExcept();
 	pOut->ClearWindow();

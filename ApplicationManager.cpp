@@ -275,7 +275,6 @@ bool ApplicationManager::validate_circuit() const
 	return true;
 }
 
-
 int ApplicationManager::save(ofstream*& fptr)
 {
 	int NonConnCount = 0; //counter for components that arenot connections
@@ -482,7 +481,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SIM_MODE:
 		pAct = new SwitchToSimulation(this);
 		break;
-		/////////Rufaidah
+		///////////Rufaidah
 	case EXIT:
 		pAct = new Exit(this);
 		break;

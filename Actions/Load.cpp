@@ -15,7 +15,7 @@ Load::Load(ApplicationManager* pApp)
 
 void Load::ReadActionParameters()
 {
-	name = iptr->getfilename(optr, 2);
+	name = iptr->GetFileName(optr, 2);
 }
 
 void Load::Execute()

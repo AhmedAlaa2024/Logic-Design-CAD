@@ -43,8 +43,9 @@ void CopyCutPaste::Execute()
 }
 void CopyCutPaste::copy()
 {
-	pManager->set_clipboard();
-	pManager->DeselectComponentExcept();
+	bool a = pManager->set_clipboard();
+	if(a)
+		pManager->DeselectComponentExcept();
 
 }
 
@@ -52,8 +53,10 @@ void CopyCutPaste::copy()
 
 void CopyCutPaste::cut()
 {
-	pManager->set_clipboard();
-	pManager->DeleteComponent();
+	bool a = pManager->set_clipboard();
+
+	if(a)
+		pManager->DeleteComponent();
 
 
 

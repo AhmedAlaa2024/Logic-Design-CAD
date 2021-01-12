@@ -29,7 +29,7 @@ void Save::Execute()
 	ReadActionParameters();
 	if (name == "")
 		return;
-	output = new ofstream(name + ".txt");
+	output = new ofstream("SavedCircuits/" + name + ".txt");
 	lastSave = new ofstream;
 	if (output->is_open())
 	{
@@ -37,10 +37,10 @@ void Save::Execute()
 		if (flag == -1)
 		{
 
-			lastSave->open("LastSavedCircuit.txt");
+			lastSave->open("ForExitAction/LastSavedCircuit.txt");
 			if (lastSave->is_open())
 			{
-				Temp = new ifstream(name + ".txt");
+				Temp = new ifstream("SavedCircuits/" + name + ".txt");
 				if (Temp->is_open())
 				{
 					getline(*Temp, temp, '-');

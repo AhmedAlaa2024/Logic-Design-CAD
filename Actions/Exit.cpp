@@ -6,8 +6,8 @@ Exit::Exit(ApplicationManager* pApp) :Action(pApp)
 {
 	outp = pManager->GetOutput();
 	inp = pManager->GetInput();
-	lastSaved = new ifstream("LastSavedCircuit.txt");
-	current = new ofstream("TempforExit.txt");
+	lastSaved = new ifstream("ForExitAction/LastSavedCircuit.txt");
+	current = new ofstream("ForExitAction/TempforExit.txt");
 	Current = NULL;
 	Actp = NULL;
 }
@@ -16,7 +16,7 @@ void Exit::Execute()
 {
 	bool isSaved = ReadActionParameters(1);
 	current->close();
-	current->open("TempforExit.txt", ios::trunc);
+	current->open("ForExitAction/TempforExit.txt", ios::trunc);
 	if (current->is_open())
 	{
 		current->close();
@@ -27,7 +27,7 @@ void Exit::Execute()
 	Actp = new Save(pManager, 1);
 	if (Actp)
 		Actp->Execute();
-	current->open("LastSavedCircuit.txt", ios::trunc);
+	current->open("ForExitAction/LastSavedCircuit.txt", ios::trunc);
 	if (current->is_open())
 	{
 		current->close();
@@ -43,7 +43,7 @@ bool Exit::ReadActionParameters(int i)
 		if(pManager)
 			iflag = pManager->save(current);
 		if (iflag == -1)
-			Current = new ifstream("TempforExit.txt");
+			Current = new ifstream("ForExitAction/TempforExit.txt");
 		getline(*lastSaved, ffile, '-');
 		ffile += "-1";
 		getline(*Current, sfile, '-');

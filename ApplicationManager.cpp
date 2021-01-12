@@ -366,7 +366,7 @@ void ApplicationManager::load(ifstream*& iptr)
 		getline(*iptr, s, '-');
 		*iptr >> sflag;
 		Read << s;
-		connCount = (s.length() - 1) / 6;
+		connCount = (s.length() - 1) / 6 - 1;
 		for (int i = 0; i < connCount; i++)
 		{
 			CActp = new Connect(this);
@@ -493,7 +493,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Save(this, name, OutputInterface);
 		break;
 	case LOAD:
-		pAct = new Load(this);
+		name = InputInterface->getfilename(OutputInterface, 2);
+		if (name != "")
+			pAct = new Load(this, name, OutputInterface);
 		break;
 	}
 	if (pAct)

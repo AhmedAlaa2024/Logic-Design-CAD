@@ -18,6 +18,7 @@ public:
 	ActionType AddGate() const;   //Reads the user click and maps it to an action
 
 	void GetLastClicked(int&, int&);
-	string GetFileName(Output* pOut, int = 0) const;
+	string getfilename(Output* pOut, int = 0) const;
+
 	~Input();
 };

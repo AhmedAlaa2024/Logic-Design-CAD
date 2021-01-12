@@ -4,22 +4,33 @@
 #include <iostream>
 using namespace std;
 
-Save::Save(ApplicationManager* pApp, string name, Output* optr)
+Save::Save(ApplicationManager* pApp, int flag)
 	:Action(pApp)
 {
 	this->name = name;
-	this->optr = optr;
-	if (name != "")
-		output = new ofstream(name + ".txt");
-	lastSave = new ofstream;
+	this->flag = flag;
+	optr = pManager->GetOutput();
+	iptr = pManager->GetInput();
+	output = NULL;
+	Temp = NULL;
+	lastSave = NULL;
 }
 
 void Save::ReadActionParameters()
 {
+	if (flag)
+		name = iptr->getfilename(optr, 1);
+	else
+	name = iptr->getfilename(optr);
 }
 
 void Save::Execute()
 {
+	ReadActionParameters();
+	if (name == "")
+		return;
+	output = new ofstream(name + ".txt");
+	lastSave = new ofstream;
 	if (output->is_open())
 	{
 		int flag = pManager->save(output);

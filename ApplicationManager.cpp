@@ -432,7 +432,6 @@ ActionType ApplicationManager::AddGate()
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
-	string name = ""; ///for save action
 	Action* pAct = NULL;
 	switch (ActType)
 	{
@@ -485,17 +484,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 		/////////Rufaidah
 	case EXIT:
-		pAct = new Exit(this, OutputInterface, InputInterface);
+		pAct = new Exit(this);
 		break;
 	case SAVE:
-		name = InputInterface->getfilename(OutputInterface);
-		if (name != "")
-			pAct = new Save(this, name, OutputInterface);
+			pAct = new Save(this);
 		break;
 	case LOAD:
-		name = InputInterface->getfilename(OutputInterface, 2);
-		if (name != "")
-			pAct = new Load(this, name, OutputInterface);
+			pAct = new Load(this);
 		break;
 	}
 	if (pAct)
@@ -687,11 +682,6 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 	return sh;
 
 }
-
-
-
-
-
 LED** ApplicationManager::get_connected_leds(int& num) const
 {
 	num = 0;
@@ -916,54 +906,6 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 }
-
-
-
-
-
-/*
-OutputPin* ApplicationManager::getOutputPinOfComp(int i)
-{
-	OutputPin* o = CompList[i]->getOutputPin();
-	return o;
-}
-
-InputPin* ApplicationManager::getInputPinOfComp(int k)
-{
-	InputPin* i = CompList[k]->getInputPin();
-	return i;
-}
-
-void ApplicationManager::getGInfoOfComp(int& a, int& b, int& c, int& d, int i)
-{
-	CompList[i]->getm_GfxInfo(a, b, c, d);
-}
-
-int const ApplicationManager::getNoOfInputpinsOfComp(int k)
-{
-	int const a = CompList[k]->getNoOfInputpins();
-	return a;
-}
-
-bool ApplicationManager::CheckWheatherSrcIsTheDist(int i, int k)
-{
-	if (CompList[i] == CompList[k])
-		return true;
-	return false;
-}
-
-
-int ApplicationManager::CheckWhetherLEDorSWITCH(int case1, int currentComp)
-{
-	if (case1 == 1)
-		return CompList[currentComp]->GetOutPinStatus();	//returns status of outputpin if LED, return -1
-	else
-		return CompList[currentComp]->GetInputPinStatus(1);	//returns status of Inputpin # n if SWITCH, return -1
-}
-*/
-//=========================================DOAA MAGDY=============================================//
-
-
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

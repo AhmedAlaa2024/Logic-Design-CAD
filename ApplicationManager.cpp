@@ -491,7 +491,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Save(this, name, OutputInterface);
 		break;
 	case LOAD:
-		pAct = new Load(this);
+		name = InputInterface->getfilename(OutputInterface, 2);
+		if (name != "")
+			pAct = new Load(this, name, OutputInterface);
 		break;
 	}
 	if (pAct)

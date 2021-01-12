@@ -9,7 +9,7 @@
 using namespace std;
 
 
-Connect::Connect(ApplicationManager* pApp) :Action(pApp), InputPinNum(0), isLoaded(0)
+Connect::Connect(ApplicationManager* pApp) :Action(pApp)
 {
 
 }

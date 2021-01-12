@@ -1,6 +1,6 @@
 #include "INV.h"
 
-#include <iostream>
+
 
 INV::INV(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 {

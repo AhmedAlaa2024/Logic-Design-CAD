@@ -19,9 +19,9 @@ Save::Save(ApplicationManager* pApp, int flag)
 void Save::ReadActionParameters()
 {
 	if (flag)
-		name = iptr->getfilename(optr, 1);
+		name = iptr->GetFileName(optr, 1);
 	else
-	name = iptr->getfilename(optr);
+	name = iptr->GetFileName(optr);
 }
 
 void Save::Execute()

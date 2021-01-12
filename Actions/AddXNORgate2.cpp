@@ -1,7 +1,7 @@
 #include "AddXNORgate2.h"
 #include "..\ApplicationManager.h"
 
-AddXNORgate2::AddXNORgate2(ApplicationManager* pApp) :Action(pApp)
+AddXNORgate2::AddXNORgate2(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,12 +43,8 @@ void AddXNORgate2::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	XNOR2* pA = new XNOR2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
 }
-int AddXNORgate2::getId()
-{
-	return id;
-}
+
 
 void AddXNORgate2::Undo()
 {}

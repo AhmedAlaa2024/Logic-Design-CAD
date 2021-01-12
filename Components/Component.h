@@ -60,7 +60,7 @@ public:
 	//=================DOAA MAGDY================
 	int getLastID();
 
-	bool InsideArea(int x, int y);
+	
 	virtual int getNoOfInputpins() = 0;
 
 	void getm_GfxInfo(int &x1,int &y1, int &x2,int &y2);

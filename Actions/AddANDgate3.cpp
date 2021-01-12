@@ -1,7 +1,7 @@
 #include "AddANDgate3.h"
 #include "..\ApplicationManager.h"
 
-AddANDgate3::AddANDgate3(ApplicationManager* pApp) :Action(pApp)
+AddANDgate3::AddANDgate3(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,11 +43,6 @@ void AddANDgate3::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	AND3* pA = new AND3(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
-}
-int AddANDgate3::getId()
-{
-	return id;
 }
 
 void AddANDgate3::Undo()

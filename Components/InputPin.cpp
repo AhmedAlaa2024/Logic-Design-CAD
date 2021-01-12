@@ -54,6 +54,8 @@ bool InputPin::get_is_connected()
 void InputPin::set_is_connected(bool test)
 {
 	is_connected = test;
+	if (test == false)
+		connection_ = NULL;
 }
 
 //=============DOAA===========

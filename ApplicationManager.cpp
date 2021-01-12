@@ -182,7 +182,7 @@ void ApplicationManager::DeleteComponent()
 					CompList[i] = NULL; // To make the pointer point to a null pointer
 
 					shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
-=======
+
 					
 					lastSelectedComponent = NULL;
 					break;

@@ -1,7 +1,7 @@
 #include "AddBUFFER.h"
 #include "..\ApplicationManager.h"
 
-AddBUFFER::AddBUFFER(ApplicationManager* pApp) :Action(pApp)
+AddBUFFER::AddBUFFER(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,11 +43,6 @@ void AddBUFFER::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	Buff* pA = new Buff(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
-}
-int AddBUFFER::getId()
-{
-	return id;
 }
 
 void AddBUFFER::Undo()

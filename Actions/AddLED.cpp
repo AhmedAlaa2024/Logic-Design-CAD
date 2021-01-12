@@ -1,7 +1,7 @@
 #include "AddLED.h"
 #include "..\ApplicationManager.h"
 
-AddLED::AddLED(ApplicationManager* pApp) :Action(pApp)
+AddLED::AddLED(ApplicationManager* pApp) :Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,11 +43,6 @@ void AddLED::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	LED* pA = new LED(GInfo, SWITCH_FANOUT);
 	pManager->AddComponent(pA);
-	id++;
-}
-int  AddLED::getId()
-{
-	return id;
 }
 
 void AddLED::Undo()

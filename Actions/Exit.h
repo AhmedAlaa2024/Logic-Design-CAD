@@ -16,7 +16,7 @@ class Exit : public Action
 	ifstream *Current;
 	ofstream* current;
 public:
-	Exit(ApplicationManager* pApp, Output*, Input*);
+	Exit(ApplicationManager* pApp);
 	
 	//Execute action (code depends on action type)
 	virtual void Execute();

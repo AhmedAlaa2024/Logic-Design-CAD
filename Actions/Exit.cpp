@@ -2,19 +2,21 @@
 #include "..\ApplicationManager.h"
 #include <iostream>
 using namespace std;
-Exit::Exit(ApplicationManager* pApp, Output* outp, Input* inp) :Action(pApp)
+Exit::Exit(ApplicationManager* pApp) :Action(pApp)
 {
-	this->outp = outp;
-	this->inp = inp;
-	lastSaved = new ifstream("LastSavedCircuit.txt");
-	current = new ofstream("TempforExit.txt");
+	outp = pManager->GetOutput();
+	inp = pManager->GetInput();
+	lastSaved = new ifstream("ForExitAction/LastSavedCircuit.txt");
+	current = new ofstream("ForExitAction/TempforExit.txt");
+	Current = NULL;
+	Actp = NULL;
 }
 
 void Exit::Execute()
 {
 	bool isSaved = ReadActionParameters(1);
 	current->close();
-	current->open("TempforExit.txt", ios::trunc);
+	current->open("ForExitAction/TempforExit.txt", ios::trunc);
 	if (current->is_open())
 	{
 		current->close();
@@ -22,10 +24,10 @@ void Exit::Execute()
 	lastSaved->close();
 	if (isSaved)
 		return;
-	string name = inp->getfilename(outp, 1);
-	if(name != "")
-		Actp = new Save(pManager, name, outp);
-	current->open("LastSavedCircuit.txt", ios::trunc);
+	Actp = new Save(pManager, 1);
+	if (Actp)
+		Actp->Execute();
+	current->open("ForExitAction/LastSavedCircuit.txt", ios::trunc);
 	if (current->is_open())
 	{
 		current->close();
@@ -35,13 +37,13 @@ void Exit::Execute()
 bool Exit::ReadActionParameters(int i)
 {
 	string ffile, sfile;
-	int fflag, sflag, flag;
+	int fflag, sflag, iflag = 0;
 	if (current->is_open() && lastSaved->is_open())
 	{
 		if(pManager)
-		flag = pManager->save(current);
-		if (flag == -1)
-			Current = new ifstream("TempforExit.txt");
+			iflag = pManager->save(current);
+		if (iflag == -1)
+			Current = new ifstream("ForExitAction/TempforExit.txt");
 		getline(*lastSaved, ffile, '-');
 		ffile += "-1";
 		getline(*Current, sfile, '-');

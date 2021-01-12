@@ -7,10 +7,11 @@
 
 class Connect : public Action
 {
-	////////////Rufaidah
-	int InputPinNum;
-	///////////////////////////////
-	bool isLoaded;
+	int noOfComp;
+	int id;
+	int Cx1, Cy1, Cx2, Cy2;	//2 Center points of the two gates
+	int x1, y1, x2, y2;	//Two corners of the rectangluar area of the source gate
+	int a1, b1, a2, b2;//Two corners of the rectangluar area of the destination gate
 
 public:
 	Connect(ApplicationManager* pApp);
@@ -31,7 +32,6 @@ public:
 	virtual void Redo();
 
 	////////////////Rufaidah
-	//int getInputPinNum();
 	void setDisPinGInfo(COMP_TYPES, int, const GraphicsInfo&, GraphicsInfo&);
 	void setSrcPinGInfo(const GraphicsInfo& gate, GraphicsInfo& GInfo);
 };

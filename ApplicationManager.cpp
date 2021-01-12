@@ -432,7 +432,6 @@ ActionType ApplicationManager::AddGate()
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
-	string name = ""; ///for save action
 	Action* pAct = NULL;
 	switch (ActType)
 	{
@@ -485,17 +484,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 		/////////Rufaidah
 	case EXIT:
-		pAct = new Exit(this, OutputInterface, InputInterface);
+		pAct = new Exit(this);
 		break;
 	case SAVE:
-		name = InputInterface->getfilename(OutputInterface);
-		if (name != "")
-			pAct = new Save(this, name, OutputInterface);
+			pAct = new Save(this);
 		break;
 	case LOAD:
-		name = InputInterface->getfilename(OutputInterface, 2);
-		if (name != "")
-			pAct = new Load(this, name, OutputInterface);
+			pAct = new Load(this);
 		break;
 	}
 	if (pAct)
@@ -687,11 +682,6 @@ SWITCH** ApplicationManager::get_switches(int& num) const
 	return sh;
 
 }
-
-
-
-
-
 LED** ApplicationManager::get_connected_leds(int& num) const
 {
 	num = 0;
@@ -855,9 +845,6 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 }
-
-
-
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

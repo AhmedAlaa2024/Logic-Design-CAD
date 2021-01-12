@@ -10,16 +10,17 @@ using namespace std;
 class Save : public Action
 {
 	Output* optr;
+	Input* iptr;
 	ofstream* output;
 	ifstream* Temp;
 	ofstream* lastSave;
 	string temp;
 	string name;
+	int flag;
 public:
-	Save(ApplicationManager* pApp, string name, Output* optr);
+	Save(ApplicationManager* pApp, int = 0);
 
 	virtual void ReadActionParameters();
-
 	//Execute action (code depends on action type)
 	virtual void Execute();
 

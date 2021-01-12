@@ -4,21 +4,25 @@
 #include <iostream>
 using namespace std;
 
-Load::Load(ApplicationManager* pApp, string name, Output* outp)
+Load::Load(ApplicationManager* pApp)
 	:Action(pApp)
 {
-	this->name = name;
-	this->outp = outp;
+	optr = pManager->GetOutput();
+	iptr = pManager->GetInput();
 	input = new ifstream;
 }
 
 
 void Load::ReadActionParameters()
 {
+	name = iptr->getfilename(optr, 2);
 }
 
 void Load::Execute()
 {
+	ReadActionParameters();
+	if (name == "")
+		return;
 	input->open(name + ".txt", ios::in);
 	if (input->is_open())
 	{
@@ -27,7 +31,7 @@ void Load::Execute()
 			input->close();
 	}
 	else
-		outp->PrintMsg("Error: file not found!");
+		optr->PrintMsg("Error: file not found!");
 }
 
 void Load::Undo()

@@ -10,10 +10,11 @@ using namespace std;
 class Load : public Action
 {
 	ifstream* input;
-	Output* outp;
+	Output* optr;
+	Input* iptr;
 	string name;
 public:
-	Load(ApplicationManager* pApp, string, Output*);
+	Load(ApplicationManager* pApp);
 
 
 	virtual void ReadActionParameters();

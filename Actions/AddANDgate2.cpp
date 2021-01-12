@@ -1,7 +1,7 @@
 #include "AddANDgate2.h"
 #include "..\ApplicationManager.h"
 
-AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp)
+AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp), Cx(0), Cy(0)
 {
 }
 
@@ -43,11 +43,6 @@ void AddANDgate2::Execute()
 	GInfo.y2 = Cy + Wdth/2;
 	AND2 *pA=new AND2(GInfo, FANOUT);
 	pManager->AddComponent(pA);
-	id++;
-}
-int AddANDgate2::getId()
-{
-	return id;
 }
 
 void AddANDgate2::Undo()

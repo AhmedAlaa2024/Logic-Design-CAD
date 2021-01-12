@@ -1,10 +1,7 @@
 
-
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
-
 #include <fstream>
-
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
@@ -21,8 +18,6 @@
 #include "Actions/Delete.h"
 #include "Actions/Clear.h"
 #include "Actions/Connect.h"
-
-
 #include "Actions/Exit.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"
@@ -39,7 +34,7 @@ private:
 	Component* lastSelectedComponent; // Pointer to the last component has been selected
 	// ==================================== Ahmed Alaa ====================================
 	// 
-	Output* OutputInterface; //pointer to the Output Clase Interface
+	Output* OutputInterface; //pointer to the Output Class Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 	
 	ActionType Clipboard;
@@ -93,25 +88,16 @@ public:
 	
 	int save(ofstream*&);
 	void load(ifstream*&);
-													   //destructor
+
+	//===========================DOAA MAGDY============================
+	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
+			
+										   
 	//destructor
 	~ApplicationManager();
 
-	//===========================DOAA MAGDY============================
-	int getCompCount();
-	Component* CheckInsideArea(int cx, int cy);
-	bool PressOn_WhiteSpace(int cx, int cy);
-	bool checkIfSourceIsLED(int cx, int cy);
-	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
-	//bool Check_pins_to_connect(Component* distComp, InputPin* inPin, GraphicsInfo& GInfo, InputPin*&);
-
-	//OutputPin* getOutputPinOfComp(int i);
-	//InputPin* getInputPinOfComp(int k);
-	//void getGInfoOfComp(int& a, int& b, int& c, int& d, int i);
-	//int const getNoOfInputpinsOfComp(int k);
-	//bool CheckWheatherSrcIsTheDist(int i, int k);//to check if the user choose the same gate as sousce and destination at the same time
-	//int CheckWhetherLEDorSWITCH(int case1, int currentComp);
-	//===========================DOAA MAGDY============================
+	
+	
 };
 
 #endif

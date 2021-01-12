@@ -826,67 +826,6 @@ Output* ApplicationManager::GetOutput()
 
 //======================================Doaa=======================
 
-int ApplicationManager::getCompCount()
-{
-	return CompCount;
-}
-
-
-//=========================================DOAA MAGDY=============================================//
-bool ApplicationManager::checkIfSourceIsLED(int cx, int cy)
-{
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			COMP_TYPES type = CompList[i]->get_comp_type();
-			if (type == COMP_TYPES::COMP_LED)
-			{
-				OutputInterface->PrintMsg("Error: the led has no output pin");
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-bool ApplicationManager::PressOn_WhiteSpace(int cx, int cy)
-{
-	int count_check_s = 0;
-	for (int i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d == true)
-		{
-			count_check_s++;
-		}
-	}
-
-	if (count_check_s == 0)
-	{
-		OutputInterface->PrintMsg("Error: You can not choose a white space. You have to choose a gate");
-		return true;
-	}
-	else
-		return false;
-}
-
-Component* ApplicationManager::CheckInsideArea(int cx, int cy)
-{
-	int i;
-	for (i = 0; i < CompCount; i++)
-	{
-		bool d = CompList[i]->InsideArea(cx, cy);
-		if (d)
-		{
-			break;
-		}
-
-	}
-	return CompList[i];
-}
-
 bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
 {
 	if (distComp == srcComp)

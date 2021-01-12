@@ -13,7 +13,6 @@ class Connect : public Action
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area of the source gate
 	int a1, b1, a2, b2;//Two corners of the rectangluar area of the destination gate
 
-
 public:
 	Connect(ApplicationManager* pApp);
 	virtual ~Connect(void);

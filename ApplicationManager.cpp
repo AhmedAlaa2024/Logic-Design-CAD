@@ -141,6 +141,8 @@ void ApplicationManager::DeleteComponent()
 							out_pin->decrease_m_Conn();
 							conn->getDestPin()->set_is_connected(false);
 							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+
+
 							int index = conn->get_id();
 							delete CompList[index];
 							CompList[index] = NULL;
@@ -150,7 +152,7 @@ void ApplicationManager::DeleteComponent()
 
 						}
 					}
-
+					//then delete the input pins
 					auto no_input_pins = lastSelectedComponent->getNoOfInputpins();
 					InputPin* input_pin = lastSelectedComponent->getInputPin();
 					if (input_pin) {
@@ -265,7 +267,7 @@ bool ApplicationManager::validate_circuit() const
 				return false;
 			}
 		}
-		
+
 
 
 	}
@@ -457,7 +459,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		pAct = new Delete(this);
 		break;
-		// ==================================== Ahmed Alaao ====================================
+		// ==================================== Ahmed Alaa ====================================
 		//ahmed atta
 	case SIMULATE:
 		pAct = new SimulateCircuit(this);
@@ -573,7 +575,7 @@ void ApplicationManager::UpdateInterface()
 
 }
 
-void ApplicationManager::set_clipboard()
+bool ApplicationManager::set_clipboard()
 {
 	if (lastSelectedComponent) {
 		COMP_TYPES a = lastSelectedComponent->get_comp_type();
@@ -636,15 +638,19 @@ void ApplicationManager::set_clipboard()
 
 
 		default:
-			break;
+			OutputInterface->PrintMsg("Please select only a Gate...");
+			return false;
+
 
 
 
 		}
 	}
-	else
+	else {
 		OutputInterface->PrintMsg("Please select a component...");
-
+		return false;
+	}
+	return true;
 }
 
 

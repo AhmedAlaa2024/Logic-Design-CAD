@@ -59,7 +59,7 @@ public:
 
 	void UpdateInterface();	//Redraws all the drawing window
 
-	void set_clipboard();
+	bool set_clipboard();
 	// ============================== Ahmed ATA edited here ==============================
 	ActionType get_clipboard() const;
 

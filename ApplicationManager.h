@@ -39,7 +39,7 @@ private:
 	Component* lastSelectedComponent; // Pointer to the last component has been selected
 	// ==================================== Ahmed Alaa ====================================
 	// 
-	Output* OutputInterface; //pointer to the Output Clase Interface
+	Output* OutputInterface; //pointer to the Output Class Interface
 	Input* InputInterface; //pointer to the Input Class Interface
 	
 	ActionType Clipboard;

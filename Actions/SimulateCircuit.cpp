@@ -7,12 +7,6 @@
 
 SimulateCircuit::SimulateCircuit(ApplicationManager* pApp) :Action(pApp)
 {
-
-
-
-
-
-
 }
 
 
@@ -32,7 +26,7 @@ void SimulateCircuit::Execute()
 
 	if (SWs == NULL)
 	{
-		pOut->PrintMsg("Error there is no Switches");
+		pOut->PrintMsg("Error: There is no Switches");
 		return;
 	}
 

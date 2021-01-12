@@ -27,7 +27,7 @@ void SwitchToSimulation::Execute()
 		pManager->ExecuteAction(SIMULATE);
 	}
 	else
-		pOut->PrintMsg("Ciruit is not Valid, please don't leave any pins floating");
+		pOut->PrintMsg("Circuit is not Valid, please don't leave any pins floating");
 
 
 

@@ -362,7 +362,11 @@ void ApplicationManager::UpdateInterface()
 {
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
+		{ 
 			CompList[i]->Draw(OutputInterface);
+			if (CompList[i]->get_m_Label() != "")
+				Label(this, CompList[i]).Execute();
+		}
 
 }
 

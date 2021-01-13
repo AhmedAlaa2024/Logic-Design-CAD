@@ -15,21 +15,22 @@ void Add::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 
 	//Print Action Message
-	pOut->PrintMsg(" Add Component: Click to add the component");
+	pOut->PrintMsg(" Add Component: Choose the component to add");
 
 
 }
 
 void Add::Execute()
 {
+	ReadActionParameters();
+
 	Output* pOut = pManager->GetOutput();
 
 	pOut->CreateDesignToolBarComponent();
 
-	Action* pAct = NULL;
+	//Action* pAct = NULL;
 	ActionType a = pManager->AddGate();
 	pManager->Execute_Add_Gate_action(a);
 

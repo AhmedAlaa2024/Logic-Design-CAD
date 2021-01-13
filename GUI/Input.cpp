@@ -22,16 +22,16 @@ string Input::GetString(Output* pOut, string startwith) const
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
-	keytype a;
+	keytype key;
 	string s = startwith;
 	char c;
-	pWind->FlushKeyQueue();
+	pWind->FlushKeyQueue();   //To remove the queue of input keys that the program has stored before this operation. it may be stored because the user has pressed on key accidentally
 
 	while (true)
 	{
 		pWind->FlushMouseQueue();
-		a = pWind->WaitKeyPress(c);
-		switch (a)
+		key = pWind->WaitKeyPress(c);
+		switch (key)
 		{
 
 		case 1: // in case a normal key got pressed

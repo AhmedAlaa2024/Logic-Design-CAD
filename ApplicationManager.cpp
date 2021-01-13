@@ -830,6 +830,7 @@ Output* ApplicationManager::GetOutput()
 
 //======================================Doaa=======================
 
+/*
 bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
 {
 	if (distComp == srcComp)
@@ -839,6 +840,8 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 	}
 
 	COMP_TYPES type = distComp->get_comp_type();
+
+	
 	if (type == COMP_TYPES::COMP_SWITCH)
 	{
 
@@ -846,8 +849,8 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 		return 0;
 
 	}
-
-}
+	
+}*/
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

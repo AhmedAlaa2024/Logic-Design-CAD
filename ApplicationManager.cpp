@@ -36,6 +36,7 @@
 #include "Actions/AddXORgate3.h"
 #include "Actions/CircuitProding.h"
 #include "Actions/CopyCutPaste.h"
+#include "Actions/CreateTruthTable.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
 #include "Components\SWITCH.h"
@@ -474,10 +475,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_:
 		pAct = new CopyCutPaste(this, PASTE);
 		break;
-	case PROGING:
+	case PRODING:
 		pAct = new CircuitProding(this);
 		break;
-
+	case CREATE_TRUTH_TABLE:
+		pAct = new CreateTruthTable(this);
+		break;
 	case DSN_MODE:
 		pAct = new SwitchToDesign(this);
 		break;

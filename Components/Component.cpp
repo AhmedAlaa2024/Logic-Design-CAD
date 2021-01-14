@@ -11,7 +11,7 @@ Component::Component(const GraphicsInfo &r_GfxInfo): Label(nullptr)
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
 }
-Component::Component()
+Component::Component() : Label(nullptr)
 {
 
 	m_Id = LastID++;

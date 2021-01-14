@@ -1,0 +1,20 @@
+9
+AND2	0	and 2	158	310
+Buff	1	buff	242	301
+NAND2	2	nand 2	225	423
+SWTCH	3	swit 1	84	263
+SWTCH	4	swi 2	66	368
+SWTCH	5	swi 3	93	447
+LED	6	led 1	451	302
+LED	7	led 2	459	376
+LED	8	led 3	467	433
+Connections
+3	0	1
+4	1	1
+4	0	2
+5	2	2
+0	2	1
+1	6	1
+0	7	1
+2	8	1
+-1

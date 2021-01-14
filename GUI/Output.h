@@ -26,7 +26,7 @@ public:
 	void destroyWind() const;
 
 	// ============================== Ahmed Alaa edited here ==============================
-	void DrawTextbox(string, const GraphicsInfo& r_GfxInfo); // To draw a textbox
+	void DrawTextbox(string, Component*); // To draw a textbox
 	void ClearComponentArea(GraphicsInfo);
 	void Clear_Connection_DrawingArea(GraphicsInfo r_GfxInfo) const;
 	// To draw a white rectangle above the deleted component

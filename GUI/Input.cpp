@@ -98,7 +98,6 @@ ActionType Input::GetUserAction()
 			case ADD_LABEL: return ADD_Label;
 			case EDIT_LABEL: return EDIT_Label;
 			case WIRE: return ADD_CONNECTION;
-			case ORGANIZE_SCREEN: return Organize;
 			case CLEAR: return Clear_all;
 			case LOAD_ICON: return LOAD;
 			case SAVE_ICON: return SAVE;
@@ -164,8 +163,6 @@ ActionType Input::GetUserAction()
 			case ITM_PRODING: return PRODING;
 			case ITM_TRUTH: return CREATE_TRUTH_TABLE;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
-			case ITM_LOAD: return LOAD;
-			case ITM_SAVE: return SAVE;
 			case SIM_EXIT: 
 				pWind->SetWaitClose(false); 
 				return EXIT; //TODO: weird line

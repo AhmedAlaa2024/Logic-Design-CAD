@@ -92,7 +92,6 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ADD_LABEL,
 	EDIT_LABEL,
 	WIRE,
-	ORGANIZE_SCREEN,
 	CLEAR,
 	LOAD_ICON,
 	SAVE_ICON,
@@ -135,11 +134,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_DSN,	//Simulate menu item
 	ITM_PRODING,
 	ITM_TRUTH,	//Truth table menu item
-	// Add_Label,
-	// Edit_label,
 	ITM_CHANGE_SWITCH,
-	ITM_LOAD,
-	ITM_SAVE,
 	SIM_EXIT,
 	//TODO:Add more items names here
 

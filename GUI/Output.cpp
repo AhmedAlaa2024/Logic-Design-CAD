@@ -123,7 +123,6 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ADD_LABEL] = "images\\DesignMenu\\text.jpg";
 	MenuItemImages[EDIT_LABEL] = "images\\DesignMenu\\edit.jpg";
 	MenuItemImages[WIRE] = "images\\DesignMenu\\wire.jpg";
-	MenuItemImages[ORGANIZE_SCREEN] = "images\\DesignMenu\\organize.jpg";
 	MenuItemImages[CLEAR] = "images\\DesignMenu\\clear.jpg";
 	MenuItemImages[LOAD_ICON] = "images\\DesignMenu\\load.jpg";
 	MenuItemImages[SAVE_ICON] = "images\\DesignMenu\\save.jpg";
@@ -195,12 +194,8 @@ void Output::CreateSimulationToolBar() const
 
 	MenuItemImages[ITM_DSN] = "images\\SimulationMenu\\design.jpg";
 	MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
-	// MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
-	// MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
 	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\prode.jpeg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\SimulationMenu\\closed_switch.jpg";
-	MenuItemImages[ITM_LOAD] = "images\\SimulationMenu\\load.jpg";
-	MenuItemImages[ITM_SAVE] = "images\\SimulationMenu\\save.jpg";
 	MenuItemImages[SIM_EXIT] = "images\\SimulationMenu\\exit.jpg";
 
 

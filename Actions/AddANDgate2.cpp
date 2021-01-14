@@ -30,6 +30,16 @@ void AddANDgate2::Execute()
 {
 	//Get Center point of the Gate
 	ReadActionParameters();
+
+	Output* pOut = pManager->GetOutput();
+
+	//check validation of the Drawing Area
+	bool is_valid = Action::if_valid_Area(Cx, Cy);
+	if (!is_valid)
+	{
+		pOut->PrintMsg("Error: Invalid Area");
+		return;
+	}
 	
 	//Calculate the rectangle Corners
 	int Len = UI.Gate_Height;

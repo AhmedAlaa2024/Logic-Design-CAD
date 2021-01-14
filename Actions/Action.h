@@ -24,6 +24,12 @@ public:
 	virtual void Redo() = 0;
 	virtual ~Action() = default;
 
+	bool if_valid_Area(int cx, int cy);
+
+	bool if_valid_Area_led(int cx, int cy);
+
+	bool if_valid_Area_switch(int cx, int cy);
+
 };
 
 #endif

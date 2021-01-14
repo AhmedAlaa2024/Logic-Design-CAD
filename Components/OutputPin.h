@@ -38,7 +38,7 @@ public:
 
 	bool get_is_connected() const;
 
-	void decrease_m_Conn();
+	void decrease_m_Conn(int index);
 	
 	////////Rufaidah
 	void setComponent(Component* pCmp);

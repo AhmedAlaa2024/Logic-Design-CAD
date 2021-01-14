@@ -16,7 +16,7 @@ OutputPin::OutputPin(int r_FanOut)
 
 bool OutputPin::ConnectTo(Connection* r_Conn)
 {
-	
+
 	if (m_Conn < m_FanOut)
 	{
 		Pin::ConnectTo(r_Conn);
@@ -40,20 +40,26 @@ bool OutputPin::get_is_connected() const
 }
 
 
-//===========DOAA===========
-//bool OutputPin::get_is_connected()
-//{
-//	return is_connected;
-//}
-//void OutputPin::set_is_connected(bool)
-//{
-//	is_connected = test;
-//}
 
-/////////////////////Rufaidah
 
-void OutputPin::decrease_m_Conn()
+
+
+void OutputPin::decrease_m_Conn(int index)
 {
+	for (int i = 0; i < m_Conn; ++i)
+	{
+		if (m_Connections[i]->get_id() == index)
+		{
+			for (int j = i; j < m_Conn - 1; ++j)
+			{
+
+				swap(m_Connections[j], m_Connections[j + 1]);
+
+			}
+		}
+	}
+
+
 	m_Conn--;
 }
 

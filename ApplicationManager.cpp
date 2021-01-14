@@ -95,7 +95,7 @@ void ApplicationManager::shift_to_end(int i)
 
 void ApplicationManager::DeleteComponent()
 {
-	if (lastSelectedComponent != nullptr)
+	if (lastSelectedComponent != nullptr) {
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
@@ -110,9 +110,9 @@ void ApplicationManager::DeleteComponent()
 
 					Connection* conn = (Connection*)lastSelectedComponent; // To make a pointer to the last selected component and make down casting to it
 					GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo()); // To redraw a white lines above the connections
-					conn->getSourcePin()->decrease_m_Conn(); // To decrease the m_Conn by 1
 					conn->getDestPin()->set_is_connected(false); // To make a notation to simulation that the DestPin is not selected anymore
 					int index = lastSelectedComponent->get_id();
+					conn->getSourcePin()->decrease_m_Conn(index); // To decrease the m_Conn by 1
 					delete CompList[index]; // To deallocte the connection as a component from CompList
 					CompList[index] = NULL; // To make the deleted connection points to NULL.
 					shift_to_end(index); // To shift the deleted component to the end of the array to prevent any using for it
@@ -137,12 +137,12 @@ void ApplicationManager::DeleteComponent()
 						Connection* conn = conns[j];
 						if (conn)
 						{
-							out_pin->decrease_m_Conn(); // To decrease the number of connnections by 1
 							conn->getDestPin()->set_is_connected(false); // To make a notation to simulation that the DestPin is not selected anymore
 							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo()); // To redraw a white lines above the connections
 
 
 							int index = conn->get_id();
+							out_pin->decrease_m_Conn(index); // To decrease the number of connnections by 1
 							delete CompList[index]; // To deallocte the connection as a component from CompList
 							CompList[index] = NULL; // To make the deleted connection points to NULL.
 							shift_to_end(index); // To shift the deleted component to the end of the array to prevent any using for it
@@ -153,43 +153,46 @@ void ApplicationManager::DeleteComponent()
 						}
 					}
 
-					// then delete the input pins
-					int no_input_pins = lastSelectedComponent->getNoOfInputpins(); // To get the number of input pins of the last selected component
+				}
 
 
-					InputPin* input_pin = lastSelectedComponent->getInputPin();
-					if (input_pin) {
-						for (int i = 0; i < no_input_pins; ++i)
-						{
+				// then delete the input pins
+				int no_input_pins = lastSelectedComponent->getNoOfInputpins(); // To get the number of input pins of the last selected component
 
-							Connection* conn = input_pin[i].get_connection();
 
-							if (conn) {
-								GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
-								conn->getDestPin()->set_is_connected(false); // To make a notation to simulation that the DestPin is not selected anymore
-								conn->getSourcePin()->decrease_m_Conn(); // To decrease the number of connnections by 1
-								int index = conn->get_id();
-								delete CompList[index]; // To deallocte the connection as a component from CompList
-								CompList[index] = NULL; // To make the deleted connection points to NULL.
-								shift_to_end(index); // To shift the deleted component to the end of the array to prevent any using for it
-								if (i > index)
-									i--; //i is shifted
-							}
+				InputPin* input_pin = lastSelectedComponent->getInputPin();
+				if (input_pin) {
+					for (int i = 0; i < no_input_pins; ++i)
+					{
+
+						Connection* conn = input_pin[i].get_connection();
+
+						if (conn) {
+							GetOutput()->Clear_Connection_DrawingArea(conn->getGraphicsInfo());
+							conn->getDestPin()->set_is_connected(false); // To make a notation to simulation that the DestPin is not selected anymore
+							int index = conn->get_id();
+							conn->getSourcePin()->decrease_m_Conn(index); // To decrease the number of connnections by 1
+
+							delete CompList[index]; // To deallocte the connection as a component from CompList
+							CompList[index] = NULL; // To make the deleted connection points to NULL.
+							shift_to_end(index); // To shift the deleted component to the end of the array to prevent any using for it
+							if (i > index)
+								i--; //i is shifted
 						}
 					}
-
-
-					delete CompList[i]; // To delete the pointer that pointing to the seleted component
-					CompList[i] = NULL; // To make the pointer point to a null pointer
-
-					shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
-
-					
-					lastSelectedComponent = NULL;
-					break;
 				}
+				delete CompList[i]; // To delete the pointer that pointing to the seleted component
+				CompList[i] = NULL; // To make the pointer point to a null pointer
+
+				shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
+
+
+				lastSelectedComponent = NULL;
+				break;
+
 			}
 		}
+	}
 	else
 		GetOutput()->PrintMsg("You have to select a certain component before delete!");
 }
@@ -501,10 +504,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Exit(this);
 		break;
 	case SAVE:
-			pAct = new Save(this);
+		pAct = new Save(this);
 		break;
 	case LOAD:
-			pAct = new Load(this);
+		pAct = new Load(this);
 		break;
 	}
 	if (pAct)
@@ -580,7 +583,7 @@ void ApplicationManager::UpdateInterface()
 
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
-		{ 
+		{
 			CompList[i]->Draw(OutputInterface);
 			if (CompList[i]->get_m_Label() != "")
 				Label(this, CompList[i]).Execute();
@@ -858,7 +861,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 
 	COMP_TYPES type = distComp->get_comp_type();
 
-	
+
 	if (type == COMP_TYPES::COMP_SWITCH)
 	{
 
@@ -866,7 +869,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 		return 0;
 
 	}
-	
+
 }*/
 ApplicationManager::~ApplicationManager()
 {

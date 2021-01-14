@@ -6,6 +6,8 @@ using namespace std;
 
 CreateTruthTable::CreateTruthTable(ApplicationManager* pApp) :Action(pApp)
 {
+	fout = NULL;
+	pWind = NULL;
 	current_comb_ = 0;
 	inputs = pManager->get_switches(num_of_inputs);
 	binary_current_comb_ = new int[num_of_inputs];//array of 0 and 1 to save to combinations
@@ -21,13 +23,15 @@ CreateTruthTable::CreateTruthTable(ApplicationManager* pApp) :Action(pApp)
 
 	//number of rows = 2^n where n is the num of inputs
 	no_rows = pow(2, num_of_inputs);
-
+	no_cols = num_of_inputs + num_of_outputs;
+	WinWidth = 50 + (no_cols + 1) * UI.TableIconWidth + (no_cols + 2);
+	WinHeight = 50 + (no_rows + 1) * UI.TableIconHeight + (no_rows + 2);
 
 	truth_table = new int* [no_rows];
 	for (int i = 0; i < no_rows; ++i)
 	{
 
-		truth_table[i] = new int[num_of_inputs + num_of_outputs];
+		truth_table[i] = new int[no_cols];
 
 	}
 
@@ -95,21 +99,15 @@ void CreateTruthTable::Execute()
 
 	}
 
-
-	//TODO: to be deleted
-	cout << "input:---------------:output:" << endl;
-	for (int i = 0; i < no_rows; ++i)
+	///displaying the table
+	if (num_of_inputs > 5)
+		SaveTable();
+	else
 	{
-		for (int j = 0; j < num_of_outputs + num_of_inputs; ++j)
-		{
-			cout << truth_table[i][j] << "\t";
-		}
-		cout << endl;
+		OpenWindow();
+		PrintTableBorders();
+		PrintTable();
 	}
-
-
-
-
 
 	//after finishing ,just set all switches to LOW
 	for (int j = 0; j < num_of_inputs; ++j)
@@ -119,6 +117,56 @@ void CreateTruthTable::Execute()
 
 	}
 
+	
+
+	pWind->WaitMouseClick(x, y);
+}
+
+void CreateTruthTable::OpenWindow()
+{
+	pWind = new window(WinWidth, WinHeight, 300, 200);
+	pWind->ChangeTitle("Truth table");
+}
+
+void CreateTruthTable::PrintTableBorders()
+{
+	///for horizontal lines.
+	pWind->SetPen(BLUE, 1);
+	for (int i = 0; i <= no_rows + 1; i++)
+		pWind->DrawLine(20, 20 + UI.TableIconHeight * i, 20 + (no_cols + 1) * UI.TableIconWidth, 20 + UI.TableIconHeight * i);
+	///for vertical lines.
+	for (int i = 0; i <= no_cols + 1; i++)
+		pWind->DrawLine(20 + UI.TableIconWidth * i, 20, 20 + UI.TableIconWidth * i, 20 + (no_rows + 1) * UI.TableIconHeight);
+}
+
+void CreateTruthTable::PrintTable()
+{
+	int firstx = 20 + UI.TableIconWidth * 0.5;
+	int firsty = 20 + UI.TableIconHeight * 0.5;
+	for (int i = 0; i < no_rows; i++)
+	{
+		for (int j = 0; j < no_cols; j++)
+		{
+			pWind->DrawString(firstx + UI.TableIconWidth * j, firsty + UI.TableIconHeight * i,to_string(truth_table[i][j]));
+		}
+	}
+}
+
+void CreateTruthTable::SaveTable()
+{
+	fout = new ofstream("TruthTable.txt");
+	if (fout->is_open())
+	{
+		for (int i = 0; i < no_rows; i++)
+		{
+			for (int j = 0; j < no_cols; j++)
+			{
+				*fout << truth_table[i][j] << '\t';
+			}
+			*fout << endl;
+		}
+		fout->close();
+	}
 
 }
 
@@ -141,5 +189,7 @@ CreateTruthTable::~CreateTruthTable(void)
 	}
 
 	delete[] truth_table;
-
+	if (fout)
+		delete fout;
+	delete pWind;
 }

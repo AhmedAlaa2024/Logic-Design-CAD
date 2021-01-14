@@ -111,7 +111,7 @@ void CreateTruthTable::Execute()
 		DisplayTable();
 		ExitWin();
 	}
-	//after finishing ,just set all switches to LOW
+	//after finishing ,just set all switches to HIGH
 	for (int j = 0; j < num_of_inputs; ++j)
 	{
 

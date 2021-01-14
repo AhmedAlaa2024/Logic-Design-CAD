@@ -362,6 +362,8 @@ void ApplicationManager::load(ifstream*& iptr)
 	*iptr >> fflag;
 	if (fflag == "Connections")
 	{
+		Cptr = NULL;
+		Cptr2 = NULL;
 		int connCount;
 		int fID, sID, PinNo;
 		string s, sflag;

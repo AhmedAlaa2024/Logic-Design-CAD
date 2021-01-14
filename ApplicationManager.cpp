@@ -95,7 +95,7 @@ void ApplicationManager::shift_to_end(int i)
 
 void ApplicationManager::DeleteComponent()
 {
-	if (lastSelectedComponent != nullptr)
+	if (lastSelectedComponent != nullptr) {
 
 		for (int i = 0; i < CompCount; i++) // To iterate on all of the existing components
 		{
@@ -184,12 +184,13 @@ void ApplicationManager::DeleteComponent()
 
 					shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
 
-					
+
 					lastSelectedComponent = NULL;
 					break;
 				}
 			}
 		}
+	}
 	else
 		GetOutput()->PrintMsg("You have to select a certain component before delete!");
 }
@@ -489,10 +490,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Exit(this);
 		break;
 	case SAVE:
-			pAct = new Save(this);
+		pAct = new Save(this);
 		break;
 	case LOAD:
-			pAct = new Load(this);
+		pAct = new Load(this);
 		break;
 	}
 	if (pAct)
@@ -568,7 +569,7 @@ void ApplicationManager::UpdateInterface()
 
 	for (int i = 0; i < CompCount; i++)
 		if (CompList[i] != NULL)
-		{ 
+		{
 			CompList[i]->Draw(OutputInterface);
 			if (CompList[i]->get_m_Label() != "")
 				Label(this, CompList[i]).Execute();
@@ -846,7 +847,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 
 	COMP_TYPES type = distComp->get_comp_type();
 
-	
+
 	if (type == COMP_TYPES::COMP_SWITCH)
 	{
 
@@ -854,7 +855,7 @@ bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* d
 		return 0;
 
 	}
-	
+
 }*/
 ApplicationManager::~ApplicationManager()
 {

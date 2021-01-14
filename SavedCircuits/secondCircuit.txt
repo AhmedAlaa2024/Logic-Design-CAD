@@ -1,0 +1,30 @@
+12
+AND2	0	and2	218	411
+XOR2	1	xor2	258	295
+NOR3	2	nor3	291	196
+SWTCH	3	switch2	56	167
+SWTCH	4	switch3	70	299
+SWTCH	5	switch4	38	410
+SWTCH	6	switch1	110	107
+NOR2	7	nor2	297	461
+LED	8	fled	511	221
+LED	9	sled	534	366
+Inv	10	not	396	291
+AND3	11	and3	417	412
+Connections
+6	2	1
+6	1	1
+4	2	2
+5	2	3
+3	1	2
+4	0	1
+5	0	2
+2	10	1
+1	11	1
+1	7	1
+0	7	2
+7	11	2
+2	11	3
+10	8	1
+11	9	1
+-1

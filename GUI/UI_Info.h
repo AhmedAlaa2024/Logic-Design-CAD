@@ -34,6 +34,8 @@ struct UI_Info	//User Interface Info.
 	static const int	Gate_Width = 50,		//AND2 Gate Image default width
 						Gate_Height = 50;		//AND2 Gate Image default height
 
+	static const int TableIconWidth = 50, TableIconHeight = 25;
+
 } UI;	//create a single global object UI
 
 #endif

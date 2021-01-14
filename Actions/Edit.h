@@ -9,12 +9,12 @@
 class Edit : public Action
 {
 private:
-	Component* component;
+	LabelOfComp* label;
+	GraphicsInfo r_GfxInfo;
 public:
-	Edit(ApplicationManager*, Component*);
-	string SetLabel();
+	Edit(ApplicationManager*, LabelOfComp*);
+	void SetLabel();
 	string GetLabel();
-	void DisplayLabel();
 
 	void ReadActionParameters(); // I don't need it as there is no parameters for Label action
 	void Execute();

@@ -123,7 +123,7 @@ void ApplicationManager::DeleteComponent()
 				}
 
 				GetOutput()->ClearComponentArea(lastSelectedComponent->getGraphicsInfo()); // To draw a white rectangle above the component
-				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_m_Label()).size()); // To write a null string with the same lenth of the old label
+				GetOutput()->ClearLabelArea(lastSelectedComponent->getGraphicsInfo(), (lastSelectedComponent->get_Label()->get_label()).size()); // To write a null string with the same lenth of the old label
 				int no_conns;
 
 
@@ -183,7 +183,6 @@ void ApplicationManager::DeleteComponent()
 					CompList[i] = NULL; // To make the pointer point to a null pointer
 
 					shift_to_end(i); // To shift the deleted component to the end of the array to prevent any using for it
-
 					
 					lastSelectedComponent = NULL;
 					break;
@@ -407,9 +406,9 @@ void ApplicationManager::load(ifstream*& iptr)
 	}
 	for (int i = 0; i < CompCount; i++)
 	{
-		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_m_Label() != "")
+		if (CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN && CompList[i]->get_Label()->get_label() != "")
 		{
-			Actp = new Label(this, CompList[i], 0);
+			Actp = new Label(this, CompList[i]->get_Label());
 		}
 
 	}
@@ -451,10 +450,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Select(this);
 		break;
 	case ADD_Label:
-		pAct = new Label(this, lastSelectedComponent);
+		pAct = new Label(this, lastSelectedComponent->get_Label());
 		break;
 	case EDIT_Label:
-		pAct = new Edit(this, lastSelectedComponent);
+		pAct = new Edit(this, lastSelectedComponent->get_Label());
 		break;
 	case Clear_all:
 		pAct = new Clear(this);
@@ -573,8 +572,8 @@ void ApplicationManager::UpdateInterface()
 		if (CompList[i] != NULL)
 		{ 
 			CompList[i]->Draw(OutputInterface);
-			if (CompList[i]->get_m_Label() != "")
-				Label(this, CompList[i]).Execute();
+			if(CompList[i]->get_Label() != NULL)
+				CompList[i]->get_Label()->Draw(OutputInterface);
 		}
 
 }

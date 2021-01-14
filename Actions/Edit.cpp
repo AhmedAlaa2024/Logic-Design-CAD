@@ -2,51 +2,48 @@
 
 // ============================== Ahmed Alaa edited here ==============================
 
-Edit::Edit(ApplicationManager* pApp, Component* comp) : Action(pApp), component(comp)
+Edit::Edit(ApplicationManager* pApp, LabelOfComp* label) : Action(pApp), label(label)
 {
+	r_GfxInfo = pManager->GetLastSelectedComponent()->getGraphicsInfo();
 }
 
-string Edit::SetLabel()
+void Edit::SetLabel()
 {
 	pManager->GetOutput()->PrintMsg(GetLabel());
-	return pManager->GetInput()->GetString(pManager->GetOutput(), GetLabel()); // To make an input object to get the string from the user
+	label->set_label(pManager->GetInput()->GetString(pManager->GetOutput())); // To make an input object to get the string from the user
 }
 
 string Edit::GetLabel()
 {
-	return component->get_m_Label(); // To get the label from m_Label in the selected component
+	return label->get_label(); // To get the label from m_Label in the selected component
 }
 
-void Edit::DisplayLabel()
-{
-	pManager->GetOutput()->DrawTextbox(GetLabel(), component); // To call the function which responsible for drawing a textbox above the selected component
-}
 
 void Edit::ReadActionParameters()
 {
+	SetLabel();
 }
 
 void Edit::Execute()
 {
-	if (component != NULL) // To make sure that there is a selected component
+	if (pManager->GetLastSelectedComponent() != NULL) // To make sure that there is a selected component
 	{
-		if (component->get_comp_type() == COMP_TYPES::COMP_CONN)
+		if (pManager->GetLastSelectedComponent()->get_comp_type() == COMP_TYPES::COMP_CONN)
 		{
 			pManager->DeleteComponent();
 
 			pManager->ExecuteAction(ADD_CONNECTION);
 
-
-			return;
+			return; // To break the execution
 		}
-		if (component->get_m_Label() == "") // To make sure that there is not an existing label
+		if (label == NULL) // To make sure that there is not an existing label
 		{
-			pManager->GetOutput()->PrintMsg("Sorry, There is no label to be displayed!");
+			pManager->GetOutput()->PrintMsg("Sorry, This component has not a label to be edited!");
 		}
 		else {
-			pManager->GetOutput()->ClearLabelArea(component->getGraphicsInfo(), GetLabel().size());
-			component->set_m_Label(SetLabel()); // To get the label from the user
-			DisplayLabel(); // To display the label above the component.
+			delete label;
+			label = new LabelOfComp(r_GfxInfo);
+			ReadActionParameters(); // To get the label from the user
 		}
 	}
 	else

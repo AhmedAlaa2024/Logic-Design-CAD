@@ -199,6 +199,7 @@
     <ClCompile Include="Components\Gate.cpp" />
     <ClCompile Include="Components\InputPin.cpp" />
     <ClCompile Include="Components\INV.cpp" />
+    <ClCompile Include="Components\LabelOfComp.cpp" />
     <ClCompile Include="Components\LED.cpp" />
     <ClCompile Include="Components\NAND2.cpp" />
     <ClCompile Include="Components\NOR2.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="Components\Gate.h" />
     <ClInclude Include="Components\InputPin.h" />
     <ClInclude Include="Components\INV.h" />
+    <ClInclude Include="Components\LabelOfComp.h" />
     <ClInclude Include="Components\LED.h" />
     <ClInclude Include="Components\NAND2.h" />
     <ClInclude Include="Components\NOR2.h" />

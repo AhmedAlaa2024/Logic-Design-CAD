@@ -231,6 +231,7 @@
     <ClCompile Include="Actions\Clear.cpp" />
     <ClCompile Include="Actions\CircuitProding.cpp" />
     <ClCompile Include="Actions\CreateTruthTable.cpp" />
+    <ClCompile Include="Components\LabelOfComp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -419,6 +420,7 @@
     <ClInclude Include="Actions\Clear.h" />
     <ClInclude Include="Actions\CircuitProding.h" />
     <ClInclude Include="Actions\CreateTruthTable.h" />
+    <ClInclude Include="Components\LabelOfComp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

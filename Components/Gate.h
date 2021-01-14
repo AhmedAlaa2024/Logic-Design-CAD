@@ -13,6 +13,7 @@
 #include "OutputPin.h"
 #include "Component.h"
 
+class Component;
 class Gate :public Component
 {
 protected:

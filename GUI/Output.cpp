@@ -194,7 +194,7 @@ void Output::CreateSimulationToolBar() const
 	string MenuItemImages[ITM_SIM_CNT];
 
 	MenuItemImages[ITM_DSN] = "images\\SimulationMenu\\design.jpg";
-	// MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
+	MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
 	// MenuItemImages[Add_Label] = "images\\SimulationMenu\\text.jpg";
 	// MenuItemImages[Edit_label] = "images\\SimulationMenu\\edit.jpg";
 	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\prode.jpeg";
@@ -318,9 +318,7 @@ void Output::DrawNOR2(GraphicsInfo r_GfxInfo, bool selected) const //done
 
 	//Draw NOR2 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by NOR2 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -334,9 +332,7 @@ void Output::DrawXOR2(GraphicsInfo r_GfxInfo, bool selected) const //done
 
 	//Draw XOR Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by XOR Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -350,9 +346,7 @@ void Output::DrawXNOR2(GraphicsInfo r_GfxInfo, bool selected) const // done
 
 	//Draw XNOR2 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by XNOR2 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -366,9 +360,7 @@ void Output::DrawAND3(GraphicsInfo r_GfxInfo, bool selected) const // done
 
 	//Draw AND3 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by AND3 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -380,11 +372,7 @@ void Output::DrawNOR3(GraphicsInfo r_GfxInfo, bool selected) const//done
 	else
 		GateImage = "Images\\Gates\\Gate_NOR3.jpg";
 
-	//Draw NOR3 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by NOR3 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -396,11 +384,7 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
 	else
 		GateImage = "Images\\Gates\\Gate_XOR3.jpg";
 
-	//Draw XOR3 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by XOR3 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width , UI.Gate_Height);
 }
 
@@ -429,11 +413,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const 
 		else
 			GateImage = "Images\\Gates\\off_LED.jpeg";
 	}
-	//Draw LED at Gfx_Info (1st corner)
-	//Set the Image Width & Height by LED Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -461,11 +441,7 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool is_on, bool selected) const
 			GateImage = "Images\\Gates\\off_switch.jpg";
 	}
 
-	//Draw SWITCH Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by SWITCH Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 MODE Output::getAppMode()
@@ -542,7 +518,9 @@ void Output::ClearLabelArea(GraphicsInfo r_GfxInfo, int len)
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(r_GfxInfo.x1 - 15, r_GfxInfo.y1 - 15, r_GfxInfo.x1 - 15 + len, r_GfxInfo.y1);
 }
-	// ==================================== Ahmed Alaa ====================================
+
+
+
 
 Output::~Output()
 {

@@ -36,6 +36,7 @@
 #include "Actions/AddXORgate3.h"
 #include "Actions/CircuitProding.h"
 #include "Actions/CopyCutPaste.h"
+#include "Actions/CreateTruthTable.h"
 #include "Actions/SimulateCircuit.h"
 #include "Components\LED.h"
 #include "Components\SWITCH.h"
@@ -367,7 +368,8 @@ void ApplicationManager::load(ifstream*& iptr)
 		getline(*iptr, s, '-');
 		*iptr >> sflag;
 		Read << s;
-		connCount = (s.length() - 1) / 6 - 1;
+		connCount = count(s.begin(), s.end(), '\n') - 1;
+		cout << connCount << endl;
 		for (int i = 0; i < connCount; i++)
 		{
 			CActp = new Connect(this);
@@ -473,10 +475,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_:
 		pAct = new CopyCutPaste(this, PASTE);
 		break;
-	case PROGING:
+	case PRODING:
 		pAct = new CircuitProding(this);
 		break;
-
+	case CREATE_TRUTH_TABLE:
+		pAct = new CreateTruthTable(this);
+		break;
 	case DSN_MODE:
 		pAct = new SwitchToDesign(this);
 		break;

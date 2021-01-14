@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 using namespace std;
-Component::Component(const GraphicsInfo &r_GfxInfo)
+Component::Component(const GraphicsInfo &r_GfxInfo): Label(nullptr)
 {
 	m_Id = LastID++;
 	last_taken_input_pin_place= 0;
@@ -10,7 +10,6 @@ Component::Component(const GraphicsInfo &r_GfxInfo)
 	comp_type = COMP_TYPES::COMP_GENERAL;
 	m_GfxInfo = r_GfxInfo;	
 	is_selected = false;
-	m_Label = "";
 }
 Component::Component()
 {
@@ -29,16 +28,17 @@ int Component::get_place()
 	return last_taken_input_pin_place++;
 }
 
-
-void Component::set_m_Label(string label)
+// ============================== Ahmed Alaa edited here ==============================
+void Component::set_Label(LabelOfComp* Label)
 {
-	m_Label = label;
+	this->Label = Label; // To set the passing pointer (pointer to LabelOfComp) to the private data member <Label>
 }
 
-string Component::get_m_Label()
+LabelOfComp* Component::get_Label()
 {
-	return m_Label;
+	return Label; // To get the private data member <Label>
 }
+// ==================================== Ahmed Alaa ====================================
 
 int Component::get_id() const
 {
@@ -67,14 +67,14 @@ void Component::set_is_selected(bool test)
 
 void Component::save(ofstream*& fptr)
 {
-	*fptr << m_Id << "\t" << m_Label << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
+	*fptr << m_Id << "\t" << Label->get_label() << "\t" << m_GfxInfo.x1 << "\t" << m_GfxInfo.y1 << endl;
 }
 
 void Component::load(ifstream*& iptr)
 {
 	*iptr >> m_Id;
 	iptr->ignore();
-	getline(*iptr, m_Label, '\t');
+	getline(*iptr, Label->get_label(), '\t');
 	*iptr >> m_GfxInfo.x1 >> m_GfxInfo.y1;
 	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Gate_Width;
 	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Gate_Height;
@@ -92,7 +92,10 @@ InputPin* Component::GetInpuPin(int i) const
 }
 
 Component::~Component()
-{}
+{
+	delete this->Label;
+	this->Label = NULL;
+}
 
 void Component::getm_GfxInfo(int &x1, int &y1, int &x2, int &y2)
 {

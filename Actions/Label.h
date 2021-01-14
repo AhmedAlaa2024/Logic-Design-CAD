@@ -4,8 +4,7 @@
 #include "Action.h"
 // ============================== Ahmed Alaa edited here ==============================
 #include "..\\ApplicationManager.h"
-#include "..\\Components\\Component.h"
-#include "..\\Components\\LabelOfComp.h"
+#include "..\\Components\Component.h"
 // ==================================== Ahmed Alaa ====================================
 
 #include <iostream>
@@ -16,13 +15,13 @@ class Label : public Action
 {
 	// ============================== Ahmed Alaa edited here ==============================
 private:
-	LabelOfComp*  label;
-	GraphicsInfo r_GfxInfo;
+	Component* component;
 public:
-	Label(ApplicationManager*, LabelOfComp*);
-	// Label(ApplicationManager* pApp, Component* comp, int f);
-	void SetLabel();
+	Label(ApplicationManager*, Component*);
+	Label(ApplicationManager* pApp, Component* comp, int f);
+	string SetLabel();
 	string GetLabel();
+	void DisplayLabel();
 
 	void ReadActionParameters(); // I don't need it as there is no parameters for Label action
 	void Execute();

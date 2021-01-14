@@ -37,7 +37,7 @@ void AND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawAND2(m_GfxInfo, is_selected);
-	
+
 
 }
 

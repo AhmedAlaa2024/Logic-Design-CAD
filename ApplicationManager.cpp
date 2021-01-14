@@ -833,29 +833,9 @@ Output* ApplicationManager::GetOutput()
 
 ////////////////////////////////////////////////////////////////////
 
-//======================================Doaa=======================
 
-/*
-bool ApplicationManager::Check_gates_to_connect(Component* srcComp, Component* distComp)
-{
-	if (distComp == srcComp)
-	{
-		OutputInterface->PrintMsg("Error: You have already chosen this gate as a source gate. You can not connect a gate to itself");
-		return 0;
-	}
 
-	COMP_TYPES type = distComp->get_comp_type();
 
-	
-	if (type == COMP_TYPES::COMP_SWITCH)
-	{
-
-		OutputInterface->PrintMsg("Error: the switch has no input pins");
-		return 0;
-
-	}
-	
-}*/
 ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < CompCount; i++)

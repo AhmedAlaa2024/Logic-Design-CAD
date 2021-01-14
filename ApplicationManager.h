@@ -88,9 +88,6 @@ public:
 	
 	int save(ofstream*&);
 	void load(ifstream*&);
-
-	//===========================DOAA MAGDY============================
-	bool Check_gates_to_connect(Component* srcComp, Component* distComp);
 			
 										   
 	//destructor

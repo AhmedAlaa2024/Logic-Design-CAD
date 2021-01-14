@@ -31,6 +31,16 @@ void AddLED::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters();
 
+	Output* pOut = pManager->GetOutput();
+
+	//check validation of the Drawing Area
+	bool is_valid = Action::if_valid_Area_led(Cx, Cy);
+	if (!is_valid)
+	{
+		pOut->PrintMsg("Error: Invalid Area");
+		return;
+	}
+
 	//Calculate the rectangle Corners
 	int Len = UI.Gate_Height;
 	int Wdth = UI.Gate_Width;

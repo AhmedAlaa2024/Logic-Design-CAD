@@ -311,17 +311,17 @@ void Connect::setDisPinGInfo(COMP_TYPES type, int j, const GraphicsInfo& gate, G
 	case COMP_TYPES::XOR_3:
 		if (j == 0)
 		{
-			GInfo.x2 = gate.x1;
+			GInfo.x2 = gate.x1 + 10;
 			GInfo.y2 = gate.y1 + 16;
 		}
 		else if (j == 1)
 		{
-			GInfo.x2 = gate.x1;
+			GInfo.x2 = gate.x1 + 10;
 			GInfo.y2 = gate.y1 + (gate.y2 - gate.y1) / 2;
 		}
 		else if (j == 2)
 		{
-			GInfo.x2 = gate.x1;
+			GInfo.x2 = gate.x1 + 10;
 			GInfo.y2 = gate.y2 - 16;
 		}
 		break;

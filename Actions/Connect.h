@@ -12,7 +12,7 @@ public:
 	virtual ~Connect(void);
 
 	//Reads parameters required for action to execute
-	void ReadActionParameters(bool&, bool& checkIfSourceIsLED, int num_of_call);
+	void ReadActionParameters(bool&, int num_of_call);
 	virtual void ReadActionParameters() {};
 
 

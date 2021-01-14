@@ -15,7 +15,7 @@ Connect::Connect(ApplicationManager* pApp) :Action(pApp)
 }
 
 
-void Connect::ReadActionParameters(bool& prev_Execute, bool& if_not_valid_gate, int num_of_call)
+void Connect::ReadActionParameters(bool& prev_Execute, int num_of_call)
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
@@ -23,7 +23,6 @@ void Connect::ReadActionParameters(bool& prev_Execute, bool& if_not_valid_gate, 
 
 	int Cx = 0;
 	int	Cy = 0;
-	if_not_valid_gate = false;
 	prev_Execute = false;
 
 	if (num_of_call == 1)
@@ -46,7 +45,14 @@ void Connect::ReadActionParameters(bool& prev_Execute, bool& if_not_valid_gate, 
 		if (p_component->get_comp_type() == COMP_TYPES::COMP_LED)
 		{
 			pOut->PrintMsg("LED Can't be the Source.");
-			if_not_valid_gate = true;
+			prev_Execute = true;
+			return;
+		}
+
+		if (p_component->get_comp_type() == COMP_TYPES::COMP_CONN)
+		{
+			pOut->PrintMsg("Connection Can't be the Source.");
+			prev_Execute = true;
 			return;
 		}
 
@@ -75,10 +81,18 @@ void Connect::ReadActionParameters(bool& prev_Execute, bool& if_not_valid_gate, 
 		if (p_component->get_comp_type() == COMP_TYPES::COMP_SWITCH)
 		{
 			pOut->PrintMsg("SWITCH Can't be the DEST.");
-			if_not_valid_gate = true;
+			prev_Execute = true;
 			return;
 
 		}
+
+		if (p_component->get_comp_type() == COMP_TYPES::COMP_CONN)
+		{
+			pOut->PrintMsg("Connection Can't be the DEST.");
+			prev_Execute = true;
+			return;
+		}
+
 	}
 
 	//Clear Status Bar
@@ -92,12 +106,11 @@ void Connect::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	bool prevent_Execute;
-	bool If_not_valid_to_connect;
 
 	//first call
-	ReadActionParameters(prevent_Execute, If_not_valid_to_connect, 1);
+	ReadActionParameters(prevent_Execute, 1);
 	
-	if (prevent_Execute == true || If_not_valid_to_connect == true)
+	if (prevent_Execute)
 	{
 		return;
 	}
@@ -109,9 +122,9 @@ void Connect::Execute()
 	GraphicsInfo GInfo; //Gfx info to be used to construct the connection
 
 	//second call
-	ReadActionParameters(prevent_Execute, If_not_valid_to_connect, 2);
+	ReadActionParameters(prevent_Execute, 2);
 	
-	if (prevent_Execute == true || If_not_valid_to_connect == true)
+	if (prevent_Execute)
 	{
 		return;
 	}

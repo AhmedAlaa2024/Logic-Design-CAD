@@ -119,7 +119,7 @@ void Connect::Execute()
 
 	InputPin* in;
 
-	in = DistComp->getInputPin(); //array of inout pins
+	in = DistComp->getInputPin(); //array of input pins
 
 	if (DistComp == SrcComp)
 	{

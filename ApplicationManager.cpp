@@ -457,8 +457,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		pAct = new Delete(this);
 		break;
-		// ==================================== Ahmed Alaa ====================================
-		//ahmed atta
 	case SIMULATE:
 		pAct = new SimulateCircuit(this);
 		break;

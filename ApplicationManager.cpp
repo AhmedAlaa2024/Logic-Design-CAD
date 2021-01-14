@@ -380,9 +380,21 @@ void ApplicationManager::load(ifstream*& iptr)
 				if (CompList[j])
 				{
 					if (CompList[j]->get_id() == fID)
+					{
 						Cptr = CompList[j];
+						break;
+					}
+				}
+			}
+			for (int j = 0; j < CompCount; j++)
+			{
+				if (CompList[j])
+				{
 					if (CompList[j]->get_id() == sID)
+					{
 						Cptr2 = CompList[j];
+						break;
+					}
 				}
 			}
 			CActp->setDisPinGInfo(Cptr2->get_comp_type(), PinNo, Cptr2->getGraphicsInfo(), GfxInfo);

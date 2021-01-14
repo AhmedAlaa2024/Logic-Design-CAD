@@ -572,7 +572,7 @@ void ApplicationManager::UpdateInterface()
 		if (CompList[i] != NULL)
 		{ 
 			CompList[i]->Draw(OutputInterface);
-			if(CompList[i]->get_Label() != NULL)
+			if(CompList[i]->get_Label() != nullptr)
 				CompList[i]->get_Label()->Draw(OutputInterface);
 		}
 

@@ -175,8 +175,8 @@ enum class COMP_TYPES
 	OR_2,
 	XNOR_2,
 	XOR_2,
-	XOR_3
-
+	XOR_3,
+	LABEL
 };
 
 //A structure to contain drawing parameters for each component

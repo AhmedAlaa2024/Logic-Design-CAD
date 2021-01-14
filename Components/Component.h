@@ -5,13 +5,14 @@
 #include "OutputPin.h"
 #include "..\Defs.h"
 #include "..\GUI\Output.h"
+#include "LabelOfComp.h"
 
 //Base class for classes Gate, Switch, and LED.
 class Component
 {
 private:
 	static int LastID;
-	string m_Label;
+	LabelOfComp* Label;
 	int m_Id;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
@@ -25,8 +26,10 @@ public:
 
 	int get_place();
 
-	virtual void set_m_Label(string label); // To set the m_label for the component
-	virtual string get_m_Label(); // To get the m_label from the component
+	// ============================== Ahmed Alaa edited here ==============================
+	virtual void set_Label(LabelOfComp*); // To set the Label for the component
+	virtual LabelOfComp* get_Label(); // To get the Label from the component
+	// ==================================== Ahmed Alaa ====================================
 
 	virtual int get_id() const;
 	virtual void set_id(int id);

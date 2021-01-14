@@ -161,7 +161,8 @@ ActionType Input::GetUserAction()
 			switch (ClickedItemOrder)
 			{
 			case ITM_DSN: return DSN_MODE;
-			case ITM_PRODING: return PROGING;
+			case ITM_PRODING: return PRODING;
+			case ITM_TRUTH: return CREATE_TRUTH_TABLE;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
 			case ITM_LOAD: return LOAD;
 			case ITM_SAVE: return SAVE;
@@ -228,6 +229,7 @@ void Input::GetLastClicked(int& x, int& y)
 }
 
 string Input::GetFileName(Output* pOut, int f) const
+
 {
 	if (f == 1)
 		pOut->PrintMsg("The current circuit wasn't saved. Type file name to save or press Esc to exit.");

@@ -133,6 +133,7 @@
     <ClCompile Include="Actions\CircuitProding.cpp" />
     <ClCompile Include="Actions\Connect.cpp" />
     <ClCompile Include="Actions\CopyCutPaste.cpp" />
+    <ClCompile Include="Actions\CreateTruthTable.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\Edit.cpp" />
     <ClCompile Include="Actions\Exit.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Actions\CircuitProding.h" />
     <ClInclude Include="Actions\Connect.h" />
     <ClInclude Include="Actions\CopyCutPaste.h" />
+    <ClInclude Include="Actions\CreateTruthTable.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\Edit.h" />
     <ClInclude Include="Actions\Exit.h" />

@@ -15,18 +15,22 @@ Connect::Connect(ApplicationManager* pApp) :Action(pApp)
 }
 
 
-void Connect::ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, int num_of_call)
+void Connect::ReadActionParameters(bool& prev_Execute, bool& if_not_valid_gate, int num_of_call)
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMsg("connect two gates: Choose the source gate");
+	int Cx = 0;
+	int	Cy = 0;
+	if_not_valid_gate = false;
+	prev_Execute = false;
 
-	int Cx;
-	int	Cy;
 	if (num_of_call == 1)
 	{
+		//Print Action Message
+		pOut->PrintMsg("connect two gates: Choose the source gate");
+
 		pIn->GetPointClicked(Cx, Cy);
 
 		pManager->ExecuteAction(SELECT);
@@ -35,57 +39,50 @@ void Connect::ReadActionParameters(bool& a, bool& b, bool& checkIfSourceIsLED, i
 		if (!p_component)//check if its Null
 		{
 			pOut->PrintMsg("You Can't choose a white space.");
-			a = true;
+			prev_Execute = true;
 			return;
 		}
 
 		if (p_component->get_comp_type() == COMP_TYPES::COMP_LED)
 		{
-			pOut->PrintMsg("LED Can't be the source.");
-			checkIfSourceIsLED = true;
-
+			pOut->PrintMsg("LED Can't be the Source.");
+			if_not_valid_gate = true;
 			return;
-
 		}
 
-		//Clear Status Bar
-		pOut->ClearStatusBar();
 	}
-	//Print Action Message
-	pOut->PrintMsg("connect two gates: Choose the destination gate");
-
-
 
 
 	if (num_of_call == 2)
 
 	{
-		Cx = 0;
-		Cy = 0;
+		//Print Action Message
+		pOut->PrintMsg("connect two gates: Choose the destination gate");
+
 		pIn->GetPointClicked(Cx, Cy);
 
 		pManager->ExecuteAction(SELECT);
 
 		Component* p_component = pManager->GetLastSelectedComponent();
+
 		if (!p_component)//check if its Null
 		{
 			pOut->PrintMsg("You Can't choose a white space.");
-			b = true;
+			prev_Execute = true;
 			return;
 		}
 
 		if (p_component->get_comp_type() == COMP_TYPES::COMP_SWITCH)
 		{
 			pOut->PrintMsg("SWITCH Can't be the DEST.");
-
+			if_not_valid_gate = true;
 			return;
 
 		}
-
-
-		//Clear Status Bar
-		pOut->ClearStatusBar();
 	}
+
+	//Clear Status Bar
+	pOut->ClearStatusBar();
 }
 
 
@@ -94,41 +91,43 @@ void Connect::Execute()
 	//Get the two Gates wanted to be connected
 	Output* pOut = pManager->GetOutput();
 
-	bool a, b;
-	bool IfLED;
-	ReadActionParameters(a, b, IfLED, 1);
+	bool prevent_Execute;
+	bool If_not_valid_to_connect;
 
-	if (a == true || b == true || IfLED == true)
+	//first call
+	ReadActionParameters(prevent_Execute, If_not_valid_to_connect, 1);
+	
+	if (prevent_Execute == true || If_not_valid_to_connect == true)
 	{
-
 		return;
 	}
+
 	Component* SrcComp = pManager->GetLastSelectedComponent();
 
 	OutputPin* out = SrcComp->getOutputPin();
 
 	GraphicsInfo GInfo; //Gfx info to be used to construct the connection
-	InputPin* in;
 
-
-	ReadActionParameters(a, b, IfLED, 2);
-	if (a == true || b == true || IfLED == true)
+	//second call
+	ReadActionParameters(prevent_Execute, If_not_valid_to_connect, 2);
+	
+	if (prevent_Execute == true || If_not_valid_to_connect == true)
 	{
 		return;
 	}
 	Component* DistComp = pManager->GetLastSelectedComponent();
 
-	in = DistComp->getInputPin(); //array of inout pins
+	InputPin* in;
 
-	bool g = pManager->Check_gates_to_connect(SrcComp, DistComp);
-	if (g == false)
+	in = DistComp->getInputPin(); //array of input pins
+
+	if (DistComp == SrcComp)
+	{
+		pOut->PrintMsg("Error: You have already chosen this gate as a source gate. You can not connect a gate to itself");
 		return;
+	}
 
 	InputPin* selected_pin = NULL;
-	//bool i = pManager->Check_pins_to_connect(DistComp, in, GInfo,selected_pin);
-
-
-
 
 
 	int no_input_pins = DistComp->getNoOfInputpins();
@@ -153,10 +152,7 @@ void Connect::Execute()
 
 	}
 
-
-
 	setSrcPinGInfo(SrcComp->getGraphicsInfo(), GInfo);
-
 
 
 	Connection* pA = new Connection(GInfo, out, selected_pin);
@@ -168,6 +164,8 @@ void Connect::Execute()
 	pManager->AddComponent(pA);
 
 }
+
+
 void Connect::setDisPinGInfo(COMP_TYPES type, int j, const GraphicsInfo& gate, GraphicsInfo& GInfo)
 {
 	switch (type)

@@ -26,6 +26,8 @@ private:
 	int** truth_table;
 	int x;
 	int y;
+	int exitWid;
+	int exitHei;
 
 	ofstream* fout;
 	
@@ -44,7 +46,10 @@ public:
 
 	void PrintTable();
 
+	void ExitWin();
 	void SaveTable();
+	void DisplayTable();
+	
 	
 	virtual void Undo();
 	virtual void Redo();

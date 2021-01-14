@@ -195,7 +195,6 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_DSN] = "images\\SimulationMenu\\design.jpg";
 	MenuItemImages[ITM_TRUTH] = "images\\SimulationMenu\\table.jpg";
 	MenuItemImages[ITM_PRODING] = "images\\SimulationMenu\\prode.jpeg";
-	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\SimulationMenu\\closed_switch.jpg";
 	MenuItemImages[SIM_EXIT] = "images\\SimulationMenu\\exit.jpg";
 
 

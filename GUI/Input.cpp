@@ -162,7 +162,6 @@ ActionType Input::GetUserAction()
 			case ITM_DSN: return DSN_MODE;
 			case ITM_PRODING: return PRODING;
 			case ITM_TRUTH: return CREATE_TRUTH_TABLE;
-			case ITM_CHANGE_SWITCH: return Change_Switch;
 			case SIM_EXIT: 
 				pWind->SetWaitClose(false); 
 				return EXIT; //TODO: weird line

@@ -134,7 +134,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_DSN,	//Simulate menu item
 	ITM_PRODING,
 	ITM_TRUTH,	//Truth table menu item
-	ITM_CHANGE_SWITCH,
 	SIM_EXIT,
 	//TODO:Add more items names here
 

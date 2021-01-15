@@ -264,11 +264,8 @@ void Output::DrawOR2(GraphicsInfo r_GfxInfo, bool selected) const
 	else
 		GateImage = "Images\\Gates\\Gate_OR2.jpeg";
 
-	//Draw AND2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 void Output::DrawOR3(GraphicsInfo r_GfxInfo, bool selected) const
@@ -279,11 +276,8 @@ void Output::DrawOR3(GraphicsInfo r_GfxInfo, bool selected) const
 	else
 		GateImage = "Images\\Gates\\Gate_OR3.jpg";
 
-	//Draw AND2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 void Output::DrawNAND2(GraphicsInfo r_GfxInfo, bool selected) const //done
@@ -294,11 +288,8 @@ void Output::DrawNAND2(GraphicsInfo r_GfxInfo, bool selected) const //done
 	else
 		GateImage = "Images\\Gates\\Gate_NAND2.jpg";
 
-	//Draw NAND2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by NAND2 Image Parameter in UI_Info
-	//
-	//TODO: I need to change those heights and widths
-	//
+	
+	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -310,8 +301,6 @@ void Output::DrawNOR2(GraphicsInfo r_GfxInfo, bool selected) const //done
 	else
 		GateImage = "Images\\Gates\\Gate_NOR2.jpg";
 
-	//Draw NOR2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by NOR2 Image Parameter in UI_Info
 	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
@@ -324,9 +313,6 @@ void Output::DrawXOR2(GraphicsInfo r_GfxInfo, bool selected) const //done
 	else
 		GateImage = "Images\\Gates\\Gate_XOR.jpg";
 
-	//Draw XOR Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by XOR Image Parameter in UI_Info
-	
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
@@ -384,8 +370,8 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const //done
 
 void Output::DrawLED(GraphicsInfo r_GfxInfo, bool is_high, bool selected) const //done
 {
-	//TODO: to change the images of them
-	//TODO: it doesnt accept png
+
+	
 	string GateImage;
 
 	if (UI.AppMode == SIMULATION)
@@ -446,9 +432,7 @@ MODE Output::getAppMode()
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool is_high) const
 {
-	//TODO: Add code to draw connection
-	//TODO --> add validation to the coordinates passed
-	//
+	
 	if (UI.AppMode == SIMULATION)
 	{
 		if (is_high)
@@ -462,7 +446,6 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected, bool is_high)
 			pWind->SetPen(UI.selected_connColor, UI.Conn_width);
 		else
 			pWind->SetPen(UI.ConnColor, UI.Conn_width);
-
 
 	}
 
@@ -486,6 +469,7 @@ void Output::DrawTextbox(string msg, Component* component)
 	pWind->SetFont(15, BOLD | ITALICIZED, BY_NAME, "Arial"); // To format the font settings
 	pWind->SetPen(UI.MsgColor); // To format the textbox's string color
 	pWind->DrawString(MsgX, MsgY, msg); // To draw the string in the textbox
+	
 }
 void Output::ClearComponentArea(GraphicsInfo r_GfxInfo)
 {

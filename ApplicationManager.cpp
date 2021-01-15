@@ -284,7 +284,7 @@ bool ApplicationManager::validate_circuit() const
 
 int ApplicationManager::save(ofstream*& fptr)
 {
-	int NonConnCount = 0; //counter for components that arenot connections
+	int NonConnCount = 0; //counter for components that are not connections
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (CompList[i] != 0 && CompList[i]->get_comp_type() != COMP_TYPES::COMP_CONN)

@@ -73,4 +73,3 @@ Component* OutputPin::getComponent() const
 {
 	return pComp;
 }
-////////////////

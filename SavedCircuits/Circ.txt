@@ -1,0 +1,8 @@
+3
+SWTCH	0		108	277
+Inv	1		302	326
+LED	2		530	342
+Connections
+0	1	1
+1	2	1
+-1

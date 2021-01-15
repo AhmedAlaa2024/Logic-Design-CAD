@@ -23,8 +23,7 @@ void LED::Operate()
 }
 
 
-// Function Draw
-// Draws 2-input AND gate
+
 void LED::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.

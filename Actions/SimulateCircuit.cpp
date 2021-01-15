@@ -1,16 +1,14 @@
 #include "SimulateCircuit.h"
-
-
 #include "../Components/Component.h"
 #include "../Components/Connection.h"
 #include "../GUI/Output.h"
 
 SimulateCircuit::SimulateCircuit(ApplicationManager* pApp) :Action(pApp)
 {
+
+
+	
 }
-
-
-
 
 void SimulateCircuit::Execute()
 {

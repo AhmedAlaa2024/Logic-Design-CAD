@@ -142,6 +142,7 @@
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="Actions\SimulateCircuit.cpp" />
+    <ClCompile Include="Actions\step_Simulation.cpp" />
     <ClCompile Include="Actions\SwitchToDesign.cpp" />
     <ClCompile Include="Actions\SwitchToSimulation.cpp" />
     <ClCompile Include="Actions\AddORgate2.cpp" />
@@ -214,6 +215,7 @@
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="step_Simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="Actions\SimulateCircuit.h" />
+    <ClInclude Include="Actions\step_Simulation.h" />
     <ClInclude Include="Actions\SwitchToDesign.h" />
     <ClInclude Include="Actions\SwitchToSimulation.h" />
     <ClInclude Include="Actions\AddORgate2.h" />
@@ -290,6 +293,7 @@
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
+    <ClInclude Include="step_Simulation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

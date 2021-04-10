@@ -81,6 +81,7 @@ public:
 	void AddComponent(Component* pComp);
 
 	Component* get_comp_at(int index) const;
+	Component** get_CompList(int &n);
 
 
 	bool validate_circuit() const;

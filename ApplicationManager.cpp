@@ -229,7 +229,11 @@ Component* ApplicationManager::get_comp_at(int index) const
 {
 	return CompList[index];
 }
-
+Component** ApplicationManager::get_CompList(int& n) 
+{
+	n = CompCount;
+	return CompList;
+}
 bool ApplicationManager::validate_circuit() const
 {
 	for (int i = 0; i < CompCount; ++i)
